@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login | SpendSense</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+            color: #171522;
+
+            background:
+                radial-gradient(
+                    circle at 10% 15%,
+                    rgba(255, 79, 156, .28),
+                    transparent 27%
+                ),
+                radial-gradient(
+                    circle at 90% 20%,
+                    rgba(65, 215, 230, .27),
+                    transparent 28%
+                ),
+                radial-gradient(
+                    circle at 70% 90%,
+                    rgba(118, 87, 255, .28),
+                    transparent 30%
+                ),
+                #f7f6f2;
+
+            display: grid;
+            place-items: center;
+
+            overflow: hidden;
+        }
+
+        .orb {
+            position: fixed;
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .orb.one {
+            width: 210px;
+            height: 210px;
+            background: #ff579f;
+            left: -90px;
+            top: 25%;
+            filter: blur(25px);
+            opacity: .25;
+            animation: moveOne 8s ease-in-out infinite;
+        }
+
+        .orb.two {
+            width: 260px;
+            height: 260px;
+            background: #655cff;
+            right: -100px;
+            bottom: 10%;
+            filter: blur(25px);
+            opacity: .23;
+            animation: moveTwo 10s ease-in-out infinite;
+        }
+
+        @keyframes moveOne {
+            0%, 100% {
+                transform: translate(0, 0);
+            }
+
+            50% {
+                transform: translate(80px, -50px);
+            }
+        }
+
+        @keyframes moveTwo {
+            0%, 100% {
+                transform: translate(0, 0);
+            }
+
+            50% {
+                transform: translate(-60px, 50px);
+            }
+        }
+
+        .login-card {
+            position: relative;
+            z-index: 2;
+
+            width: min(430px, 92%);
+
+            padding: 42px;
+
+            border-radius: 32px;
+
+            background:
+                rgba(255, 255, 255, .82);
+
+            backdrop-filter: blur(28px);
+
+            border:
+                1px solid rgba(255,255,255,.95);
+
+            box-shadow:
+                0 35px 100px
+                rgba(35, 28, 65, .16);
+
+            animation:
+                appear .7s
+                cubic-bezier(.2,.8,.2,1);
+        }
+
+        @keyframes appear {
+            from {
+                opacity: 0;
+                transform:
+                    translateY(25px)
+                    scale(.97);
+            }
+
+            to {
+                opacity: 1;
+                transform:
+                    translateY(0)
+                    scale(1);
+            }
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+
+            font-size: 21px;
+            font-weight: 900;
+
+            margin-bottom: 48px;
+        }
+
+        .logo-mark {
+            width: 45px;
+            height: 45px;
+
+            display: grid;
+            place-items: center;
+
+            border-radius: 15px;
+
+            color: white;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #7657ff,
+                    #ff4f9c
+                );
+
+            box-shadow:
+                0 12px 30px
+                rgba(118,87,255,.25);
+        }
+
+        .welcome {
+            color: #7057dd;
+
+            font-size: 10px;
+
+            font-weight: 900;
+
+            letter-spacing: 1.5px;
+
+            margin-bottom: 12px;
+        }
+
+        h1 {
+            font-size: 39px;
+
+            letter-spacing: -2px;
+
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #777382;
+
+            font-size: 13px;
+
+            line-height: 1.6;
+
+            margin-bottom: 30px;
+        }
+
+        .field {
+            margin-bottom: 19px;
+        }
+
+        label {
+            display: block;
+
+            font-size: 11px;
+
+            font-weight: 900;
+
+            margin-bottom: 8px;
+        }
+
+        .input-wrap {
+            position: relative;
+        }
+
+        input {
+            width: 100%;
+
+            padding: 16px;
+
+            border:
+                1px solid #dedce5;
+
+            border-radius: 14px;
+
+            outline: none;
+
+            background: #fafafd;
+
+            font-size: 14px;
+
+            transition: .25s ease;
+        }
+
+        input:focus {
+            background: white;
+
+            border-color: #7657ff;
+
+            box-shadow:
+                0 0 0 4px
+                rgba(118,87,255,.10);
+        }
+
+        .password {
+            padding-right: 65px;
+        }
+
+        .show {
+            position: absolute;
+
+            right: 9px;
+            top: 50%;
+
+            transform:
+                translateY(-50%);
+
+            border: 0;
+
+            background: transparent;
+
+            color: #7657ff;
+
+            font-size: 10px;
+
+            font-weight: 900;
+
+            cursor: pointer;
+        }
+
+        .submit {
+            width: 100%;
+
+            margin-top: 5px;
+
+            padding: 16px;
+
+            border: 0;
+
+            border-radius: 15px;
+
+            color: white;
+
+            font-size: 14px;
+
+            font-weight: 900;
+
+            cursor: pointer;
+
+            background:
+                linear-gradient(
+                    105deg,
+                    #7057ff,
+                    #c84cff,
+                    #ff4f9c
+                );
+
+            background-size: 200% auto;
+
+            box-shadow:
+                0 15px 35px
+                rgba(118,87,255,.28);
+
+            transition:
+                transform .2s ease,
+                box-shadow .2s ease;
+        }
+
+        .submit:hover {
+            transform: translateY(-3px);
+
+            box-shadow:
+                0 20px 45px
+                rgba(118,87,255,.36);
+        }
+
+        .security {
+            display: flex;
+
+            gap: 9px;
+
+            margin-top: 18px;
+
+            padding: 13px;
+
+            border-radius: 14px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #eeebff,
+                    #fff0f7
+                );
+
+            color: #68627c;
+
+            font-size: 10px;
+
+            line-height: 1.5;
+        }
+
+        .bottom {
+            text-align: center;
+
+            margin-top: 25px;
+
+            color: #777382;
+
+            font-size: 12px;
+        }
+
+        .bottom a {
+            color: #7657ff;
+
+            font-weight: 900;
+
+            text-decoration: none;
+        }
+
+        .bottom a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 480px) {
+            .login-card {
+                padding: 28px;
+            }
+
+            h1 {
+                font-size: 34px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="orb one"></div>
+    <div class="orb two"></div>
+
+    <div class="login-card">
+
+        <div class="logo">
+            <div class="logo-mark">S</div>
+            SpendSense
+        </div>
+
+        <div class="welcome">
+            WELCOME BACK
+        </div>
+
+        <h1>
+            Sign in to your money.
+        </h1>
+
+        <p class="subtitle">
+            Continue to your private financial dashboard
+            and see what your money is doing.
+        </p>
+
+        <form action="/login" method="POST">
+
+            <div class="field">
+
+                <label for="email">
+                    EMAIL ADDRESS
+                </label>
+
+                <input
+                    id="email"
+                    type="email"
+                    name="email"
+                    placeholder="you@example.com"
+                    autocomplete="email"
+                    required
+                >
+
+            </div>
+
+            <div class="field">
+
+                <label for="password">
+                    PASSWORD
+                </label>
+
+                <div class="input-wrap">
+
+                    <input
+                        id="password"
+                        class="password"
+                        type="password"
+                        name="password"
+                        placeholder="Your password"
+                        autocomplete="current-password"
+                        required
+                    >
+
+                    <button
+                        type="button"
+                        class="show"
+                        id="showPassword"
+                    >
+                        SHOW
+                    </button>
+
+                </div>
+
+            </div>
+
+            <button
+                type="submit"
+                class="submit"
+            >
+                Sign in →
+            </button>
+
+        </form>
+
+        <div class="security">
+            <span>🔐</span>
+
+            <span>
+                Your password is checked against its secure
+                database hash. Your plain-text password is
+                never stored.
+            </span>
+        </div>
+
+        <div class="bottom">
+
+            Don't have an account?
+
+            <a href="/signup">
+                Create one
+            </a>
+
+        </div>
+
+    </div>
+
+    <script>
+
+        const password =
+            document.getElementById("password");
+
+        const show =
+            document.getElementById("showPassword");
+
+        show.addEventListener(
+            "click",
+            () => {
+
+                if (
+                    password.type === "password"
+                ) {
+
+                    password.type = "text";
+
+                    show.textContent = "HIDE";
+
+                } else {
+
+                    password.type = "password";
+
+                    show.textContent = "SHOW";
+
+                }
+
+            }
+        );
+
+    </script>
+
+</body>
+
+</html>

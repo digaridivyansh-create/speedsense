@@ -1,0 +1,1077 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Join SpendSense</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --ink: #171522;
+            --muted: #777382;
+            --purple: #7657ff;
+            --pink: #ff4f9c;
+            --orange: #ff9b52;
+            --cyan: #42d9e8;
+            --card: rgba(255, 255, 255, 0.82);
+        }
+
+        body {
+            min-height: 100vh;
+            font-family:
+                Inter,
+                Arial,
+                sans-serif;
+
+            color: var(--ink);
+
+            background:
+                radial-gradient(
+                    circle at 8% 15%,
+                    rgba(255, 79, 156, .30),
+                    transparent 25%
+                ),
+                radial-gradient(
+                    circle at 92% 12%,
+                    rgba(66, 217, 232, .28),
+                    transparent 27%
+                ),
+                radial-gradient(
+                    circle at 75% 90%,
+                    rgba(118, 87, 255, .28),
+                    transparent 28%
+                ),
+                #f7f6f2;
+
+            overflow-x: hidden;
+        }
+
+        /* ================================
+           FLOATING BACKGROUND
+        ================================= */
+
+        .blob {
+            position: fixed;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .blob-1 {
+            width: 210px;
+            height: 210px;
+
+            left: -80px;
+            top: 30%;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #ff4f9c,
+                    #ff9b52
+                );
+
+            filter: blur(18px);
+            opacity: .25;
+
+            animation:
+                blob1 9s ease-in-out infinite;
+        }
+
+        .blob-2 {
+            width: 260px;
+            height: 260px;
+
+            right: -100px;
+            bottom: 10%;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #42d9e8,
+                    #7657ff
+                );
+
+            filter: blur(20px);
+            opacity: .25;
+
+            animation:
+                blob2 11s ease-in-out infinite;
+        }
+
+        @keyframes blob1 {
+            0%, 100% {
+                transform: translate(0, 0);
+            }
+
+            50% {
+                transform: translate(80px, -60px);
+            }
+        }
+
+        @keyframes blob2 {
+            0%, 100% {
+                transform: translate(0, 0);
+            }
+
+            50% {
+                transform: translate(-70px, 50px);
+            }
+        }
+
+        /* ================================
+           LAYOUT
+        ================================= */
+
+        .page {
+            position: relative;
+            z-index: 2;
+
+            width: min(1180px, 92%);
+
+            min-height: 100vh;
+
+            margin: auto;
+
+            display: grid;
+
+            grid-template-columns:
+                1.05fr .95fr;
+
+            align-items: center;
+
+            gap: 70px;
+
+            padding: 45px 0;
+        }
+
+        /* ================================
+           LEFT SIDE
+        ================================= */
+
+        .left {
+            padding: 15px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+
+            font-size: 21px;
+            font-weight: 850;
+
+            margin-bottom: 65px;
+        }
+
+        .logo-mark {
+            width: 45px;
+            height: 45px;
+
+            display: grid;
+            place-items: center;
+
+            border-radius: 15px;
+
+            color: white;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--purple),
+                    var(--pink)
+                );
+
+            box-shadow:
+                0 13px 30px
+                rgba(118, 87, 255, .25);
+        }
+
+        .tag {
+            display: inline-flex;
+
+            padding: 8px 13px;
+
+            border-radius: 999px;
+
+            color: #6851db;
+
+            background:
+                rgba(255,255,255,.72);
+
+            border:
+                1px solid
+                rgba(255,255,255,.95);
+
+            font-size: 10px;
+
+            font-weight: 900;
+
+            letter-spacing: 1.4px;
+
+            margin-bottom: 23px;
+        }
+
+        .left h1 {
+            font-size:
+                clamp(48px, 6vw, 76px);
+
+            line-height: .94;
+
+            letter-spacing: -5px;
+
+            max-width: 650px;
+        }
+
+        .gradient-text {
+            background:
+                linear-gradient(
+                    100deg,
+                    #7057ff,
+                    #e348ff,
+                    #ff4f9c,
+                    #ff9b52
+                );
+
+            background-size: 250% auto;
+
+            -webkit-background-clip: text;
+            background-clip: text;
+
+            color: transparent;
+
+            animation:
+                gradientFlow 6s ease infinite;
+        }
+
+        @keyframes gradientFlow {
+            0% {
+                background-position: 0% center;
+            }
+
+            50% {
+                background-position: 100% center;
+            }
+
+            100% {
+                background-position: 0% center;
+            }
+        }
+
+        .description {
+            margin-top: 27px;
+
+            max-width: 520px;
+
+            color: var(--muted);
+
+            font-size: 16px;
+
+            line-height: 1.75;
+        }
+
+        /* ================================
+           BENEFITS
+        ================================= */
+
+        .benefits {
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, minmax(0, 1fr));
+
+            gap: 12px;
+
+            max-width: 550px;
+
+            margin-top: 35px;
+        }
+
+        .benefit {
+            padding: 17px;
+
+            border-radius: 19px;
+
+            background:
+                rgba(255,255,255,.58);
+
+            border:
+                1px solid
+                rgba(255,255,255,.9);
+
+            backdrop-filter: blur(15px);
+
+            transition:
+                transform .25s ease,
+                box-shadow .25s ease;
+        }
+
+        .benefit:hover {
+            transform:
+                translateY(-5px);
+
+            box-shadow:
+                0 18px 35px
+                rgba(40,30,70,.10);
+        }
+
+        .benefit-icon {
+            font-size: 20px;
+
+            margin-bottom: 8px;
+        }
+
+        .benefit strong {
+            display: block;
+
+            font-size: 13px;
+
+            margin-bottom: 4px;
+        }
+
+        .benefit span {
+            color: var(--muted);
+
+            font-size: 11px;
+
+            line-height: 1.5;
+        }
+
+        /* ================================
+           SIGNUP CARD
+        ================================= */
+
+        .card {
+            position: relative;
+
+            padding: 39px;
+
+            border-radius: 32px;
+
+            background:
+                var(--card);
+
+            backdrop-filter:
+                blur(28px);
+
+            -webkit-backdrop-filter:
+                blur(28px);
+
+            border:
+                1px solid
+                rgba(255,255,255,.95);
+
+            box-shadow:
+                0 35px 100px
+                rgba(38,30,70,.15);
+
+            animation:
+                cardIn .8s
+                cubic-bezier(.2,.8,.2,1);
+        }
+
+        .card::before {
+            content: "";
+
+            position: absolute;
+
+            width: 90px;
+            height: 90px;
+
+            right: -25px;
+            top: -25px;
+
+            border-radius: 50%;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--pink),
+                    var(--orange)
+                );
+
+            filter: blur(3px);
+
+            opacity: .25;
+
+            z-index: -1;
+        }
+
+        @keyframes cardIn {
+            from {
+                opacity: 0;
+                transform:
+                    translateY(30px)
+                    scale(.96);
+            }
+
+            to {
+                opacity: 1;
+                transform:
+                    translateY(0)
+                    scale(1);
+            }
+        }
+
+        .card-header {
+            margin-bottom: 30px;
+        }
+
+        .card-header h2 {
+            font-size: 31px;
+
+            letter-spacing: -1.4px;
+
+            margin-bottom: 9px;
+        }
+
+        .card-header p {
+            color: var(--muted);
+
+            font-size: 13px;
+
+            line-height: 1.6;
+        }
+
+        /* ================================
+           FORM
+        ================================= */
+
+        .field {
+            margin-bottom: 19px;
+        }
+
+        label {
+            display: block;
+
+            font-size: 11px;
+
+            font-weight: 900;
+
+            letter-spacing: .5px;
+
+            margin-bottom: 8px;
+        }
+
+        .input-container {
+            position: relative;
+        }
+
+        input {
+            width: 100%;
+
+            padding: 16px;
+
+            border-radius: 14px;
+
+            border:
+                1px solid #dedce5;
+
+            outline: none;
+
+            background:
+                rgba(250,250,253,.90);
+
+            color: var(--ink);
+
+            font-size: 14px;
+
+            transition:
+                border-color .25s ease,
+                box-shadow .25s ease,
+                background .25s ease;
+        }
+
+        input:focus {
+            background: white;
+
+            border-color:
+                var(--purple);
+
+            box-shadow:
+                0 0 0 4px
+                rgba(118,87,255,.10);
+        }
+
+        .password {
+            padding-right: 70px;
+        }
+
+        .show-password {
+            position: absolute;
+
+            right: 9px;
+            top: 50%;
+
+            transform:
+                translateY(-50%);
+
+            border: 0;
+
+            background:
+                transparent;
+
+            color:
+                var(--purple);
+
+            font-size: 10px;
+
+            font-weight: 900;
+
+            cursor: pointer;
+
+            padding: 9px;
+        }
+
+        /* ================================
+           PASSWORD STRENGTH
+        ================================= */
+
+        .strength-bars {
+            display: flex;
+
+            gap: 5px;
+
+            margin-top: 9px;
+        }
+
+        .strength-bars i {
+            height: 4px;
+
+            flex: 1;
+
+            border-radius: 99px;
+
+            background: #e7e5eb;
+
+            transition:
+                background .25s ease;
+        }
+
+        .strength-label {
+            display: block;
+
+            margin-top: 7px;
+
+            color: #85828f;
+
+            font-size: 10px;
+        }
+
+        /* ================================
+           SUBMIT
+        ================================= */
+
+        .submit {
+            position: relative;
+
+            overflow: hidden;
+
+            width: 100%;
+
+            padding: 16px;
+
+            border: 0;
+
+            border-radius: 15px;
+
+            color: white;
+
+            font-size: 14px;
+
+            font-weight: 900;
+
+            cursor: pointer;
+
+            background:
+                linear-gradient(
+                    105deg,
+                    #7057ff,
+                    #c84cff,
+                    #ff4f9c
+                );
+
+            background-size: 200% auto;
+
+            box-shadow:
+                0 15px 35px
+                rgba(118,87,255,.28);
+
+            transition:
+                transform .2s ease,
+                box-shadow .2s ease;
+
+            animation:
+                buttonGradient 5s ease infinite;
+        }
+
+        @keyframes buttonGradient {
+            0% {
+                background-position: 0%;
+            }
+
+            50% {
+                background-position: 100%;
+            }
+
+            100% {
+                background-position: 0%;
+            }
+        }
+
+        .submit:hover {
+            transform:
+                translateY(-3px);
+
+            box-shadow:
+                0 20px 45px
+                rgba(118,87,255,.38);
+        }
+
+        .submit:active {
+            transform:
+                scale(.98);
+        }
+
+        /* ================================
+           PRIVACY
+        ================================= */
+
+        .privacy {
+            display: flex;
+
+            align-items: flex-start;
+
+            gap: 10px;
+
+            margin-top: 18px;
+
+            padding: 13px;
+
+            border-radius: 14px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #eeebff,
+                    #fff0f7
+                );
+
+            color: #68627c;
+
+            font-size: 10px;
+
+            line-height: 1.55;
+        }
+
+        .privacy-icon {
+            font-size: 16px;
+        }
+
+        /* ================================
+           LOGIN
+        ================================= */
+
+        .login {
+            text-align: center;
+
+            margin-top: 24px;
+
+            color: var(--muted);
+
+            font-size: 12px;
+        }
+
+        .login a {
+            color: var(--purple);
+
+            font-weight: 900;
+
+            text-decoration: none;
+        }
+
+        .login a:hover {
+            text-decoration: underline;
+        }
+
+        /* ================================
+           RESPONSIVE
+        ================================= */
+
+        @media (max-width: 850px) {
+
+            .page {
+                grid-template-columns: 1fr;
+
+                gap: 25px;
+
+                padding:
+                    25px 0 45px;
+            }
+
+            .left {
+                padding: 5px;
+            }
+
+            .logo {
+                margin-bottom: 35px;
+            }
+
+            .left h1 {
+                font-size: 52px;
+
+                letter-spacing: -3px;
+            }
+
+            .card {
+                padding: 28px;
+            }
+        }
+
+        @media (max-width: 480px) {
+
+            .benefits {
+                grid-template-columns: 1fr;
+            }
+
+            .left h1 {
+                font-size: 43px;
+            }
+
+            .card {
+                border-radius: 24px;
+                padding: 23px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+
+    <main class="page">
+
+        <!-- LEFT CONTENT -->
+
+        <section class="left">
+
+            <div class="logo">
+                <div class="logo-mark">S</div>
+                SpendSense
+            </div>
+
+            <div class="tag">
+                PERSONAL FINANCE, SIMPLIFIED
+            </div>
+
+            <h1>
+                Your money.
+                <br>
+                Your <span class="gradient-text">clarity.</span>
+            </h1>
+
+            <p class="description">
+                SpendSense helps you understand where your money
+                goes, discover spending patterns and make smarter
+                financial decisions — without compromising privacy.
+            </p>
+
+            <div class="benefits">
+
+                <div class="benefit">
+                    <div class="benefit-icon">🔐</div>
+
+                    <strong>Privacy first</strong>
+
+                    <span>
+                        Your password is never stored in plain text.
+                    </span>
+                </div>
+
+                <div class="benefit">
+                    <div class="benefit-icon">📊</div>
+
+                    <strong>Understand spending</strong>
+
+                    <span>
+                        Turn transaction data into useful insights.
+                    </span>
+                </div>
+
+                <div class="benefit">
+                    <div class="benefit-icon">⚡</div>
+
+                    <strong>Instant overview</strong>
+
+                    <span>
+                        See your financial picture quickly.
+                    </span>
+                </div>
+
+                <div class="benefit">
+                    <div class="benefit-icon">🎯</div>
+
+                    <strong>Make better choices</strong>
+
+                    <span>
+                        Build healthier financial habits.
+                    </span>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- SIGNUP -->
+
+        <section class="card">
+
+            <div class="card-header">
+
+                <h2>
+                    Create your account
+                </h2>
+
+                <p>
+                    It takes less than a minute to get started.
+                </p>
+
+            </div>
+
+
+            <form
+                action="/signup"
+                method="POST"
+            >
+
+                <div class="field">
+
+                    <label for="email">
+                        EMAIL ADDRESS
+                    </label>
+
+                    <input
+                        id="email"
+                        type="email"
+                        name="email"
+                        placeholder="you@example.com"
+                        autocomplete="email"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="field">
+
+                    <label for="password">
+                        PASSWORD
+                    </label>
+
+                    <div class="input-container">
+
+                        <input
+                            id="password"
+                            class="password"
+                            type="password"
+                            name="password"
+                            placeholder="Create a strong password"
+                            minlength="8"
+                            autocomplete="new-password"
+                            required
+                        >
+
+                        <button
+                            type="button"
+                            class="show-password"
+                            id="showPassword"
+                        >
+                            SHOW
+                        </button>
+
+                    </div>
+
+
+                    <div class="strength-bars">
+
+                        <i></i>
+                        <i></i>
+                        <i></i>
+                        <i></i>
+
+                    </div>
+
+                    <span
+                        class="strength-label"
+                        id="strengthLabel"
+                    >
+                        Use at least 8 characters
+                    </span>
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="submit"
+                >
+                    Create my SpendSense account →
+                </button>
+
+
+                <div class="privacy">
+
+                    <div class="privacy-icon">
+                        🛡️
+                    </div>
+
+                    <div>
+                        <strong>Privacy matters.</strong>
+                        Your password is securely hashed before
+                        being stored. SpendSense does not store
+                        your plain-text password.
+                    </div>
+
+                </div>
+
+            </form>
+
+
+            <div class="login">
+
+                Already have an account?
+
+                <a href="/login">
+                    Log in
+                </a>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <script>
+
+        const password =
+            document.getElementById("password");
+
+        const showPassword =
+            document.getElementById("showPassword");
+
+        const bars =
+            document.querySelectorAll(
+                ".strength-bars i"
+            );
+
+        const strengthLabel =
+            document.getElementById(
+                "strengthLabel"
+            );
+
+
+        /* ================================
+           SHOW / HIDE
+        ================================= */
+
+        showPassword.addEventListener(
+            "click",
+            () => {
+
+                if (
+                    password.type === "password"
+                ) {
+
+                    password.type = "text";
+
+                    showPassword.textContent =
+                        "HIDE";
+
+                } else {
+
+                    password.type = "password";
+
+                    showPassword.textContent =
+                        "SHOW";
+                }
+
+            }
+        );
+
+
+        /* ================================
+           PASSWORD STRENGTH
+        ================================= */
+
+        password.addEventListener(
+            "input",
+            () => {
+
+                const value =
+                    password.value;
+
+                let score = 0;
+
+                if (value.length >= 8)
+                    score++;
+
+                if (/[A-Z]/.test(value))
+                    score++;
+
+                if (/[0-9]/.test(value))
+                    score++;
+
+                if (/[^A-Za-z0-9]/.test(value))
+                    score++;
+
+
+                bars.forEach(
+                    (bar, index) => {
+
+                        if (index < score) {
+
+                            bar.style.background =
+                                "linear-gradient(90deg,#7657ff,#ff4f9c)";
+
+                        } else {
+
+                            bar.style.background =
+                                "#e7e5eb";
+
+                        }
+
+                    }
+                );
+
+
+                const labels = [
+                    "Use at least 8 characters",
+                    "Weak password",
+                    "Fair password",
+                    "Good password",
+                    "Excellent password ✓"
+                ];
+
+                strengthLabel.textContent =
+                    labels[score];
+
+            }
+        );
+
+    </script>
+
+</body>
+
+</html>

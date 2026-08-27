@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>SpendSense | Financial Intelligence</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}"
+    >
+</head>
+
+<body>
+
+    <!-- ================= NAVBAR ================= -->
+
+    <header class="navbar">
+
+        <div class="logo">
+            <span class="logo-mark">S</span>
+            <span>SpendSense</span>
+        </div>
+
+        <nav class="nav-links">
+            <a href="#problem">Problem</a>
+            <a href="#features">Features</a>
+            <a href="#privacy">Privacy</a>
+        </nav>
+
+        <div class="nav-buttons">
+            <a href="/login" class="btn btn-login">Log in</a>
+
+            <a href="/signup" class="btn btn-primary">Get started</a>
+        </div>
+
+    </header>
+
+
+    <!-- ================= HERO ================= -->
+
+    <main>
+
+        <section class="hero">
+
+            <div class="hero-content">
+
+                <div class="eyebrow">
+                    PERSONAL FINANCE • INTELLIGENCE
+                </div>
+
+                <h1>
+                    Your money
+                    <span>deserves clarity.</span>
+                </h1>
+
+                <p class="hero-description">
+                    SpendSense turns everyday transaction data
+                    into meaningful financial insights, helping
+                    you understand where your money goes and
+                    what you can do differently.
+                </p>
+
+                <div class="hero-buttons">
+
+                    <button class="btn btn-primary btn-large">
+                        Start understanding your money →
+                    </button>
+
+                    <button class="btn btn-outline btn-large">
+                        See how it works
+                    </button>
+
+                </div>
+
+                <div class="trust-row">
+
+                    <div>
+                        <strong>100%</strong>
+                        <span>private by design</span>
+                    </div>
+
+                    <div>
+                        <strong>0</strong>
+                        <span>bank passwords required</span>
+                    </div>
+
+                    <div>
+                        <strong>24/7</strong>
+                        <span>financial visibility</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= FINANCE VISUAL ================= -->
+
+            <div class="hero-visual">
+
+                <div class="orbit orbit-one"></div>
+                <div class="orbit orbit-two"></div>
+
+                <div class="floating-card card-warning">
+
+                    <span class="card-icon">⚡</span>
+
+                    <div>
+                        <small>UNUSUAL SPENDING</small>
+                        <strong>₹3,840</strong>
+                    </div>
+
+                </div>
+
+
+                <div class="dashboard-card">
+
+                    <div class="dashboard-header">
+
+                        <div>
+                            <small>FINANCIAL HEALTH</small>
+                            <h3>Looking good</h3>
+                        </div>
+
+                        <div class="health-score">
+                            78
+                        </div>
+
+                    </div>
+
+
+                    <div class="balance-label">
+                        NET SAVINGS
+                    </div>
+
+                    <div class="balance">
+                        ₹22,640
+                    </div>
+
+
+                    <div class="chart">
+
+                        <div class="chart-line"></div>
+
+                        <div class="chart-dot dot-one"></div>
+                        <div class="chart-dot dot-two"></div>
+                        <div class="chart-dot dot-three"></div>
+                        <div class="chart-dot dot-four"></div>
+
+                    </div>
+
+
+                    <div class="mini-stats">
+
+                        <div>
+                            <small>Income</small>
+                            <strong>₹62K</strong>
+                        </div>
+
+                        <div>
+                            <small>Spent</small>
+                            <strong>₹31K</strong>
+                        </div>
+
+                        <div>
+                            <small>Invested</small>
+                            <strong>₹8K</strong>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="floating-card card-saving">
+
+                    <span class="card-icon">✦</span>
+
+                    <div>
+                        <small>SAVINGS RATE</small>
+                        <strong>+12.4%</strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= PROBLEM ================= -->
+
+        <section
+            class="section problem-section"
+            id="problem"
+        >
+
+            <div class="section-heading">
+
+                <div class="eyebrow">
+                    THE PROBLEM
+                </div>
+
+                <h2>
+                    A bank statement tells you
+                    <span>what happened.</span>
+                </h2>
+
+                <p>
+                    It doesn't tell you why it happened,
+                    whether it's unusual, or what you should
+                    change next month.
+                </p>
+
+            </div>
+
+
+            <div class="problem-grid">
+
+                <article class="problem-card problem-one">
+
+                    <div class="problem-number">
+                        01
+                    </div>
+
+                    <h3>
+                        Money disappears quietly.
+                    </h3>
+
+                    <p>
+                        Small recurring purchases can become
+                        thousands of rupees over a year without
+                        feeling significant day-to-day.
+                    </p>
+
+                </article>
+
+
+                <article class="problem-card problem-two">
+
+                    <div class="problem-number">
+                        02
+                    </div>
+
+                    <h3>
+                        Unusual spending is easy to miss.
+                    </h3>
+
+                    <p>
+                        A single abnormal transaction can hide
+                        inside hundreds of normal transactions.
+                    </p>
+
+                </article>
+
+
+                <article class="problem-card problem-three">
+
+                    <div class="problem-number">
+                        03
+                    </div>
+
+                    <h3>
+                        Data isn't the same as insight.
+                    </h3>
+
+                    <p>
+                        Knowing that you spent ₹15,000 is less
+                        useful than knowing what caused it and
+                        what could realistically change.
+                    </p>
+
+                </article>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= FEATURES ================= -->
+
+        <section
+            class="section features-section"
+            id="features"
+        >
+
+            <div class="section-heading">
+
+                <div class="eyebrow">
+                    WHAT SPENDSENSE DOES
+                </div>
+
+                <h2>
+                    From transactions
+                    <span>to decisions.</span>
+                </h2>
+
+            </div>
+
+
+            <div class="feature-grid">
+
+                <article class="feature-card">
+
+                    <div class="feature-icon purple">
+                        ◈
+                    </div>
+
+                    <h3>
+                        Spending intelligence
+                    </h3>
+
+                    <p>
+                        Understand how your spending changes
+                        across categories and months.
+                    </p>
+
+                </article>
+
+
+                <article class="feature-card">
+
+                    <div class="feature-icon orange">
+                        !
+                    </div>
+
+                    <h3>
+                        Anomaly detection
+                    </h3>
+
+                    <p>
+                        Statistical analysis identifies spending
+                        that behaves differently from your normal
+                        pattern.
+                    </p>
+
+                </article>
+
+
+                <article class="feature-card">
+
+                    <div class="feature-icon cyan">
+                        ↻
+                    </div>
+
+                    <h3>
+                        Recurring payments
+                    </h3>
+
+                    <p>
+                        Discover subscriptions and repeated
+                        merchant payments hiding in your history.
+                    </p>
+
+                </article>
+
+
+                <article class="feature-card">
+
+                    <div class="feature-icon pink">
+                        ✦
+                    </div>
+
+                    <h3>
+                        Financial health
+                    </h3>
+
+                    <p>
+                        Combine income, expenses, investments
+                        and savings into one understandable score.
+                    </p>
+
+                </article>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= PRIVACY ================= -->
+
+        <section
+            class="privacy-section"
+            id="privacy"
+        >
+
+            <div class="privacy-content">
+
+                <div class="eyebrow">
+                    PRIVACY FIRST
+                </div>
+
+                <h2>
+                    Your financial data
+                    <span>is yours.</span>
+                </h2>
+
+                <p>
+                    SpendSense is designed around data minimization.
+                    We don't need your banking password, UPI PIN,
+                    card CVV or OTP to understand your transactions.
+                </p>
+
+                <div class="privacy-items">
+
+                    <div>
+                        <strong>01</strong>
+                        Passwords are hashed.
+                    </div>
+
+                    <div>
+                        <strong>02</strong>
+                        User data is isolated.
+                    </div>
+
+                    <div>
+                        <strong>03</strong>
+                        Unnecessary financial secrets aren't collected.
+                    </div>
+
+                    <div>
+                        <strong>04</strong>
+                        Uploaded data can be minimized before analysis.
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= CTA ================= -->
+
+        <section class="cta-section">
+
+            <div>
+
+                <div class="eyebrow">
+                    START SMALL. UNDERSTAND MORE.
+                </div>
+
+                <h2>
+                    Your next financial
+                    decision starts here.
+                </h2>
+
+                <button class="btn btn-dark btn-large">
+                    Build my financial view →
+                </button>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <footer>
+
+        <div class="logo">
+            <span class="logo-mark">S</span>
+            SpendSense
+        </div>
+
+        <p>
+            Personal finance intelligence.
+        </p>
+
+    </footer>
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+
+</body>
+
+</html>
+
+

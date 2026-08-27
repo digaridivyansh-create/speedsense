@@ -1,0 +1,233 @@
+from flask import (
+    Flask,
+    render_template,
+    request,
+    redirect,
+    session
+)
+
+from werkzeug.security import (
+    generate_password_hash,
+    check_password_hash
+)
+
+from database.db import get_connection
+
+
+app = Flask(__name__)
+
+app.secret_key = "spendsense-development-secret-key"
+
+
+# =========================================
+# HOME
+# =========================================
+
+@app.route("/")
+def home():
+    return render_template("index.html")
+
+
+# =========================================
+# SIGNUP PAGE
+# =========================================
+
+@app.route("/signup", methods=["GET"])
+def signup_page():
+    return render_template("signup.html")
+
+
+# =========================================
+# SIGNUP
+# =========================================
+
+@app.route("/signup", methods=["POST"])
+def signup():
+
+    email = request.form.get("email", "").strip().lower()
+    password = request.form.get("password", "")
+
+    if not email or not password:
+        return "Email and password are required.", 400
+
+    if len(password) < 8:
+        return "Password must contain at least 8 characters.", 400
+
+    connection = get_connection()
+
+    try:
+
+        password_hash = generate_password_hash(password)
+
+        connection.execute(
+            """
+            INSERT INTO users
+            (
+                email,
+                password_hash,
+                created_at
+            )
+            VALUES
+            (?, ?, datetime('now'))
+            """,
+            (
+                email,
+                password_hash
+            )
+        )
+
+        connection.commit()
+
+    except Exception as error:
+
+        connection.rollback()
+
+        if "UNIQUE constraint failed" in str(error):
+            return "An account with this email already exists.", 409
+
+        print("Signup error:", error)
+
+        return "Unable to create account.", 500
+
+    finally:
+
+        connection.close()
+
+    return redirect("/login")
+
+
+# =========================================
+# LOGIN PAGE
+# =========================================
+
+@app.route("/login", methods=["GET"])
+def login_page():
+
+    return render_template("login.html")
+
+
+# =========================================
+# LOGIN
+# =========================================
+
+@app.route("/login", methods=["POST"])
+def login():
+
+    email = request.form.get("email", "").strip().lower()
+    password = request.form.get("password", "")
+
+    if not email or not password:
+        return "Email and password are required.", 400
+
+    connection = get_connection()
+
+    try:
+
+        user = connection.execute(
+            """
+            SELECT
+                id,
+                email,
+                password_hash
+            FROM users
+            WHERE email = ?
+            """,
+            (email,)
+        ).fetchone()
+
+    finally:
+
+        connection.close()
+
+    if user is None:
+        return "Invalid email or password.", 401
+
+    if not check_password_hash(
+        user["password_hash"],
+        password
+    ):
+        return "Invalid email or password.", 401
+
+    session.clear()
+
+    session["user_id"] = user["id"]
+    session["user_email"] = user["email"]
+
+    return redirect("/dashboard")
+
+
+# =========================================
+# LOGOUT
+# =========================================
+
+@app.route("/logout")
+def logout():
+
+    session.clear()
+
+    return redirect("/")
+
+
+# =========================================
+# RUN SERVER
+# =========================================
+
+if __name__ == "__main__":
+
+    app.run(
+        debug=True,
+        port=5001
+    )
+# =========================================
+# =========================================
+# DASHBOARD
+# =========================================
+
+@app.route("/dashboard")
+def dashboard():
+
+    if "user_id" not in session:
+        return redirect("/login")
+
+    return render_template(
+        "dashboard.html",
+        email=session.get("user_email")
+    )
+
+
+# =========================================
+# RUN SERVER
+# =========================================
+
+if __name__ == "__main__":
+
+    app.run(
+        debug=True,
+        port=5001
+    )
+# =========================================
+# DASHBOARD
+# =========================================
+
+@app.route("/dashboard")
+def dashboard():
+
+    if "user_id" not in session:
+        return redirect("/login")
+
+    return render_template(
+        "dashboard.html",
+        email=session.get("user_email")
+    )
+
+
+# =========================================
+# RUN SERVER
+# =========================================
+
+if __name__ == "__main__":
+
+    app.run(
+        debug=True,
+        port=5001
+    )
