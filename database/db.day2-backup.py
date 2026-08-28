@@ -1,4 +1,4 @@
-﻿import sqlite3
+import sqlite3
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -15,7 +15,6 @@ def get_connection():
 def initialize_database():
     connection = get_connection()
 
-    # Users
     connection.execute(
         """
         CREATE TABLE IF NOT EXISTS users (
@@ -23,25 +22,6 @@ def initialize_database():
             email TEXT NOT NULL UNIQUE,
             password_hash TEXT NOT NULL,
             created_at TEXT NOT NULL
-        )
-        """
-    )
-
-    # Transactions
-    connection.execute(
-        """
-        CREATE TABLE IF NOT EXISTS transactions (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            user_id INTEGER NOT NULL,
-            title TEXT NOT NULL,
-            amount REAL NOT NULL,
-            transaction_type TEXT NOT NULL
-                CHECK(transaction_type IN ('income', 'expense')),
-            category TEXT NOT NULL,
-            transaction_date TEXT NOT NULL,
-            notes TEXT,
-            created_at TEXT NOT NULL,
-            FOREIGN KEY (user_id) REFERENCES users(id)
         )
         """
     )

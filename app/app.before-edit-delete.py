@@ -233,6 +233,42 @@ def dashboard():
     total_balance = total_income - total_expenses
     savings = total_balance
 
+    # =========================================
+    # FINANCIAL HEALTH + POTENTIAL SAVINGS
+    # =========================================
+
+    potential_savings = max(
+        0,
+        total_income - total_expenses
+    )
+
+    if total_income <= 0:
+        financial_health = 0 if total_expenses > 0 else 50
+    else:
+        financial_health = round(
+            ((total_income - total_expenses) / total_income) * 100
+        )
+        financial_health = max(
+            0,
+            min(100, financial_health)
+        )
+
+    if financial_health >= 81:
+        financial_health_label = "Excellent"
+        financial_insight = "Your finances are in excellent shape. Keep maintaining your current spending habits."
+    elif financial_health >= 61:
+        financial_health_label = "Good"
+        financial_insight = "Your finances are looking good. A little more control over spending could improve your savings."
+    elif financial_health >= 41:
+        financial_health_label = "Fair"
+        financial_insight = "Your finances are balanced, but reducing unnecessary expenses could strengthen your savings."
+    elif financial_health >= 21:
+        financial_health_label = "Needs Attention"
+        financial_insight = "Your expenses are taking a significant share of your income. Consider reducing non-essential spending."
+    else:
+        financial_health_label = "Critical"
+        financial_insight = "Your expenses currently exceed your income. Focus on essential spending and reducing unnecessary expenses."
+
     category_totals = {
         "Food": 0,
         "Transport": 0,
@@ -292,7 +328,11 @@ def dashboard():
         category_totals=category_totals,
         max_category_total=max_category_total,
         daily_spending=daily_spending,
-        chart_max=chart_max
+        chart_max=chart_max,
+        financial_health=financial_health,
+        financial_insight=financial_insight,
+        financial_health_label=financial_health_label,
+        potential_savings=potential_savings
     )
 
 
@@ -369,7 +409,68 @@ def add_transaction():
     return redirect("/dashboard")
 
 
+
 # =========================================
+# TRANSACTIONS PAGE
+# =========================================
+
+@app.route("/transactions")
+def transactions():
+
+    if "user_id" not in session:
+        return redirect("/login")
+
+    connection = get_connection()
+
+    try:
+        user_id = session["user_id"]
+
+        transactions = connection.execute(
+            """
+            SELECT
+                id,
+                title,
+                amount,
+                transaction_type,
+                category,
+                transaction_date,
+                notes
+            FROM transactions
+            WHERE user_id = ?
+            ORDER BY transaction_date DESC, id DESC
+            """,
+            (user_id,)
+        ).fetchall()
+
+        summary = connection.execute(
+            """
+            SELECT
+                COUNT(*) AS total_transactions,
+                COALESCE(SUM(CASE
+                    WHEN transaction_type = 'income' THEN amount
+                    ELSE 0
+                END), 0) AS total_income,
+                COALESCE(SUM(CASE
+                    WHEN transaction_type = 'expense' THEN amount
+                    ELSE 0
+                END), 0) AS total_expenses
+            FROM transactions
+            WHERE user_id = ?
+            """,
+            (user_id,)
+        ).fetchone()
+
+    finally:
+        connection.close()
+
+    return render_template(
+        "transactions.html",
+        transactions=transactions,
+        total_transactions=summary["total_transactions"],
+        total_income=float(summary["total_income"] or 0),
+        total_expenses=float(summary["total_expenses"] or 0)
+    )
+
 # LOGOUT
 # =========================================
 
@@ -391,6 +492,10 @@ if __name__ == "__main__":
         debug=True,
         port=5001
     )
+
+
+
+
 
 
 

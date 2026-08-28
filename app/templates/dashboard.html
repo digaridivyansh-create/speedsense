@@ -1,0 +1,789 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SpendSense Dashboard</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css', v='20260829') }}">
+</head>
+
+<body class="dashboard-page">
+
+    <div class="dashboard-shell">
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+
+            <div class="brand">
+                <div class="brand-icon">S</div>
+                <div>
+                    <h2>SpendSense</h2>
+                    <span>Smart Finance</span>
+                </div>
+            </div>
+
+            <nav class="dashboard-nav">
+
+                <a href="/dashboard" class="nav-item active">
+                    <span>⌂</span>
+                    Dashboard
+                </a>
+
+                <a href="/transactions" class="nav-item">
+                    <span>↔</span>
+                    Transactions
+                </a>
+
+                <a href="#" class="nav-item">
+                    <span>▣</span>
+                    Budgets
+                </a>
+
+                <a href="#" class="nav-item">
+                    <span>◔</span>
+                    Analytics
+                </a>
+
+                <a href="#" class="nav-item">
+                    <span>▤</span>
+                    Reports
+                </a>
+
+            </nav>
+
+            <div class="sidebar-bottom">
+
+                <div class="privacy-box">
+                    <strong>Privacy First</strong>
+                    <p>Your financial data stays protected.</p>
+                </div>
+
+                <a href="/logout" class="logout-link">
+                    ↪ Logout
+                </a>
+
+            </div>
+
+        </aside>
+
+
+        <!-- MAIN CONTENT -->
+        <main class="dashboard-main">
+
+            <!-- TOP BAR -->
+            <header class="dashboard-header">
+
+                <div>
+                    <p class="eyebrow">PERSONAL FINANCE</p>
+                    <h1>Good to see you 👋</h1>
+                    <p class="welcome-text">
+                        Here's your financial overview.
+                    </p>
+                </div>
+
+                <div class="user-area">
+
+                    <div class="user-info">
+                        <strong>{{ email }}</strong>
+                        <span>Personal account</span>
+                    </div>
+
+                    <div class="avatar">
+                        {{ email[0]|upper if email else "U" }}
+                    </div>
+
+                </div>
+
+            </header>
+
+
+            <!-- SUMMARY CARDS -->
+            <section class="summary-grid">
+
+                <div class="summary-card balance-card">
+
+                    <div class="card-top">
+                        <span>Total Balance</span>
+                        <span class="card-icon">₹</span>
+                    </div>
+
+                    <h2>₹{{ "{:,.2f}".format(total_balance) }}</h2>
+
+                    <p class="positive">
+                        ↑ 8.4% this month
+                    </p>
+
+                </div>
+
+
+                <div class="summary-card income-card">
+
+                    <div class="card-top">
+                        <span>Monthly Income</span>
+                        <span class="card-icon">₹</span>
+                    </div>
+
+                    <h2>₹{{ "{:,.2f}".format(total_income) }}</h2>
+
+                    <p class="positive">
+                        ↑ 5.2% from last month
+                    </p>
+
+                </div>
+
+
+                <div class="summary-card expense-card">
+
+                    <div class="card-top">
+                        <span>Monthly Spending</span>
+                        <span class="card-icon">₹</span>
+                    </div>
+
+                    <h2>₹{{ "{:,.2f}".format(total_expenses) }}</h2>
+
+                    <p class="negative">
+                        ↓ 3.1% from last month
+                    </p>
+
+                </div>
+
+
+                <div class="summary-card health-card">
+
+                    <div class="card-top">
+                        <span>Financial Health</span>
+                        <span class="card-icon">₹</span>
+                    </div>
+
+                    <h2>{{ financial_health }}<span>/100</span></h2>
+
+                    <p class="positive">
+                        {{ financial_health_label }}
+                    </p>
+
+                </div>
+
+            </section>
+
+
+            <!-- MAIN ANALYTICS -->
+            <section class="dashboard-grid">
+
+                <!-- SPENDING OVERVIEW -->
+                <div class="panel spending-panel">
+
+                    <div class="panel-header">
+
+                        <div>
+                            <p class="eyebrow">ANALYTICS</p>
+                            <h2>Spending Overview</h2>
+                        </div>
+
+                        <select>
+                            <option>This Month</option>
+                            <option>Last Month</option>
+                            <option>Last 6 Months</option>
+                        </select>
+
+                    </div>
+
+                    <div class="chart-placeholder">
+
+                        <div class="chart-line">
+                            <span>₹{{ "{:,.0f}".format(chart_max) }}</span>
+                            <span>₹{{ "{:,.0f}".format(chart_max * 0.8) }}</span>
+                            <span>₹{{ "{:,.0f}".format(chart_max * 0.6) }}</span>
+                            <span>₹{{ "{:,.0f}".format(chart_max * 0.4) }}</span>
+                            <span>₹{{ "{:,.0f}".format(chart_max * 0.2) }}</span>
+                        </div>
+
+                        <div class="chart-bars">
+                            <div style="height: {{ (daily_spending['Mon'] / chart_max * 100) if chart_max > 0 else 0 }}%"></div>
+                            <div style="height: {{ (daily_spending['Tue'] / chart_max * 100) if chart_max > 0 else 0 }}%"></div>
+                            <div style="height: {{ (daily_spending['Wed'] / chart_max * 100) if chart_max > 0 else 0 }}%"></div>
+                            <div style="height: {{ (daily_spending['Thu'] / chart_max * 100) if chart_max > 0 else 0 }}%"></div>
+                            <div style="height: {{ (daily_spending['Fri'] / chart_max * 100) if chart_max > 0 else 0 }}%"></div>
+                            <div style="height: {{ (daily_spending['Sat'] / chart_max * 100) if chart_max > 0 else 0 }}%"></div>
+                            <div style="height: {{ (daily_spending['Sun'] / chart_max * 100) if chart_max > 0 else 0 }}%"></div>
+                        </div>
+
+                        <div class="chart-labels">
+                            <span>Mon</span>
+                            <span>Tue</span>
+                            <span>Wed</span>
+                            <span>Thu</span>
+                            <span>Fri</span>
+                            <span>Sat</span>
+                            <span>Sun</span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- CATEGORIES -->
+                <div class="panel categories-panel">
+
+                    <div class="panel-header">
+                        <div>
+                            <p class="eyebrow">BREAKDOWN</p>
+                            <h2>Spending Categories</h2>
+                        </div>
+                    </div>
+
+                    <div class="category-list">
+
+                        <div class="category-row">
+                            <div class="category-name">
+                                <span class="category-dot food"></span>
+                                Food
+                            </div>
+                            <strong>₹{{ "{:,.2f}".format(category_totals["Food"]) }}</strong>
+                        </div>
+
+                        <div class="progress">
+                            <span style="width: {{ (category_totals["Food"] / max_category_total * 100) if max_category_total > 0 else 0 }}%"></span>
+                        </div>
+
+
+                        <div class="category-row">
+                            <div class="category-name">
+                                <span class="category-dot transport"></span>
+                                Transport
+                            </div>
+                            <strong>₹{{ "{:,.2f}".format(category_totals["Transport"]) }}</strong>
+                        </div>
+
+                        <div class="progress">
+                            <span style="width: {{ (category_totals["Transport"] / max_category_total * 100) if max_category_total > 0 else 0 }}%"></span>
+                        </div>
+
+
+                        <div class="category-row">
+                            <div class="category-name">
+                                <span class="category-dot shopping"></span>
+                                Shopping
+                            </div>
+                            <strong>₹{{ "{:,.2f}".format(category_totals["Shopping"]) }}</strong>
+                        </div>
+
+                        <div class="progress">
+                            <span style="width: {{ (category_totals["Shopping"] / max_category_total * 100) if max_category_total > 0 else 0 }}%"></span>
+                        </div>
+
+
+                        <div class="category-row">
+                            <div class="category-name">
+                                <span class="category-dot bills"></span>
+                                Bills
+                            </div>
+                            <strong>₹{{ "{:,.2f}".format(category_totals["Bills"]) }}</strong>
+                        </div>
+
+                        <div class="progress">
+                            <span style="width: {{ (category_totals["Bills"] / max_category_total * 100) if max_category_total > 0 else 0 }}%"></span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- BOTTOM SECTION -->
+            <section class="bottom-grid">
+
+                <!-- RECENT TRANSACTIONS -->
+                <div class="panel transactions-panel">
+
+                    <div class="panel-header">
+
+                        <div>
+                            <p class="eyebrow">ACTIVITY</p>
+                            <h2>Recent Transactions</h2>
+                        </div>
+
+                        <a href="#" class="view-link">
+                            View all →
+                        </a>
+
+                    </div>
+
+                    <div class="transaction-list">
+
+                        {% if recent_transactions %}
+
+                            {% for transaction in recent_transactions %}
+
+                                <div class="transaction">
+
+                                    <div class="transaction-icon">●</div>
+
+                                    <div class="transaction-info">
+
+                                        <strong>
+                                            {{ transaction["title"] }}
+                                        </strong>
+
+                                        <span>
+                                            {{ transaction["category"] }}
+                                            •
+                                            {{ transaction["transaction_date"] }}
+                                        </span>
+
+                                    </div>
+
+                                    {% if transaction["transaction_type"] == "income" %}
+
+                                        <strong class="amount income">
+                                            +₹{{ "{:,.2f}".format(transaction["amount"]) }}
+                                        </strong>
+
+                                    {% else %}
+
+                                        <strong class="amount expense">
+                                            -₹{{ "{:,.2f}".format(transaction["amount"]) }}
+                                        </strong>
+
+                                    {% endif %}
+
+                                </div>
+
+                            {% endfor %}
+
+                        {% else %}
+
+                            <div class="transaction">
+
+                                <div class="transaction-icon">●</div>
+
+                                <div class="transaction-info">
+                                    <strong>No transactions yet</strong>
+                                    <span>Add your first transaction to get started.</span>
+                                </div>
+
+                            </div>
+
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+
+                <!-- FINANCIAL INSIGHT -->
+                <div class="panel insight-panel">
+
+                    <div class="insight-icon">
+                        ★
+                    </div>
+
+                    <p class="eyebrow">SPENDSENSE INSIGHT</p>
+
+                    <h2>
+                        {{ financial_health_label }}
+                    </h2>
+
+                    <p>
+                        Your spending is currently below your monthly
+                        income. Keeping your food and shopping expenses
+                        {{ financial_insight }}
+                    </p>
+
+                    <div class="insight-stat">
+                        <span>Potential savings</span>
+                        <strong>₹{{ "{:,.0f}".format(potential_savings) }}</strong>
+                    </div>
+
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+
+<!-- =========================================================
+     SPENDSENSE TRANSACTION UI
+     ========================================================= -->
+
+<div class="transaction-action">
+    <button
+        type="button"
+        class="add-transaction-btn"
+        onclick="openTransactionModal()">
+        <span>+</span>
+        Add Transaction
+    </button>
+</div>
+
+<div id="transactionModal" class="transaction-modal">
+
+    <form
+        class="transaction-form"
+        method="POST"
+        action="/transactions/add">
+
+        <div class="transaction-form-header">
+            <div>
+                <span class="transaction-eyebrow">FINANCE TRACKER</span>
+                <h2>Add Transaction</h2>
+                <p>Record your income or expense.</p>
+            </div>
+
+            <button
+                type="button"
+                class="close-modal"
+                onclick="closeTransactionModal()">
+                ×
+            </button>
+        </div>
+
+        <div class="form-group">
+            <label for="transaction-title">Transaction name</label>
+            <input
+                id="transaction-title"
+                type="text"
+                name="title"
+                placeholder="e.g. Salary, Grocery, Netflix"
+                required>
+        </div>
+
+        <div class="transaction-form-row">
+
+            <div class="form-group">
+                <label for="transaction-amount">Amount</label>
+                <input
+                    id="transaction-amount"
+                    type="number"
+                    name="amount"
+                    min="0.01"
+                    step="0.01"
+                    placeholder="0.00"
+                    required>
+            </div>
+
+            <div class="form-group">
+                <label for="transaction-type">Type</label>
+                <select id="transaction-type" name="transaction_type" required>
+                    <option value="expense">Expense</option>
+                    <option value="income">Income</option>
+                </select>
+            </div>
+
+        </div>
+
+        <div class="transaction-form-row">
+
+            <div class="form-group">
+                <label for="transaction-category">Category</label>
+                <select id="transaction-category" name="category" required>
+                    <option value="Food">Food</option>
+                    <option value="Transport">Transport</option>
+                    <option value="Shopping">Shopping</option>
+                    <option value="Bills">Bills</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="transaction-date">Date</label>
+                <input
+                    id="transaction-date"
+                    type="date"
+                    name="transaction_date"
+                    required>
+            </div>
+
+        </div>
+
+        <div class="form-group">
+            <label for="transaction-notes">Notes <span>(optional)</span></label>
+            <textarea
+                id="transaction-notes"
+                name="notes"
+                rows="3"
+                placeholder="Add a note..."></textarea>
+        </div>
+
+        <button type="submit" class="save-transaction">
+            Save Transaction
+        </button>
+
+    </form>
+
+</div>
+
+<style>
+.transaction-action {
+    position: fixed;
+    right: 32px;
+    bottom: 28px;
+    z-index: 1000;
+}
+
+.add-transaction-btn {
+    border: 0;
+    background: #5b5ce2;
+    color: #fff;
+    padding: 14px 22px;
+    border-radius: 14px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 10px 28px rgba(91,92,226,.28);
+    transition: transform .2s ease, background .2s ease, box-shadow .2s ease;
+}
+
+.add-transaction-btn:hover {
+    background: #4647c8;
+    transform: translateY(-2px);
+    box-shadow: 0 14px 32px rgba(91,92,226,.34);
+}
+
+.add-transaction-btn span {
+    font-size: 20px;
+    margin-right: 6px;
+    vertical-align: -1px;
+}
+
+.transaction-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: rgba(10, 15, 30, .68);
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+}
+
+.transaction-modal.show {
+    display: flex;
+}
+
+.transaction-form {
+    width: min(540px, 100%);
+    max-height: calc(100vh - 48px);
+    overflow-y: auto;
+    background: #fff;
+    border-radius: 22px;
+    padding: 30px;
+    box-shadow: 0 30px 80px rgba(0,0,0,.30);
+}
+
+.transaction-form-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 24px;
+}
+
+.transaction-form-header h2 {
+    margin: 4px 0 5px;
+    font-size: 25px;
+}
+
+.transaction-form-header p {
+    margin: 0;
+    color: #73788c;
+    font-size: 14px;
+}
+
+.transaction-eyebrow {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: .12em;
+    color: #5b5ce2;
+}
+
+.close-modal {
+    border: 0;
+    background: #f1f3f8;
+    color: #343747;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 23px;
+    line-height: 1;
+}
+
+.close-modal:hover {
+    background: #e5e7ef;
+}
+
+.form-group {
+    margin-bottom: 17px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 7px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #343747;
+}
+
+.form-group label span {
+    color: #9296a6;
+    font-weight: 500;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid #e1e4ec;
+    background: #fafbfe;
+    color: #252838;
+    border-radius: 11px;
+    padding: 12px 13px;
+    font: inherit;
+    outline: none;
+}
+
+.form-group textarea {
+    resize: vertical;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: #7778e8;
+    box-shadow: 0 0 0 3px rgba(91,92,226,.10);
+    background: #fff;
+}
+
+.transaction-form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+}
+
+.save-transaction {
+    width: 100%;
+    border: 0;
+    background: linear-gradient(135deg, #6366f1, #7c3aed);
+    color: #fff;
+    padding: 14px;
+    border-radius: 12px;
+    font-weight: 800;
+    cursor: pointer;
+    margin-top: 5px;
+}
+
+.save-transaction:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 25px rgba(99,102,241,.25);
+}
+
+@media (max-width: 600px) {
+    .transaction-action {
+        right: 18px;
+        bottom: 18px;
+    }
+
+    .transaction-form-row {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
+    .transaction-form {
+        padding: 22px;
+    }
+}
+</style>
+
+
+
+
+
+
+<script>
+(function () {
+
+    function getModal() {
+        return document.getElementById("transactionModal");
+    }
+
+    window.openTransactionModal = function () {
+        const modal = getModal();
+
+        if (!modal) {
+            console.error("SpendSense: transaction modal not found.");
+            return;
+        }
+
+        modal.classList.add("show");
+        document.body.style.overflow = "hidden";
+    };
+
+    window.closeTransactionModal = function () {
+        const modal = getModal();
+
+        if (!modal) return;
+
+        modal.classList.remove("show");
+        document.body.style.overflow = "";
+    };
+
+    document.addEventListener("DOMContentLoaded", function () {
+
+        const modal = getModal();
+
+        if (!modal) {
+            console.error("SpendSense: modal element missing.");
+            return;
+        }
+
+        modal.addEventListener("click", function (event) {
+            if (event.target === modal) {
+                window.closeTransactionModal();
+            }
+        });
+
+        document.addEventListener("keydown", function (event) {
+            if (event.key === "Escape") {
+                window.closeTransactionModal();
+            }
+        });
+
+    });
+
+})();
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

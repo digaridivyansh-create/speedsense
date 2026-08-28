@@ -1,0 +1,1243 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Transactions | SpendSense</title>
+    <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='favicon.svg') }}">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Inter, Segoe UI, Arial, sans-serif;
+            background:
+                radial-gradient(circle at 10% 10%, rgba(99,102,241,.14), transparent 28%),
+                radial-gradient(circle at 90% 20%, rgba(236,72,153,.12), transparent 25%),
+                linear-gradient(135deg, #f8faff 0%, #f4f1ff 50%, #fff7fb 100%);
+            color: #172033;
+            min-height: 100vh;
+        }
+
+        .page {
+            width: min(1250px, calc(100% - 40px));
+            margin: auto;
+            padding: 34px 0 60px;
+        }
+
+        .topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            margin-bottom: 28px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .brand-icon {
+            width: 48px;
+            height: 48px;
+            display: grid;
+            place-items: center;
+            border-radius: 15px;
+            color: white;
+            font-size: 23px;
+            font-weight: 900;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6, #ec4899);
+            box-shadow: 0 12px 28px rgba(99,102,241,.25);
+        }
+
+        .brand h1 {
+            margin: 0;
+            font-size: 22px;
+        }
+
+        .brand p {
+            margin: 3px 0 0;
+            color: #7b8498;
+            font-size: 13px;
+        }
+
+        .back-btn,
+        .add-btn {
+            text-decoration: none;
+            border-radius: 13px;
+            padding: 12px 17px;
+            font-weight: 800;
+            transition: .2s ease;
+        }
+
+        .back-btn {
+            color: #555d70;
+            background: rgba(255,255,255,.8);
+            border: 1px solid #e5e8f0;
+        }
+
+        .back-btn:hover {
+            transform: translateY(-2px);
+            background: white;
+        }
+
+        .add-btn {
+            color: white;
+            border: 0;
+            cursor: pointer;
+            background: linear-gradient(135deg, #6366f1, #7c3aed);
+            box-shadow: 0 10px 25px rgba(99,102,241,.25);
+        }
+
+        .add-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 30px rgba(99,102,241,.32);
+        }
+
+        .hero {
+            position: relative;
+            overflow: hidden;
+            padding: 30px;
+            border-radius: 28px;
+            color: white;
+            background:
+                radial-gradient(circle at 85% 20%, rgba(255,255,255,.24), transparent 20%),
+                radial-gradient(circle at 15% 100%, rgba(236,72,153,.30), transparent 30%),
+                linear-gradient(135deg, #4f46e5, #7c3aed 55%, #db2777);
+            box-shadow: 0 25px 55px rgba(79,70,229,.22);
+            margin-bottom: 25px;
+        }
+
+        .hero h2 {
+            margin: 0 0 7px;
+            font-size: 30px;
+        }
+
+        .hero p {
+            margin: 0;
+            opacity: .86;
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            width: 180px;
+            height: 180px;
+            right: -60px;
+            bottom: -90px;
+            border-radius: 50%;
+            background: rgba(255,255,255,.12);
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+            margin-bottom: 25px;
+        }
+
+        .stat {
+            background: rgba(255,255,255,.88);
+            border: 1px solid rgba(255,255,255,.9);
+            border-radius: 20px;
+            padding: 21px;
+            box-shadow: 0 12px 30px rgba(31,41,55,.07);
+            animation: rise .5s ease both;
+        }
+
+        .stat:nth-child(2) {
+            animation-delay: .08s;
+        }
+
+        .stat:nth-child(3) {
+            animation-delay: .16s;
+        }
+
+        .stat-label {
+            color: #81899a;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .stat-value {
+            margin-top: 7px;
+            font-size: 25px;
+            font-weight: 900;
+        }
+
+        .income {
+            color: #079669;
+        }
+
+        .expense {
+            color: #e34862;
+        }
+
+        .balance {
+            color: #635bdf;
+        }
+
+        .toolbar {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .search {
+            flex: 1;
+            min-width: 230px;
+            position: relative;
+        }
+
+        .search input {
+            width: 100%;
+            border: 1px solid #e2e6ef;
+            background: rgba(255,255,255,.9);
+            border-radius: 14px;
+            padding: 14px 17px;
+            outline: none;
+            font-size: 14px;
+            box-shadow: 0 7px 20px rgba(31,41,55,.04);
+        }
+
+        .search input:focus {
+            border-color: #8b5cf6;
+            box-shadow: 0 0 0 4px rgba(139,92,246,.10);
+        }
+
+        .filter {
+            border: 1px solid #e2e6ef;
+            background: white;
+            border-radius: 14px;
+            padding: 13px 15px;
+            font-weight: 700;
+            color: #596276;
+            outline: none;
+        }
+
+        .transactions {
+            display: grid;
+            gap: 13px;
+        }
+
+        .transaction {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: rgba(255,255,255,.92);
+            border: 1px solid #e9ebf2;
+            border-radius: 19px;
+            padding: 17px 19px;
+            box-shadow: 0 9px 25px rgba(31,41,55,.055);
+            transition: .22s ease;
+            animation: rise .45s ease both;
+        }
+
+        .transaction:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 16px 32px rgba(31,41,55,.10);
+            border-color: #d8d5ff;
+        }
+
+        .transaction-icon {
+            width: 48px;
+            height: 48px;
+            flex: 0 0 48px;
+            display: grid;
+            place-items: center;
+            border-radius: 15px;
+            font-size: 20px;
+            font-weight: 900;
+        }
+
+        .transaction-icon.income-icon {
+            background: #dcfce9;
+            color: #079669;
+        }
+
+        .transaction-icon.expense-icon {
+            background: #ffe4e9;
+            color: #e34862;
+        }
+
+        .transaction-main {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .transaction-title {
+            font-weight: 850;
+            font-size: 15px;
+            margin-bottom: 5px;
+        }
+
+        .transaction-meta {
+            display: flex;
+            gap: 9px;
+            flex-wrap: wrap;
+            color: #8a91a1;
+            font-size: 12px;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            border-radius: 20px;
+            padding: 4px 9px;
+            font-weight: 750;
+            background: #f0efff;
+            color: #6259d8;
+        }
+
+        .transaction-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-left: 10px;
+        }
+
+        .edit-btn,
+        .delete-btn {
+            border: 0;
+            border-radius: 10px;
+            padding: 8px 11px;
+            font-size: 12px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: .2s ease;
+        }
+
+        .edit-btn {
+            background: #eef2ff;
+            color: #4f46e5;
+        }
+
+        .edit-btn:hover {
+            background: #e0e7ff;
+            transform: translateY(-2px);
+        }
+
+        .delete-btn {
+            background: #fff0f2;
+            color: #e34862;
+        }
+
+        .delete-btn:hover {
+            background: #ffe0e5;
+            transform: translateY(-2px);
+        }
+
+
+        .transaction-amount {
+            font-size: 17px;
+            font-weight: 900;
+            white-space: nowrap;
+        }
+
+        .transaction-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .edit-btn {
+            border: 0;
+            background: #eef2ff;
+            color: #5146d8;
+            padding: 9px 13px;
+            border-radius: 10px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: .2s ease;
+        }
+
+        .edit-btn:hover {
+            background: #ddd9ff;
+            transform: translateY(-2px);
+        }
+
+        .edit-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 99999;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background: rgba(15, 23, 42, .65);
+            backdrop-filter: blur(7px);
+        }
+
+        .edit-modal.show {
+            display: flex;
+        }
+
+        .edit-box {
+            padding-bottom: 30px;
+            width: min(520px, 100%);
+            max-height: calc(100vh - 60px);
+            overflow-y: auto;
+            background: white;
+            border-radius: 24px;
+            padding: 28px;
+            box-shadow: 0 30px 80px rgba(0,0,0,.3);
+        }
+
+        .edit-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 22px;
+        }
+
+        .edit-header h2 {
+            margin: 0;
+        }
+
+        .edit-close {
+            border: 0;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: #f1f3f8;
+            font-size: 21px;
+            cursor: pointer;
+        }
+
+        .edit-field {
+            margin-bottom: 15px;
+        }
+
+        .edit-field label {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 13px;
+            font-weight: 800;
+            color: #596276;
+        }
+
+        .edit-field input,
+        .edit-field select,
+        .edit-field textarea {
+            width: 100%;
+            border: 1px solid #dfe3ec;
+            border-radius: 12px;
+            padding: 12px;
+            font: inherit;
+            outline: none;
+        }
+
+        .edit-field input:focus,
+        .edit-field select:focus,
+        .edit-field textarea:focus {
+            border-color: #6366f1;
+            box-shadow: 0 0 0 4px rgba(99,102,241,.1);
+        }
+
+        .edit-save {
+            width: 100%;
+            border: 0;
+            border-radius: 13px;
+            padding: 14px;
+            color: white;
+            background: linear-gradient(135deg,#6366f1,#7c3aed);
+            font-weight: 900;
+            cursor: pointer;
+        }
+
+        @media(max-width:700px) {
+            .transaction-actions {
+                flex-direction: column;
+                align-items: flex-end;
+                gap: 7px;
+            }
+        }
+
+        .empty {
+            text-align: center;
+            padding: 65px 25px;
+            background: rgba(255,255,255,.88);
+            border-radius: 22px;
+            border: 1px dashed #d8dce7;
+        }
+
+        .empty-icon {
+            font-size: 45px;
+            margin-bottom: 12px;
+        }
+
+        .empty h3 {
+            margin: 0 0 6px;
+        }
+
+        .empty p {
+            color: #858d9e;
+            margin: 0;
+        }
+
+        @keyframes rise {
+            from {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media(max-width: 700px) {
+            .page {
+                width: min(100% - 24px, 1250px);
+                padding-top: 20px;
+            }
+
+            .topbar {
+                align-items: flex-start;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            .hero {
+                padding: 24px;
+            }
+
+            .hero h2 {
+                font-size: 25px;
+            }
+
+            .transaction {
+                align-items: flex-start;
+            }
+
+            .transaction-amount {
+                font-size: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="page">
+
+    <div class="topbar">
+
+        <div class="brand">
+            <div class="brand-icon">₹</div>
+            <div>
+                <h1>SpendSense</h1>
+                <p>Smart personal finance</p>
+            </div>
+        </div>
+
+        <a href="/dashboard" class="back-btn">← Dashboard</a>
+
+    </div>
+
+    <section class="hero">
+        <h2>Transaction History</h2>
+        <p>Track your income and spending in one beautiful place.</p>
+    </section>
+
+    <section class="stats">
+
+        <div class="stat">
+            <div class="stat-label">Total Transactions</div>
+            <div class="stat-value balance">
+                {{ transactions|length }}
+            </div>
+        </div>
+
+        <div class="stat">
+            <div class="stat-label">Income</div>
+            <div class="stat-value income">
+                ₹{{ "{:,.0f}".format(total_income|default(0)) }}
+            </div>
+        </div>
+
+        <div class="stat">
+            <div class="stat-label">Expenses</div>
+            <div class="stat-value expense">
+                ₹{{ "{:,.0f}".format(total_expenses|default(0)) }}
+            </div>
+        </div>
+
+    </section>
+
+    <div class="toolbar">
+
+        <div class="search">
+            <input
+                id="search"
+                type="search"
+                placeholder="Search transactions..."
+                oninput="filterTransactions()">
+        </div>
+
+        <select id="typeFilter" class="filter" onchange="filterTransactions()">
+            <option value="all">All transactions</option>
+            <option value="income">Income</option>
+            <option value="expense">Expenses</option>
+        </select>
+
+        <a href="/dashboard" class="add-btn">
+            + Add Transaction
+        </a>
+
+    </div>
+
+    <div class="transactions" id="transactionList">
+
+        {% if transactions %}
+
+            {% for transaction in transactions %}
+
+            <div
+                class="transaction"
+                data-type="{{ transaction['transaction_type'] }}"
+                data-search="{{ transaction['title'] }} {{ transaction['category'] }} {{ transaction['notes']|default('') }}">
+
+                <div class="transaction-icon
+                    {% if transaction['transaction_type'] == 'income' %}
+                        income-icon
+                    {% else %}
+                        expense-icon
+                    {% endif %}">
+
+                    {% if transaction['transaction_type'] == 'income' %}
+                        ↑
+                    {% else %}
+                        ↓
+                    {% endif %}
+
+                </div>
+
+                <div class="transaction-main">
+
+                    <div class="transaction-title">
+                        {{ transaction['title'] }}
+                    </div>
+
+                    <div class="transaction-meta">
+
+                        <span class="badge">
+                            {{ transaction['category'] }}
+                        </span>
+
+                        <span>
+                            {{ transaction['transaction_date'] }}
+                        </span>
+
+                        {% if transaction['notes'] %}
+                            <span>{{ transaction['notes'] }}</span>
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+
+                <div class="transaction-actions">
+
+                    <button
+    type="button"
+    class="edit-btn"
+    onclick='openEditModal(
+        {{ transaction["id"] }},
+        {{ transaction["title"]|tojson }},
+        {{ transaction["amount"] }},
+        {{ transaction["transaction_type"]|tojson }},
+        {{ transaction["category"]|tojson }},
+        {{ transaction["transaction_date"]|tojson }},
+        {{ transaction["notes"]|default("")|tojson }}
+    )'>
+    Edit
+</button>
+
+                    <form
+                        method="POST"
+                        action="/transactions/{{ transaction['id'] }}/delete"
+                        onsubmit="return confirm('Delete this transaction?');">
+
+                        <button type="submit" class="delete-btn">
+                            Delete
+                        </button>
+
+                    </form>
+
+                </div>
+
+                <div class="transaction-actions">
+
+                    
+
+                    <div class="transaction-amount
+                        {% if transaction['transaction_type'] == 'income' %}
+                            income
+                        {% else %}
+                            expense
+                        {% endif %}">
+
+                    {% if transaction['transaction_type'] == 'income' %}
+                        + ₹{{ "{:,.0f}".format(transaction['amount']) }}
+                    {% else %}
+                        − ₹{{ "{:,.0f}".format(transaction['amount']) }}
+                    {% endif %}
+
+                </div>
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        {% else %}
+
+            <div class="empty">
+                <div class="empty-icon">💸</div>
+                <h3>No transactions yet</h3>
+                <p>Your transactions will appear here after you add them.</p>
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+
+<style>
+/* =========================================================
+   SPENDSENSE EDIT TRANSACTION MODAL
+   ========================================================= */
+
+.edit-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    background:
+        radial-gradient(circle at 20% 20%, rgba(99,102,241,.20), transparent 30%),
+        radial-gradient(circle at 80% 80%, rgba(236,72,153,.18), transparent 30%),
+        rgba(15,23,42,.72);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.edit-modal.show {
+    display: flex;
+    animation: editOverlayIn .2s ease-out both;
+}
+
+.edit-form,
+.edit-box {
+    width: min(560px, 100%);
+    max-height: calc(100vh - 80px);
+    overflow-y: auto;
+    position: relative;
+    background:
+        linear-gradient(180deg, #ffffff 0%, #fafaff 100%);
+    border: 1px solid rgba(255,255,255,.9);
+    border-radius: 28px;
+    padding: 26px;
+    box-shadow:
+        0 30px 90px rgba(15,23,42,.30),
+        0 8px 30px rgba(99,102,241,.12);
+    animation: editModalIn .28s cubic-bezier(.2,.8,.2,1) both;
+}
+
+.edit-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 18px;
+    margin-bottom: 24px;
+}
+
+.edit-header h2 {
+    margin: 0;
+    color: #172033;
+    font-size: 25px;
+    font-weight: 900;
+    letter-spacing: -.4px;
+}
+
+.edit-header p {
+    margin: 6px 0 0;
+    color: #858da0;
+    font-size: 13px;
+}
+
+.edit-close {
+    width: 40px;
+    height: 40px;
+    flex: 0 0 40px;
+    display: grid;
+    place-items: center;
+    border: 0;
+    border-radius: 13px;
+    background: #f1f3f8;
+    color: #596276;
+    font-size: 22px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: .2s ease;
+}
+
+.edit-close:hover {
+    background: #ffe7ed;
+    color: #e34862;
+    transform: rotate(5deg) scale(1.05);
+}
+
+.edit-form label {
+    display: block;
+    margin: 15px 0 7px;
+    color: #4b5563;
+    font-size: 13px;
+    font-weight: 850;
+}
+
+.edit-form input,
+.edit-form select,
+.edit-form textarea,
+.edit-box input,
+.edit-box select,
+.edit-box textarea {
+    width: 100%;
+    border: 1px solid #e1e5ef;
+    border-radius: 14px;
+    padding: 13px 14px;
+    background: #ffffff;
+    color: #172033;
+    font: inherit;
+    outline: none;
+    transition: .2s ease;
+}
+
+.edit-form input:hover,
+.edit-form select:hover,
+.edit-form textarea:hover,
+.edit-box input:hover,
+.edit-box select:hover,
+.edit-box textarea:hover {
+    border-color: #c9c8f7;
+}
+
+.edit-form input:focus,
+.edit-form select:focus,
+.edit-form textarea:focus,
+.edit-box input:focus,
+.edit-box select:focus,
+.edit-box textarea:focus {
+    border-color: #6366f1;
+    box-shadow: 0 0 0 4px rgba(99,102,241,.11);
+    transform: translateY(-1px);
+}
+
+.edit-form textarea,
+.edit-box textarea {
+    min-height: 90px;
+    resize: vertical;
+}
+
+.edit-save,
+.update-btn {
+    width: 100%;
+    margin-top: 24px;
+    border: 0;
+    border-radius: 15px;
+    padding: 14px 18px;
+    background: linear-gradient(135deg, #6366f1, #7c3aed, #db2777);
+    color: white;
+    font-size: 15px;
+    font-weight: 900;
+    cursor: pointer;
+    box-shadow: 0 12px 28px rgba(99,102,241,.24);
+    transition: .2s ease;
+}
+
+.edit-save:hover,
+.update-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 17px 34px rgba(99,102,241,.32);
+}
+
+.edit-save:active,
+.update-btn:active {
+    transform: translateY(0) scale(.99);
+}
+
+@keyframes editOverlayIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes editModalIn {
+    from {
+        opacity: 0;
+        transform: translateY(22px) scale(.96);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@media(max-width: 600px) {
+
+    .edit-modal {
+        padding: 14px;
+    }
+
+    .edit-form,
+    .edit-box {
+        padding: 22px;
+        border-radius: 22px;
+    }
+
+    .edit-header h2 {
+        font-size: 21px;
+    }
+}
+</style>
+
+<div id="editModal" class="edit-modal">
+
+    <form
+        id="editForm"
+        class="edit-box"
+        method="POST">
+
+        <div class="edit-header">
+            <h2>Edit Transaction</h2>
+
+            <button
+                type="button"
+                class="edit-close"
+                onclick="closeEditModal()"> ×
+            </button>
+        </div>
+
+        <div class="edit-field">
+            <label>Transaction name</label>
+            <input id="editTitle" name="title" required>
+        </div>
+
+        <div class="edit-field">
+            <label>Amount</label>
+            <input
+                id="editAmount"
+                name="amount"
+                type="number"
+                min="0.01"
+                step="0.01"
+                required>
+        </div>
+
+        <div class="edit-field">
+            <label>Type</label>
+            <select id="editType" name="transaction_type" required>
+                <option value="income">Income</option>
+                <option value="expense">Expense</option>
+            </select>
+        </div>
+
+        <div class="edit-field">
+            <label>Category</label>
+            <input id="editCategory" name="category" required>
+        </div>
+
+        <div class="edit-field">
+            <label>Date</label>
+            <input
+                id="editDate"
+                name="transaction_date"
+                type="date"
+                required>
+        </div>
+
+        <div class="edit-field">
+            <label>Notes</label>
+            <textarea
+                id="editNotes"
+                name="notes"
+                rows="3"></textarea>
+        </div>
+
+        <button type="submit" class="edit-save">
+            Save Changes
+        </button>
+
+    </form>
+
+</div>
+
+
+
+
+
+
+
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const modal = document.getElementById("editModal");
+    const form = document.getElementById("editForm");
+
+    if (!modal || !form) {
+        console.error("SpendSense: Edit modal/form not found.");
+        return;
+    }
+
+    window.openEditModal = function (
+        id,
+        title,
+        amount,
+        type,
+        category,
+        date,
+        notes
+    ) {
+
+        const titleInput = document.getElementById("editTitle");
+        const amountInput = document.getElementById("editAmount");
+        const typeInput = document.getElementById("editType");
+        const categoryInput = document.getElementById("editCategory");
+        const dateInput = document.getElementById("editDate");
+        const notesInput = document.getElementById("editNotes");
+
+        if (titleInput) titleInput.value = title || "";
+        if (amountInput) amountInput.value = amount || "";
+        if (typeInput) typeInput.value = type || "expense";
+        if (categoryInput) categoryInput.value = category || "";
+        if (dateInput) dateInput.value = date || "";
+        if (notesInput) notesInput.value = notes || "";
+
+        form.action = "/transactions/" + id + "/edit";
+
+        modal.classList.add("show");
+        document.body.style.overflow = "hidden";
+    };
+
+    window.closeEditModal = function () {
+        modal.classList.remove("show");
+        document.body.style.overflow = "";
+    };
+
+    modal.addEventListener("click", function (event) {
+        if (event.target === modal) {
+            window.closeEditModal();
+        }
+    });
+
+    document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape") {
+            window.closeEditModal();
+        }
+    });
+
+});
+</script>
+
+
+<style>
+/* =========================================================
+   FINAL EDIT MODAL VISUAL FIX
+   Does NOT change edit functionality
+   ========================================================= */
+
+.edit-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 999999;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: rgba(15, 23, 42, .72);
+    backdrop-filter: blur(7px);
+    overflow-y: auto;
+}
+
+.edit-modal.show {
+    display: flex;
+}
+
+/* Main modal */
+.edit-box,
+.edit-form {
+    width: min(560px, 100%);
+    max-width: 560px;
+    max-height: calc(100vh - 40px);
+    margin: auto;
+    background: #ffffff;
+    border-radius: 26px;
+    padding: 28px;
+    box-shadow: 0 30px 80px rgba(15, 23, 42, .30);
+    overflow-y: auto;
+    position: relative;
+}
+
+/* Header */
+.edit-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    margin-bottom: 24px;
+}
+
+.edit-header h2 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 900;
+    color: #172033;
+}
+
+/* Fix the broken ? close character without touching HTML */
+.edit-close {
+    width: 42px;
+    height: 42px;
+    min-width: 42px;
+    border: 0;
+    border-radius: 13px;
+    background: #f1f3f8;
+    color: transparent !important;
+    font-size: 0 !important;
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+    transition: .2s ease;
+}
+
+.edit-close::after {
+    content: "";
+    color: #4b5563;
+    font-size: 27px;
+    line-height: 1;
+    font-weight: 500;
+}
+
+.edit-close:hover {
+    background: #ffe4e9;
+    transform: rotate(5deg);
+}
+
+.edit-close:hover::after {
+    color: #e34862;
+}
+
+/* Labels */
+.edit-form label {
+    display: block;
+    margin: 14px 0 7px;
+    font-size: 13px;
+    font-weight: 800;
+    color: #475569;
+}
+
+/* Inputs */
+.edit-form input,
+.edit-form select,
+.edit-form textarea {
+    width: 100%;
+    min-height: 46px;
+    border: 1px solid #e1e5ef;
+    border-radius: 13px;
+    padding: 12px 14px;
+    background: #fafbff;
+    color: #172033;
+    font: inherit;
+    outline: none;
+    transition: .2s ease;
+}
+
+.edit-form textarea {
+    min-height: 90px;
+    resize: vertical;
+}
+
+.edit-form input:focus,
+.edit-form select:focus,
+.edit-form textarea:focus {
+    background: #fff;
+    border-color: #6366f1;
+    box-shadow: 0 0 0 4px rgba(99,102,241,.11);
+}
+
+/* Save button */
+.edit-save,
+.update-btn {
+    width: 100%;
+    min-height: 50px;
+    margin-top: 20px;
+    border: 0;
+    border-radius: 14px;
+    color: white;
+    background: linear-gradient(135deg, #6366f1, #7c3aed, #db2777);
+    font-size: 15px;
+    font-weight: 900;
+    cursor: pointer;
+    box-shadow: 0 12px 28px rgba(99,102,241,.25);
+    transition: .2s ease;
+
+    /* keeps Save Changes visible when the form scrolls */
+    position: sticky;
+    bottom: 0;
+}
+
+.edit-save:hover,
+.update-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 16px 32px rgba(99,102,241,.32);
+}
+
+/* Better mobile behaviour */
+@media (max-width: 600px) {
+    .edit-modal {
+        padding: 10px;
+        align-items: flex-start;
+    }
+
+    .edit-box,
+    .edit-form {
+        width: 100%;
+        max-height: calc(100vh - 20px);
+        border-radius: 20px;
+        padding: 22px;
+    }
+
+    .edit-header h2 {
+        font-size: 21px;
+    }
+}
+</style>
+
+</body>
+</html>
+
+
+

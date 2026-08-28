@@ -56,6 +56,7 @@ def signup():
     connection = get_connection()
 
     try:
+
         password_hash = generate_password_hash(password)
 
         connection.execute(
@@ -84,6 +85,8 @@ def signup():
         connection.close()
 
     return redirect("/login")
+
+
 # =========================================
 # LOGIN PAGE
 # =========================================
@@ -109,6 +112,7 @@ def login():
     connection = get_connection()
 
     try:
+
         user = connection.execute(
             """
             SELECT id, email, password_hash
@@ -117,6 +121,7 @@ def login():
             """,
             (email,)
         ).fetchone()
+
     finally:
         connection.close()
 
@@ -130,6 +135,7 @@ def login():
         return "Invalid email or password.", 401
 
     session.clear()
+
     session["user_id"] = user["id"]
     session["user_email"] = user["email"]
 
@@ -146,153 +152,9 @@ def dashboard():
     if "user_id" not in session:
         return redirect("/login")
 
-    connection = get_connection()
-
-    try:
-        user_id = session["user_id"]
-
-        income_row = connection.execute(
-            """
-            SELECT COALESCE(SUM(amount), 0) AS total
-            FROM transactions
-            WHERE user_id = ?
-              AND transaction_type = 'income'
-              AND strftime('%Y-%m', transaction_date) =
-                  strftime('%Y-%m', 'now')
-            """,
-            (user_id,)
-        ).fetchone()
-
-        expense_row = connection.execute(
-            """
-            SELECT COALESCE(SUM(amount), 0) AS total
-            FROM transactions
-            WHERE user_id = ?
-              AND transaction_type = 'expense'
-              AND strftime('%Y-%m', transaction_date) =
-                  strftime('%Y-%m', 'now')
-            """,
-            (user_id,)
-        ).fetchone()
-
-        recent_transactions = connection.execute(
-            """
-            SELECT
-                id,
-                title,
-                amount,
-                transaction_type,
-                category,
-                transaction_date,
-                notes
-            FROM transactions
-            WHERE user_id = ?
-            ORDER BY transaction_date DESC, id DESC
-            LIMIT 10
-            """,
-            (user_id,)
-        ).fetchall()
-
-        category_rows = connection.execute(
-            """
-            SELECT
-                category,
-                COALESCE(SUM(amount), 0) AS total
-            FROM transactions
-            WHERE user_id = ?
-              AND transaction_type = 'expense'
-              AND strftime('%Y-%m', transaction_date) =
-                  strftime('%Y-%m', 'now')
-            GROUP BY category
-            ORDER BY total DESC
-            """,
-            (user_id,)
-        ).fetchall()
-
-        daily_rows = connection.execute(
-            """
-            SELECT
-                transaction_date,
-                COALESCE(SUM(amount), 0) AS total
-            FROM transactions
-            WHERE user_id = ?
-              AND transaction_type = 'expense'
-              AND strftime('%Y-%m', transaction_date) =
-                  strftime('%Y-%m', 'now')
-            GROUP BY transaction_date
-            ORDER BY transaction_date
-            """,
-            (user_id,)
-        ).fetchall()
-
-    finally:
-        connection.close()
-
-    total_income = float(income_row["total"] or 0)
-    total_expenses = float(expense_row["total"] or 0)
-    total_balance = total_income - total_expenses
-    savings = total_balance
-
-    category_totals = {
-        "Food": 0,
-        "Transport": 0,
-        "Shopping": 0,
-        "Bills": 0
-    }
-
-    for row in category_rows:
-        category = row["category"]
-        if category in category_totals:
-            category_totals[category] = float(row["total"] or 0)
-
-    max_category_total = max(
-        category_totals.values(),
-        default=0
-    )
-
-    daily_spending = {
-        "Mon": 0,
-        "Tue": 0,
-        "Wed": 0,
-        "Thu": 0,
-        "Fri": 0,
-        "Sat": 0,
-        "Sun": 0
-    }
-
-    from datetime import datetime
-
-    for row in daily_rows:
-        try:
-            date_obj = datetime.strptime(
-                row["transaction_date"],
-                "%Y-%m-%d"
-            )
-            day_name = date_obj.strftime("%a")
-
-            if day_name in daily_spending:
-                daily_spending[day_name] += float(row["total"] or 0)
-
-        except (ValueError, TypeError):
-            pass
-
-    chart_max = max(
-        1000,
-        max(daily_spending.values(), default=0)
-    )
-
     return render_template(
         "dashboard.html",
-        email=session.get("user_email"),
-        total_balance=total_balance,
-        total_income=total_income,
-        total_expenses=total_expenses,
-        savings=savings,
-        recent_transactions=recent_transactions,
-        category_totals=category_totals,
-        max_category_total=max_category_total,
-        daily_spending=daily_spending,
-        chart_max=chart_max
+        email=session.get("user_email")
     )
 
 
@@ -391,12 +253,4 @@ if __name__ == "__main__":
         debug=True,
         port=5001
     )
-
-
-
-
-
-
-
-
 
