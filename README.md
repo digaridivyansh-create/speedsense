@@ -1,72 +1,74 @@
-\# SpendSense
+# SpendSense 💰
 
+SpendSense is a modern personal finance management web application built with Flask.
 
+It helps users track income and expenses, manage transactions, and view their financial activity through a clean and colourful dashboard.
 
-\## Day 1 — Project Foundation, Authentication \& Dashboard
+## 🚀 Current Features
 
+### Authentication
+- User signup
+- User login
+- Session-based authentication
+- Logout
 
+### Dashboard
+- Personal finance dashboard
+- Income and expense overview
+- Recent transaction activity
+- Financial summary
 
-\### Overview
+### Transactions
+- Add transactions
+- View transaction history
+- Income and expense classification
+- Transaction categories
+- Transaction dates
+- Transaction notes
+- Search transactions
+- Filter by income/expense
+- Edit existing transactions
+- Delete transactions
+- Transaction totals for income and expenses
 
+### UI / Design
+- Modern responsive interface
+- Colourful gradient design
+- Rounded cards
+- Interactive buttons
+- Edit transaction modal
+- Responsive mobile layout
+- Improved transaction management interface
 
+## 🛠️ Tech Stack
 
-Today we started building SpendSense, a privacy-focused personal finance web application.
+- Python
+- Flask
+- SQLite
+- HTML5
+- CSS3
+- JavaScript
+- Jinja2
+- PowerShell / Git
 
-
-
-The main objective of Day 1 was to establish the core application foundation, including the Flask backend, SQLite database, user registration, secure login, sessions, logout, protected dashboard access, and homepage navigation.
-
-
-
-\---
-
-
-
-\# 1. Project Setup
-
-
-
-We created the initial SpendSense project structure.
-
-
+## 📁 Project Structure
 
 ```text
-
 finance based/
-
 │
-
-├── .venv/
-
-│
-
 ├── app/
-
 │   ├── app.py
-
-│   │
-
 │   ├── templates/
-
-│   │   ├── index.html
-
-│   │   ├── signup.html
-
 │   │   ├── login.html
-
-│   │   └── dashboard.html
-
+│   │   ├── signup.html
+│   │   ├── dashboard.html
+│   │   └── transactions.html
 │   │
-
-│   └── static/
-
+│   ├── static/
+│   │   └── favicon.svg
+│   │
+│   └── data/
 │
-
-├── database/
-
-│   └── spendsense.db
-
-│
-
-└── README.md
-
+├── .venv/
+├── README.md
+└── ...
