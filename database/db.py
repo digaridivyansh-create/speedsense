@@ -46,6 +46,22 @@ def initialize_database():
         """
     )
 
+
+    # Budgets
+    connection.execute(
+        """
+        CREATE TABLE IF NOT EXISTS budgets (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            user_id INTEGER NOT NULL,
+            category TEXT NOT NULL,
+            amount REAL NOT NULL,
+            month TEXT NOT NULL,
+            created_at TEXT NOT NULL,
+            FOREIGN KEY (user_id) REFERENCES users(id),
+            UNIQUE(user_id, category, month)
+        )
+        """
+    )
     connection.commit()
     connection.close()
 
@@ -53,3 +69,4 @@ def initialize_database():
 if __name__ == "__main__":
     initialize_database()
     print("Database initialized successfully.")
+

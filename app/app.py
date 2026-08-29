@@ -140,6 +140,167 @@ def login():
 # DASHBOARD
 # =========================================
 
+
+# =========================================
+# BUDGETS
+# =========================================
+
+@app.route("/budgets")
+def budgets():
+
+    if "user_id" not in session:
+        return redirect("/login")
+
+    connection = get_connection()
+
+    try:
+        user_id = session["user_id"]
+
+        budgets = connection.execute(
+            """
+            SELECT
+                b.id,
+                b.category,
+                b.amount,
+                b.month,
+                COALESCE(SUM(t.amount), 0) AS spent
+            FROM budgets b
+            LEFT JOIN transactions t
+                ON t.user_id = b.user_id
+                AND t.category = b.category
+                AND t.transaction_type = 'expense'
+                AND strftime('%Y-%m', t.transaction_date) = b.month
+            WHERE b.user_id = ?
+              AND b.month = strftime('%Y-%m', 'now')
+            GROUP BY b.id, b.category, b.amount, b.month
+            ORDER BY b.category
+            """,
+            (user_id,)
+        ).fetchall()
+
+    finally:
+        connection.close()
+
+    # =========================================
+    # BUDGET INTELLIGENCE
+    # =========================================
+
+    budget_data = []
+
+    for budget in budgets:
+
+        amount = float(budget["amount"] or 0)
+        spent = float(budget["spent"] or 0)
+
+        remaining = amount - spent
+
+        if amount > 0:
+            percentage = (spent / amount) * 100
+        else:
+            percentage = 0
+
+        budget_data.append({
+            "id": budget["id"],
+            "category": budget["category"],
+            "amount": amount,
+            "month": budget["month"],
+            "spent": spent,
+            "remaining": remaining,
+            "percentage": percentage
+        })
+
+    return render_template(
+        "budgets.html",
+        email=session.get("user_email", ""),
+        budgets=budget_data
+    )
+
+
+@app.route("/budgets/add", methods=["POST"])
+def add_budget():
+
+    if "user_id" not in session:
+        return redirect("/login")
+
+    category = request.form.get("category", "").strip()
+    amount = request.form.get("amount", "").strip()
+
+    try:
+        amount = float(amount)
+
+        if amount <= 0:
+            raise ValueError
+
+    except ValueError:
+        return "Invalid budget amount.", 400
+
+    if not category:
+        return "Category is required.", 400
+
+    connection = get_connection()
+
+    try:
+        connection.execute(
+            """
+            INSERT INTO budgets
+            (user_id, category, amount, month, created_at)
+            VALUES (?, ?, ?, strftime('%Y-%m', 'now'), datetime('now'))
+            """,
+            (
+                session["user_id"],
+                category,
+                amount
+            )
+        )
+
+        connection.commit()
+
+    except Exception as error:
+
+        connection.rollback()
+
+        if "UNIQUE constraint failed" in str(error):
+            return "A budget for this category already exists this month.", 409
+
+        print("Budget error:", error)
+
+        return "Unable to create budget.", 500
+
+    finally:
+        connection.close()
+
+    return redirect("/budgets")
+
+
+@app.route("/budgets/<int:budget_id>/delete", methods=["POST"])
+def delete_budget(budget_id):
+
+    if "user_id" not in session:
+        return redirect("/login")
+
+    connection = get_connection()
+
+    try:
+
+        connection.execute(
+            """
+            DELETE FROM budgets
+            WHERE id = ?
+              AND user_id = ?
+            """,
+            (
+                budget_id,
+                session["user_id"]
+            )
+        )
+
+        connection.commit()
+
+    finally:
+        connection.close()
+
+    return redirect("/budgets")
+
 @app.route("/dashboard")
 def dashboard():
 
@@ -329,6 +490,7 @@ def dashboard():
         max_category_total=max_category_total,
         daily_spending=daily_spending,
         chart_max=chart_max,
+
         financial_health=financial_health,
         financial_insight=financial_insight,
         financial_health_label=financial_health_label,
@@ -617,18 +779,651 @@ def logout():
 # RUN SERVER
 # =========================================
 
+
+# =========================================
+# EDIT BUDGET
+# =========================================
+
+@app.route("/budgets/<int:budget_id>/edit", methods=["POST"])
+def edit_budget(budget_id):
+
+    if "user_id" not in session:
+        return redirect("/login")
+
+    category = request.form.get("category", "").strip()
+    amount_raw = request.form.get("amount", "").strip()
+
+    if not category or not amount_raw:
+        return redirect("/budgets")
+
+    try:
+        amount = float(amount_raw)
+
+        if amount <= 0:
+            return redirect("/budgets")
+
+    except ValueError:
+        return redirect("/budgets")
+
+    connection = get_connection()
+
+    try:
+
+        user_id = session["user_id"]
+
+        budget = connection.execute(
+            """
+            SELECT id, month
+            FROM budgets
+            WHERE id = ?
+              AND user_id = ?
+            """,
+            (budget_id, user_id)
+        ).fetchone()
+
+        if budget is None:
+            return redirect("/budgets")
+
+        try:
+
+            connection.execute(
+                """
+                UPDATE budgets
+                SET category = ?,
+                    amount = ?
+                WHERE id = ?
+                  AND user_id = ?
+                """,
+                (
+                    category,
+                    amount,
+                    budget_id,
+                    user_id
+                )
+            )
+
+            connection.commit()
+
+        except Exception as error:
+
+            connection.rollback()
+
+            if "UNIQUE constraint failed" in str(error):
+                return "A budget for this category already exists for this month.", 409
+
+            print("Edit budget error:", error)
+            return "Unable to edit budget.", 500
+
+    finally:
+        connection.close()
+
+    return redirect("/budgets")
+
+
+# =========================================
+# ANALYTICS
+# =========================================
+
+@app.route("/analytics")
+def analytics():
+
+    if "user_id" not in session:
+        return redirect("/login")
+
+    connection = get_connection()
+
+    try:
+
+        user_id = session["user_id"]
+
+        # -----------------------------------------
+        # CATEGORY SPENDING
+        # -----------------------------------------
+
+        category_rows = connection.execute(
+            """
+            SELECT
+                category,
+                COALESCE(SUM(amount), 0) AS total
+            FROM transactions
+            WHERE user_id = ?
+              AND transaction_type = 'expense'
+              AND strftime('%Y-%m', transaction_date) =
+                  strftime('%Y-%m', 'now')
+            GROUP BY category
+            ORDER BY total DESC
+            """,
+            (user_id,)
+        ).fetchall()
+
+        # -----------------------------------------
+        # DAILY SPENDING
+        # -----------------------------------------
+
+        daily_rows = connection.execute(
+            """
+            SELECT
+                transaction_date,
+                COALESCE(SUM(amount), 0) AS total
+            FROM transactions
+            WHERE user_id = ?
+              AND transaction_type = 'expense'
+              AND strftime('%Y-%m', transaction_date) =
+                  strftime('%Y-%m', 'now')
+            GROUP BY transaction_date
+            ORDER BY transaction_date
+            """,
+            (user_id,)
+        ).fetchall()
+
+        # -----------------------------------------
+        # MONTHLY SPENDING
+        # -----------------------------------------
+
+        monthly_rows = connection.execute(
+            """
+            SELECT
+                strftime('%Y-%m', transaction_date) AS month,
+                COALESCE(SUM(amount), 0) AS total
+            FROM transactions
+            WHERE user_id = ?
+              AND transaction_type = 'expense'
+            GROUP BY strftime('%Y-%m', transaction_date)
+            ORDER BY month ASC
+            LIMIT 6
+            """,
+            (user_id,)
+        ).fetchall()
+
+        # -----------------------------------------
+        # TOTAL SPENDING
+        # -----------------------------------------
+
+        total_spending = connection.execute(
+            """
+            SELECT
+                COALESCE(SUM(amount), 0) AS total
+            FROM transactions
+            WHERE user_id = ?
+              AND transaction_type = 'expense'
+              AND strftime('%Y-%m', transaction_date) =
+                  strftime('%Y-%m', 'now')
+            """,
+            (user_id,)
+        ).fetchone()["total"]
+
+    finally:
+        connection.close()
+
+    # =========================================
+    # ANALYTICS CALCULATIONS
+    # =========================================
+
+    total_spending = float(total_spending or 0)
+
+    # Average per active spending day
+    if daily_rows:
+
+        average_daily_spending = (
+            total_spending / len(daily_rows)
+        )
+
+    else:
+
+        average_daily_spending = 0
+
+    # Highest spending day
+    if daily_rows:
+
+        highest_day_row = max(
+            daily_rows,
+            key=lambda row: float(row["total"] or 0)
+        )
+
+        highest_spending_day = (
+            highest_day_row["transaction_date"]
+        )
+
+        highest_day_amount = float(
+            highest_day_row["total"] or 0
+        )
+
+    else:
+
+        highest_spending_day = ""
+        highest_day_amount = 0
+
+    # Top category
+    if category_rows:
+
+        top_category = category_rows[0]["category"]
+
+        top_category_amount = float(
+            category_rows[0]["total"] or 0
+        )
+
+        if total_spending > 0:
+
+            top_category_percentage = round(
+                (top_category_amount / total_spending) * 100
+            )
+
+        else:
+
+            top_category_percentage = 0
+
+    else:
+
+        top_category = "No spending"
+        top_category_amount = 0
+        top_category_percentage = 0
+
+    # =========================================
+    # CHART DATA
+    # =========================================
+
+    monthly_labels = []
+    monthly_values = []
+
+    for row in monthly_rows:
+
+        monthly_labels.append(
+            row["month"]
+        )
+
+        monthly_values.append(
+            float(row["total"] or 0)
+        )
+
+    return render_template(
+
+        "analytics.html",
+
+        email=session.get(
+            "user_email",
+            ""
+        ),
+
+        category_rows=category_rows,
+
+        monthly_rows=monthly_rows,
+
+        daily_rows=daily_rows,
+
+        total_spending=total_spending,
+
+        average_daily_spending=average_daily_spending,
+
+        highest_spending_day=highest_spending_day,
+
+        highest_day_amount=highest_day_amount,
+
+        top_category=top_category,
+
+        top_category_amount=top_category_amount,
+
+        top_category_percentage=top_category_percentage,
+
+        monthly_labels=monthly_labels,
+
+        monthly_values=monthly_values
+    )
+
+
+
+
+# =========================================
+# REPORTS
+# =========================================
+
+@app.route("/reports")
+def reports():
+
+    if "user_id" not in session:
+        return redirect("/login")
+
+    connection = get_connection()
+
+    try:
+        user_id = session["user_id"]
+
+        monthly_rows = connection.execute(
+            """
+            SELECT
+                strftime('%Y-%m', transaction_date) AS month,
+                COALESCE(SUM(
+                    CASE
+                        WHEN transaction_type = 'income'
+                        THEN amount ELSE 0
+                    END
+                ), 0) AS income,
+                COALESCE(SUM(
+                    CASE
+                        WHEN transaction_type = 'expense'
+                        THEN amount ELSE 0
+                    END
+                ), 0) AS expenses
+            FROM transactions
+            WHERE user_id = ?
+            GROUP BY strftime('%Y-%m', transaction_date)
+            ORDER BY month DESC
+            LIMIT 12
+            """,
+            (user_id,)
+        ).fetchall()
+
+        category_rows = connection.execute(
+            """
+            SELECT
+                category,
+                COALESCE(SUM(amount), 0) AS total
+            FROM transactions
+            WHERE user_id = ?
+              AND transaction_type = 'expense'
+            GROUP BY category
+            ORDER BY total DESC
+            """,
+            (user_id,)
+        ).fetchall()
+
+        transaction_count = connection.execute(
+            """
+            SELECT COUNT(*) AS total
+            FROM transactions
+            WHERE user_id = ?
+            """,
+            (user_id,)
+        ).fetchone()["total"]
+
+        largest_expense = connection.execute(
+            """
+            SELECT
+                title,
+                category,
+                amount,
+                transaction_date
+            FROM transactions
+            WHERE user_id = ?
+              AND transaction_type = 'expense'
+            ORDER BY amount DESC
+            LIMIT 1
+            """,
+            (user_id,)
+        ).fetchone()
+
+        largest_income = connection.execute(
+            """
+            SELECT
+                title,
+                amount,
+                transaction_date
+            FROM transactions
+            WHERE user_id = ?
+              AND transaction_type = 'income'
+            ORDER BY amount DESC
+            LIMIT 1
+            """,
+            (user_id,)
+        ).fetchone()
+
+    finally:
+        connection.close()
+
+    # =========================================
+    # FINANCIAL TOTALS
+    # =========================================
+
+    monthly_data = []
+
+    for row in monthly_rows:
+        income = float(row["income"] or 0)
+        expenses = float(row["expenses"] or 0)
+        savings = income - expenses
+
+        monthly_data.append({
+            "month": row["month"],
+            "income": income,
+            "expenses": expenses,
+            "savings": savings
+        })
+
+    total_income = sum(
+        row["income"] for row in monthly_data
+    )
+
+    total_expenses = sum(
+        row["expenses"] for row in monthly_data
+    )
+
+    net_savings = total_income - total_expenses
+
+    months_tracked = len(monthly_data)
+
+    average_monthly_income = (
+        total_income / months_tracked
+        if months_tracked > 0 else 0
+    )
+
+    average_monthly_expenses = (
+        total_expenses / months_tracked
+        if months_tracked > 0 else 0
+    )
+
+    if total_income > 0:
+        savings_rate = round(
+            (net_savings / total_income) * 100,
+            1
+        )
+    else:
+        savings_rate = 0
+
+    # =========================================
+    # TOP CATEGORY
+    # =========================================
+
+    top_category = (
+        category_rows[0]["category"]
+        if category_rows
+        else "None"
+    )
+
+    top_category_amount = (
+        float(category_rows[0]["total"] or 0)
+        if category_rows
+        else 0
+    )
+
+    # =========================================
+    # BEST / WORST MONTH
+    # =========================================
+
+    best_month = None
+    worst_month = None
+
+    if monthly_data:
+        best_month = max(
+            monthly_data,
+            key=lambda row: row["savings"]
+        )
+
+        worst_month = min(
+            monthly_data,
+            key=lambda row: row["savings"]
+        )
+
+    # =========================================
+    # FINANCIAL HEALTH
+    # =========================================
+
+    if total_income <= 0:
+        financial_health = 0 if total_expenses > 0 else 50
+    else:
+        financial_health = round(
+            ((total_income - total_expenses) / total_income) * 100
+        )
+
+        financial_health = max(
+            0,
+            min(100, financial_health)
+        )
+
+    if financial_health >= 81:
+        financial_health_label = "Excellent"
+        financial_health_message = (
+            "Your finances are in excellent shape. "
+            "You are keeping spending comfortably below income."
+        )
+
+    elif financial_health >= 61:
+        financial_health_label = "Good"
+        financial_health_message = (
+            "Your finances are healthy. "
+            "Maintaining your current savings discipline can strengthen your position."
+        )
+
+    elif financial_health >= 41:
+        financial_health_label = "Moderate"
+        financial_health_message = (
+            "Your finances are fairly balanced, "
+            "but reducing unnecessary spending could improve your savings."
+        )
+
+    elif financial_health >= 21:
+        financial_health_label = "Needs Attention"
+        financial_health_message = (
+            "Expenses are consuming a large share of your income. "
+            "Review your largest spending categories."
+        )
+
+    else:
+        financial_health_label = "Overspending"
+        financial_health_message = (
+            "Your expenses are currently exceeding your income. "
+            "Focus on essential spending and reducing discretionary costs."
+        )
+
+    # =========================================
+    # POTENTIAL SAVINGS
+    # =========================================
+
+    potential_savings = max(
+        0,
+        total_income - total_expenses
+    )
+
+    # =========================================
+    # AUTOMATIC INSIGHTS
+    # =========================================
+
+    insights = []
+
+    if top_category_amount > 0:
+        insights.append(
+            f"{top_category} is your largest expense category "
+            f"at ₹{top_category_amount:,.2f}."
+        )
+
+    if savings_rate >= 30:
+        insights.append(
+            f"You are saving {savings_rate}% of your tracked income."
+        )
+    elif savings_rate >= 10:
+        insights.append(
+            f"Your savings rate is {savings_rate}%. "
+            "There is room to increase your monthly savings."
+        )
+    elif total_income > 0:
+        insights.append(
+            "Your savings rate is low. "
+            "Review recurring and discretionary expenses."
+        )
+
+    if best_month:
+        insights.append(
+            f"Your strongest tracked month was {best_month['month']} "
+            f"with ₹{best_month['savings']:,.2f} saved."
+        )
+
+    if worst_month and worst_month["savings"] < 0:
+        insights.append(
+            f"{worst_month['month']} had a deficit of "
+            f"₹{abs(worst_month['savings']):,.2f}."
+        )
+
+    if largest_expense:
+        insights.append(
+            f"Your largest individual expense was "
+            f"₹{float(largest_expense['amount']):,.2f} "
+            f"for {largest_expense['title']}."
+        )
+
+    # =========================================
+    # REPORT PAGE DISPLAY METRICS
+    # =========================================
+
+    if best_month:
+        best_saving_month_name = best_month["month"]
+        best_saving_amount = max(0, float(best_month["savings"]))
+    else:
+        best_saving_month_name = "No data"
+        best_saving_amount = 0.0
+
+    if monthly_data:
+        highest_spending_month = max(
+            monthly_data,
+            key=lambda row: float(row["expenses"] or 0)
+        )
+        highest_spending_month_name = highest_spending_month["month"]
+        highest_spending_amount = float(
+            highest_spending_month["expenses"] or 0
+        )
+    else:
+        highest_spending_month_name = "No data"
+        highest_spending_amount = 0.0
+
+    return render_template(
+        "reports.html",
+        email=session.get("user_email", ""),
+
+        monthly_rows=monthly_rows,
+        monthly_data=monthly_data,
+        category_rows=category_rows,
+
+        transaction_count=transaction_count,
+        months_tracked=months_tracked,
+
+        total_income=total_income,
+        total_expenses=total_expenses,
+        net_savings=net_savings,
+        savings_rate=savings_rate,
+
+        average_monthly_income=average_monthly_income,
+        average_monthly_expenses=average_monthly_expenses,
+
+        top_category=top_category,
+        top_category_amount=top_category_amount,
+
+        best_month=best_month,
+        worst_month=worst_month,
+
+        largest_expense=largest_expense,
+        largest_income=largest_income,
+
+        potential_savings=potential_savings,
+
+        financial_health=financial_health,
+        financial_health_label=financial_health_label,
+        financial_health_message=financial_health_message,
+
+        insights=insights
+    )
+
 if __name__ == "__main__":
 
     app.run(
         debug=True,
         port=5001
     )
-
-
-
-
-
-
 
 
 

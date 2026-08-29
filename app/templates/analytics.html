@@ -1,0 +1,1231 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Analytics - SpendSense</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+            background: #f7f9fc;
+            color: #172033;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .app {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* ================= SIDEBAR ================= */
+
+        .sidebar {
+            width: 250px;
+            min-height: 100vh;
+            background: #ffffff;
+            border-right: 1px solid #e8ecf3;
+            padding: 28px 18px;
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 0 12px 35px;
+        }
+
+        .brand-logo {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            background: #3568e8;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            font-weight: 800;
+        }
+
+        .brand-name {
+            font-size: 17px;
+            font-weight: 800;
+            color: #172033;
+        }
+
+        .brand-subtitle {
+            font-size: 11px;
+            color: #8b94a7;
+            margin-top: 2px;
+        }
+
+        .nav {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+            padding: 13px 14px;
+            border-radius: 12px;
+            color: #687287;
+            font-size: 14px;
+            font-weight: 600;
+            transition: .2s ease;
+        }
+
+        .nav-item:hover {
+            background: #f3f6fc;
+            color: #3568e8;
+        }
+
+        .nav-item.active {
+            background: #eef3ff;
+            color: #3568e8;
+        }
+
+        .nav-icon {
+            width: 20px;
+            text-align: center;
+            font-size: 15px;
+        }
+
+        .sidebar-bottom {
+            margin-top: auto;
+        }
+
+        .privacy {
+            background: #f7f9fc;
+            border-radius: 14px;
+            padding: 15px;
+            margin: 20px 4px;
+        }
+
+        .privacy strong {
+            display: block;
+            font-size: 12px;
+            margin-bottom: 5px;
+        }
+
+        .privacy span {
+            font-size: 10px;
+            color: #8b94a7;
+            line-height: 1.4;
+        }
+
+        .logout {
+            color: #687287;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 12px 14px;
+        }
+
+        /* ================= MAIN ================= */
+
+        .main {
+            margin-left: 250px;
+            width: calc(100% - 250px);
+            padding: 38px 42px 60px;
+        }
+
+        .topbar {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin-bottom: 30px;
+        }
+
+        .eyebrow {
+            color: #3568e8;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            margin: 0 0 8px;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 32px;
+            line-height: 1.1;
+            letter-spacing: -1px;
+        }
+
+        .subtitle {
+            margin: 9px 0 0;
+            color: #8a93a5;
+            font-size: 14px;
+        }
+
+        .account {
+            text-align: right;
+            padding-top: 5px;
+        }
+
+        .account-email {
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .account-label {
+            color: #9aa2b1;
+            font-size: 11px;
+            margin-top: 3px;
+        }
+
+        /* ================= STAT CARDS ================= */
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .stat {
+            border-radius: 18px;
+            padding: 20px;
+            min-height: 132px;
+            position: relative;
+            overflow: hidden;
+            color: white;
+            box-shadow: 0 10px 25px rgba(30, 45, 80, .08);
+        }
+
+        .stat:nth-child(1) {
+            background: linear-gradient(135deg, #3568e8, #668cf2);
+        }
+
+        .stat:nth-child(2) {
+            background: linear-gradient(135deg, #26ad78, #59ca9a);
+        }
+
+        .stat:nth-child(3) {
+            background: linear-gradient(135deg, #ed7767, #f39a8e);
+        }
+
+        .stat:nth-child(4) {
+            background: linear-gradient(135deg, #e7a04c, #f0bd72);
+        }
+
+        .stat:nth-child(5) {
+            background: linear-gradient(135deg, #745ee8, #9788ed);
+        }
+
+        .stat-label {
+            font-size: 11px;
+            font-weight: 700;
+            opacity: .85;
+            margin-bottom: 15px;
+        }
+
+        .stat-value {
+            font-size: 23px;
+            font-weight: 800;
+            letter-spacing: -.5px;
+        }
+
+        .stat-small {
+            font-size: 11px;
+            margin-top: 7px;
+            opacity: .82;
+        }
+
+        .stat-icon {
+            position: absolute;
+            right: 15px;
+            top: 15px;
+            width: 34px;
+            height: 34px;
+            border-radius: 11px;
+            background: rgba(255,255,255,.85);
+            color: #3568e8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+        }
+
+        /* ================= PANELS ================= */
+
+        .panel {
+            background: white;
+            border: 1px solid #e8ecf3;
+            border-radius: 20px;
+            padding: 24px;
+            box-shadow: 0 8px 25px rgba(30, 45, 80, .04);
+        }
+
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 18px;
+        }
+
+        .panel-title {
+            margin: 0;
+            font-size: 18px;
+            font-weight: 800;
+        }
+
+        .panel-description {
+            margin: 5px 0 0;
+            color: #929aaa;
+            font-size: 12px;
+        }
+
+        .tag {
+            background: #eef3ff;
+            color: #3568e8;
+            border-radius: 20px;
+            padding: 7px 11px;
+            font-size: 10px;
+            font-weight: 800;
+        }
+
+        /* ================= TREND ================= */
+
+        .trend-panel {
+            margin-bottom: 24px;
+        }
+
+        .trend-chart {
+            height: 330px;
+            position: relative;
+        }
+
+        /* ================= LOWER GRID ================= */
+
+        .lower-grid {
+            display: grid;
+            grid-template-columns: 1.15fr .85fr;
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+
+        .category-layout {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 25px;
+            align-items: center;
+        }
+
+        .category-chart {
+            height: 250px;
+            position: relative;
+        }
+
+        .category-list {
+            display: flex;
+            flex-direction: column;
+            gap: 17px;
+        }
+
+        .category-row {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 10px;
+        }
+
+        .category-name {
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .category-amount {
+            font-size: 13px;
+            font-weight: 800;
+        }
+
+        .category-percent {
+            color: #929aaa;
+            font-size: 11px;
+            margin-top: 3px;
+        }
+
+        .progress {
+            height: 7px;
+            background: #edf0f5;
+            border-radius: 20px;
+            overflow: hidden;
+            grid-column: 1 / -1;
+        }
+
+        .progress span {
+            display: block;
+            height: 100%;
+            background: #3568e8;
+            border-radius: inherit;
+        }
+
+        /* ================= MONTHLY ================= */
+
+        .monthly-chart {
+            height: 250px;
+        }
+
+        /* ================= INSIGHT ================= */
+
+        .insight {
+            background: linear-gradient(135deg, #edf3ff, #f7f9ff);
+            border: 1px solid #dfe8ff;
+            border-radius: 18px;
+            padding: 22px 24px;
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .insight-icon {
+            width: 46px;
+            height: 46px;
+            border-radius: 14px;
+            background: #3568e8;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        .insight-label {
+            color: #3568e8;
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            margin-bottom: 4px;
+        }
+
+        .insight-title {
+            font-size: 17px;
+            font-weight: 800;
+            margin-bottom: 4px;
+        }
+
+        .insight-text {
+            color: #687287;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        /* ================= RESPONSIVE ================= */
+
+        @media (max-width: 1200px) {
+            .stats {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .lower-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 850px) {
+            .sidebar {
+                width: 80px;
+                padding: 20px 10px;
+            }
+
+            .brand {
+                justify-content: center;
+                padding: 0 0 25px;
+            }
+
+            .brand-name,
+            .brand-subtitle,
+            .nav-item span:not(.nav-icon),
+            .privacy,
+            .logout {
+                display: none;
+            }
+
+            .nav-item {
+                justify-content: center;
+                padding: 14px;
+            }
+
+            .main {
+                margin-left: 80px;
+                width: calc(100% - 80px);
+                padding: 25px;
+            }
+
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .category-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 550px) {
+            .main {
+                padding: 18px;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            .topbar {
+                display: block;
+            }
+
+            .account {
+                text-align: left;
+                margin-top: 15px;
+            }
+
+            .trend-chart {
+                height: 260px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <div class="brand">
+            <div class="brand-logo">S</div>
+
+            <div>
+                <div class="brand-name">SpendSense</div>
+                <div class="brand-subtitle">Smart Finance</div>
+            </div>
+        </div>
+
+        <nav class="nav">
+
+            <a href="{{ url_for('dashboard') }}" class="nav-item">
+                <span class="nav-icon">⌂</span>
+                <span>Dashboard</span>
+            </a>
+
+            <a href="{{ url_for('transactions') }}" class="nav-item">
+                <span class="nav-icon">↔</span>
+                <span>Transactions</span>
+            </a>
+
+            <a href="{{ url_for('budgets') }}" class="nav-item">
+                <span class="nav-icon">▣</span>
+                <span>Budgets</span>
+            </a>
+
+            <a href="{{ url_for('analytics') }}" class="nav-item active">
+                <span class="nav-icon">◔</span>
+                <span>Analytics</span>
+            </a>
+
+            <a href="{{ url_for('reports') }}" class="nav-item">
+                <span class="nav-icon">▤</span>
+                <span>Reports</span>
+            </a>
+
+        </nav>
+
+        <div class="sidebar-bottom">
+
+            <div class="privacy">
+                <strong>Privacy First</strong>
+                <span>Your financial data stays protected.</span>
+            </div>
+
+            <a href="{{ url_for('logout') }}" class="logout">
+                ↪ Logout
+            </a>
+
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN -->
+    <main class="main">
+
+        <div class="topbar">
+
+            <div>
+                <p class="eyebrow">FINANCIAL INSIGHTS</p>
+
+                <h1>Analytics</h1>
+
+                <p class="subtitle">
+                    Understand where your money is going and discover your spending patterns.
+                </p>
+            </div>
+
+            <div class="account">
+                <div class="account-email">
+                    {{ email }}
+                </div>
+
+                <div class="account-label">
+                    Personal account
+                </div>
+            </div>
+
+        </div>
+
+
+        <!-- STAT CARDS -->
+        <section class="stats">
+
+            <div class="stat">
+                <div class="stat-icon">₹</div>
+
+                <div class="stat-label">
+                    TOTAL SPENDING
+                </div>
+
+                <div class="stat-value">
+                    ₹{{ "{:,.2f}".format(total_spending) }}
+                </div>
+
+                <div class="stat-small">
+                    This month
+                </div>
+            </div>
+
+
+            <div class="stat">
+                <div class="stat-icon">◷</div>
+
+                <div class="stat-label">
+                    DAILY AVERAGE
+                </div>
+
+                <div class="stat-value">
+                    ₹{{ "{:,.2f}".format(average_daily_spending) }}
+                </div>
+
+                <div class="stat-small">
+                    Per active spending day
+                </div>
+            </div>
+
+
+            <div class="stat">
+                <div class="stat-icon">↑</div>
+
+                <div class="stat-label">
+                    HIGHEST SPENDING DAY
+                </div>
+
+                <div class="stat-value">
+                    {% if highest_spending_day %}
+                        {{ highest_spending_day }}
+                    {% else %}
+                        No spending
+                    {% endif %}
+                </div>
+
+                <div class="stat-small">
+                    ₹{{ "{:,.2f}".format(highest_day_amount) }}
+                </div>
+            </div>
+
+
+            <div class="stat">
+                <div class="stat-icon">★</div>
+
+                <div class="stat-label">
+                    TOP CATEGORY
+                </div>
+
+                <div class="stat-value">
+                    {{ top_category }}
+                </div>
+
+                <div class="stat-small">
+                    {{ top_category_percentage }}% of total spending
+                </div>
+            </div>
+
+
+            <div class="stat">
+                <div class="stat-icon">◉</div>
+
+                <div class="stat-label">
+                    ACTIVE DAYS
+                </div>
+
+                <div class="stat-value">
+                    {{ daily_rows|length }}
+                </div>
+
+                <div class="stat-small">
+                    Spending days this month
+                </div>
+            </div>
+
+        </section>
+
+
+        <!-- DAILY TREND -->
+        <section class="panel trend-panel">
+
+            <div class="panel-header">
+
+                <div>
+                    <p class="eyebrow">SPENDING TREND</p>
+
+                    <h2 class="panel-title">
+                        Daily Spending
+                    </h2>
+
+                    <p class="panel-description">
+                        Your spending activity throughout this month
+                    </p>
+                </div>
+
+                <div class="tag">
+                    THIS MONTH
+                </div>
+
+            </div>
+
+            <div class="trend-chart">
+                <canvas id="dailySpendingChart"></canvas>
+            </div>
+
+        </section>
+
+
+        <!-- CATEGORY + MONTHLY -->
+        <section class="lower-grid">
+
+
+            <!-- CATEGORY -->
+            <div class="panel">
+
+                <div class="panel-header">
+
+                    <div>
+                        <p class="eyebrow">BREAKDOWN</p>
+
+                        <h2 class="panel-title">
+                            Spending by Category
+                        </h2>
+
+                        <p class="panel-description">
+                            Where your money went this month
+                        </p>
+                    </div>
+
+                </div>
+
+                <div class="category-layout">
+
+                    <div class="category-chart">
+                        <canvas id="categoryChart"></canvas>
+                    </div>
+
+                    <div class="category-list">
+
+                        {% for row in category_rows %}
+
+                        <div class="category-row">
+
+                            <div>
+                                <div class="category-name">
+                                    {{ row["category"] }}
+                                </div>
+
+                                <div class="category-percent">
+                                    {% if total_spending > 0 %}
+                                        {{ ((row["total"] / total_spending) * 100)|round|int }}% of spending
+                                    {% else %}
+                                        0% of spending
+                                    {% endif %}
+                                </div>
+                            </div>
+
+                            <div class="category-amount">
+                                ₹{{ "{:,.2f}".format(row["total"]|float) }}
+                            </div>
+
+                            <div class="progress">
+
+                                <span
+                                    style="width:
+                                    {% if total_spending > 0 %}
+                                        {{ ((row["total"] / total_spending) * 100) }}
+                                    {% else %}
+                                        0
+                                    {% endif %}%;">
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                        {% else %}
+
+                        <div class="category-percent">
+                            No expenses recorded this month.
+                        </div>
+
+                        {% endfor %}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- MONTHLY -->
+            <div class="panel">
+
+                <div class="panel-header">
+
+                    <div>
+                        <p class="eyebrow">HISTORY</p>
+
+                        <h2 class="panel-title">
+                            Monthly Spending
+                        </h2>
+
+                        <p class="panel-description">
+                            Your expenses over recent months
+                        </p>
+                    </div>
+
+                </div>
+
+                <div class="monthly-chart">
+                    <canvas id="monthlySpendingChart"></canvas>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- INSIGHT -->
+        <section class="insight">
+
+            <div class="insight-icon">
+                ★
+            </div>
+
+            <div>
+
+                <div class="insight-label">
+                    SPENDSENSE INSIGHT
+                </div>
+
+                <div class="insight-title">
+                    {{ top_category }} is your biggest expense
+                </div>
+
+                <div class="insight-text">
+                    {% if total_spending > 0 %}
+                        {{ top_category }} accounts for
+                        {{ top_category_percentage }}%
+                        of your spending this month.
+                        Reviewing this category could help you find potential savings.
+                    {% else %}
+                        Add some expenses to start receiving personalized spending insights.
+                    {% endif %}
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    /* ================= DAILY CHART ================= */
+
+    const dailyCanvas =
+        document.getElementById("dailySpendingChart");
+
+    if (dailyCanvas) {
+
+        const dailyLabels = [
+            {% for row in daily_rows %}
+                "{{ row['transaction_date'][8:10] }}"
+                {% if not loop.last %},{% endif %}
+            {% endfor %}
+        ];
+
+        const dailyValues = [
+            {% for row in daily_rows %}
+                {{ row['total'] or 0 }}
+                {% if not loop.last %},{% endif %}
+            {% endfor %}
+        ];
+
+        new Chart(dailyCanvas, {
+
+            type: "line",
+
+            data: {
+                labels: dailyLabels,
+
+                datasets: [{
+                    label: "Daily Spending",
+                    data: dailyValues,
+
+                    borderColor: "#3568e8",
+                    backgroundColor: "rgba(53, 104, 232, 0.10)",
+
+                    borderWidth: 3,
+
+                    pointRadius: 4,
+                    pointHoverRadius: 7,
+
+                    pointBackgroundColor: "#ffffff",
+                    pointBorderColor: "#3568e8",
+                    pointBorderWidth: 2,
+
+                    tension: 0.35,
+
+                    fill: true
+                }]
+            },
+
+            options: {
+
+                responsive: true,
+                maintainAspectRatio: false,
+
+                interaction: {
+                    intersect: false,
+                    mode: "index"
+                },
+
+                plugins: {
+
+                    legend: {
+                        display: false
+                    },
+
+                    tooltip: {
+
+                        backgroundColor: "#172033",
+
+                        padding: 12,
+
+                        cornerRadius: 10,
+
+                        callbacks: {
+
+                            label: function(context) {
+
+                                return "  " +
+                                    "₹" +
+                                    Number(context.raw)
+                                        .toLocaleString("en-IN", {
+                                            minimumFractionDigits: 2,
+                                            maximumFractionDigits: 2
+                                        });
+                            }
+
+                        }
+
+                    }
+
+                },
+
+                scales: {
+
+                    x: {
+                        grid: {
+                            display: false
+                        },
+
+                        ticks: {
+                            color: "#929aaa",
+                            font: {
+                                size: 11
+                            }
+                        }
+                    },
+
+                    y: {
+
+                        beginAtZero: true,
+
+                        grid: {
+                            color: "#edf0f5"
+                        },
+
+                        ticks: {
+
+                            color: "#929aaa",
+
+                            font: {
+                                size: 11
+                            },
+
+                            callback: function(value) {
+
+                                return "₹" +
+                                    Number(value).toLocaleString("en-IN");
+
+                            }
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+        });
+
+    }
+
+
+    /* ================= CATEGORY CHART ================= */
+
+    const categoryCanvas =
+        document.getElementById("categoryChart");
+
+    if (categoryCanvas) {
+
+        const categoryLabels = [
+            {% for row in category_rows %}
+                "{{ row['category'] }}"
+                {% if not loop.last %},{% endif %}
+            {% endfor %}
+        ];
+
+        const categoryValues = [
+            {% for row in category_rows %}
+                {{ row['total'] or 0 }}
+                {% if not loop.last %},{% endif %}
+            {% endfor %}
+        ];
+
+        new Chart(categoryCanvas, {
+
+            type: "doughnut",
+
+            data: {
+
+                labels: categoryLabels,
+
+                datasets: [{
+
+                    data: categoryValues,
+
+                    backgroundColor: [
+                        "#3568e8",
+                        "#26ad78",
+                        "#ed7767",
+                        "#e7a04c",
+                        "#745ee8",
+                        "#54a9d8"
+                    ],
+
+                    borderWidth: 0,
+
+                    hoverOffset: 8
+
+                }]
+
+            },
+
+            options: {
+
+                responsive: true,
+
+                maintainAspectRatio: false,
+
+                cutout: "68%",
+
+                plugins: {
+
+                    legend: {
+                        display: false
+                    },
+
+                    tooltip: {
+
+                        callbacks: {
+
+                            label: function(context) {
+
+                                return " ₹" +
+                                    Number(context.raw)
+                                        .toLocaleString("en-IN", {
+                                            minimumFractionDigits: 2,
+                                            maximumFractionDigits: 2
+                                        });
+
+                            }
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+        });
+
+    }
+
+
+    /* ================= MONTHLY CHART ================= */
+
+    const monthlyCanvas =
+        document.getElementById("monthlySpendingChart");
+
+    if (monthlyCanvas) {
+
+        const monthlyLabels = [
+            {% for row in monthly_rows|reverse %}
+                "{{ row['month'] }}"
+                {% if not loop.last %},{% endif %}
+            {% endfor %}
+        ];
+
+        const monthlyValues = [
+            {% for row in monthly_rows|reverse %}
+                {{ row['total'] or 0 }}
+                {% if not loop.last %},{% endif %}
+            {% endfor %}
+        ];
+
+        new Chart(monthlyCanvas, {
+
+            type: "bar",
+
+            data: {
+
+                labels: monthlyLabels,
+
+                datasets: [{
+
+                    label: "Monthly Spending",
+
+                    data: monthlyValues,
+
+                    backgroundColor: "#3568e8",
+
+                    borderRadius: 8,
+
+                    borderSkipped: false,
+
+                    maxBarThickness: 45
+
+                }]
+
+            },
+
+            options: {
+
+                responsive: true,
+
+                maintainAspectRatio: false,
+
+                plugins: {
+
+                    legend: {
+                        display: false
+                    }
+
+                },
+
+                scales: {
+
+                    x: {
+
+                        grid: {
+                            display: false
+                        },
+
+                        ticks: {
+                            color: "#929aaa",
+                            font: {
+                                size: 10
+                            }
+                        }
+
+                    },
+
+                    y: {
+
+                        beginAtZero: true,
+
+                        grid: {
+                            color: "#edf0f5"
+                        },
+
+                        ticks: {
+
+                            color: "#929aaa",
+
+                            font: {
+                                size: 10
+                            },
+
+                            callback: function(value) {
+
+                                return "₹" +
+                                    Number(value).toLocaleString("en-IN");
+
+                            }
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+        });
+
+    }
+
+});
+
+</script>
+
+</body>
+</html>
+
+

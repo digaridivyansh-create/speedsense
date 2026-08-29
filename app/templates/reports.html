@@ -1,0 +1,2571 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Reports - SpendSense</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+            background: #f7f9fc;
+            color: #172033;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .app {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* SIDEBAR */
+
+        .sidebar {
+            width: 250px;
+            min-height: 100vh;
+            background: #fff;
+            border-right: 1px solid #e8ecf3;
+            padding: 28px 18px;
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 0 12px 35px;
+        }
+
+        .brand-logo {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            background: #3568e8;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            font-weight: 800;
+        }
+
+        .brand-name {
+            font-size: 17px;
+            font-weight: 800;
+        }
+
+        .brand-subtitle {
+            font-size: 11px;
+            color: #8b94a7;
+            margin-top: 2px;
+        }
+
+        .nav {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        .nav-item {
+            padding: 13px 14px;
+            border-radius: 10px;
+            color: #687286;
+            font-size: 14px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: .2s;
+        }
+
+        .nav-item:hover {
+            background: #f2f5fb;
+            color: #3568e8;
+        }
+
+        .nav-item.active {
+            background: #edf3ff;
+            color: #3568e8;
+        }
+
+        .nav-icon {
+            width: 20px;
+            text-align: center;
+            font-size: 16px;
+        }
+
+        .sidebar-bottom {
+            margin-top: auto;
+        }
+
+        .privacy-box {
+            background: #f5f8ff;
+            border: 1px solid #e5ecff;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 18px;
+        }
+
+        .privacy-box strong {
+            font-size: 13px;
+        }
+
+        .privacy-box p {
+            margin: 5px 0 0;
+            font-size: 11px;
+            line-height: 1.5;
+            color: #7b8497;
+        }
+
+        .logout {
+            display: block;
+            padding: 12px 14px;
+            color: #777f91;
+            font-size: 13px;
+        }
+
+        /* PREMIUM REPORT LAYOUT */
+
+        .report-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1.7fr) minmax(330px, .9fr);
+            gap: 20px;
+        }
+
+        .panel {
+            background: #ffffff;
+            border: 1px solid #e7ebf3;
+            border-radius: 20px;
+            padding: 24px;
+            box-shadow: 0 8px 28px rgba(31, 45, 74, .055);
+        }
+
+        .trend-panel {
+            min-height: 455px;
+        }
+
+        .category-panel {
+            min-height: 455px;
+        }
+
+        .panel-wide {
+            grid-column: 1 / -1;
+        }
+
+        .trend-header,
+        .history-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 20px;
+        }
+
+        .panel-header h2 {
+            margin: 0;
+            font-size: 20px;
+            letter-spacing: -.4px;
+        }
+
+        .panel-header p:not(.eyebrow) {
+            margin: 7px 0 0;
+            color: #8a93a5;
+            font-size: 12px;
+        }
+
+        .trend-badge,
+        .history-count {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            padding: 8px 11px;
+            border-radius: 10px;
+            background: #f4f7fc;
+            color: #687286;
+            font-size: 11px;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .trend-badge span {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #3568e8;
+        }
+
+        .chart-large {
+            height: 340px;
+            margin-top: 20px;
+        }
+
+        .category-list {
+            margin-top: 24px;
+        }
+
+        .category {
+            margin-bottom: 22px;
+        }
+
+        .category-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 9px;
+            font-size: 13px;
+        }
+
+        .category-name {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            font-weight: 650;
+        }
+
+        .category-dot {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: #3568e8;
+            box-shadow: 0 0 0 4px #edf3ff;
+        }
+
+        .category-top strong {
+            font-size: 12px;
+            color: #172033;
+        }
+
+        .bar {
+            width: 100%;
+            height: 7px;
+            border-radius: 99px;
+            background: #edf0f5;
+            overflow: hidden;
+        }
+
+        .bar span {
+            display: block;
+            height: 100%;
+            border-radius: inherit;
+            background: #3568e8;
+        }
+
+        .table-wrap {
+            margin-top: 22px;
+            overflow-x: auto;
+        }
+
+        .report-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .report-table th {
+            padding: 12px 14px;
+            text-align: left;
+            color: #8a93a5;
+            font-size: 10px;
+            letter-spacing: 1px;
+            font-weight: 800;
+            border-bottom: 1px solid #edf0f5;
+        }
+
+        .report-table td {
+            padding: 17px 14px;
+            border-bottom: 1px solid #f0f2f6;
+            font-size: 13px;
+        }
+
+        .report-table tbody tr:last-child td {
+            border-bottom: 0;
+        }
+
+        .report-table tbody tr:hover {
+            background: #fafbfe;
+        }
+
+        .income-text {
+            color: #198754;
+            font-weight: 700;
+        }
+
+        .expense-text {
+            color: #dc3545;
+            font-weight: 700;
+        }
+
+        .saving-positive {
+            color: #1677c8;
+            font-weight: 800;
+        }
+
+        .saving-negative {
+            color: #dc3545;
+            font-weight: 800;
+        }
+
+        @media (max-width: 1050px) {
+            .report-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .panel-wide {
+                grid-column: auto;
+            }
+        }
+        /* MAIN */
+
+        .main {
+            margin-left: 250px;
+            width: calc(100% - 250px);
+            padding: 38px 44px 60px;
+        }
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 30px;
+        }
+
+        .eyebrow {
+            margin: 0 0 7px;
+            color: #7c879b;
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 32px;
+            letter-spacing: -1px;
+        }
+
+        .subtitle {
+            margin: 8px 0 0;
+            color: #7b8497;
+            font-size: 14px;
+        }
+
+        .user {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .user-text {
+            text-align: right;
+        }
+
+        .user-text strong {
+            display: block;
+            font-size: 13px;
+        }
+
+        .user-text span {
+            font-size: 11px;
+            color: #8b94a7;
+        }
+
+        .avatar {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: #eaf0ff;
+            color: #3568e8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+        }
+
+        /* PREMIUM REPORT SUMMARY */
+
+        .summary {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 18px;
+            margin-bottom: 26px;
+        }
+
+        .stat {
+            position: relative;
+            overflow: hidden;
+            min-height: 175px;
+            padding: 23px;
+            border: 1px solid #e7ebf3;
+            border-radius: 18px;
+            background: #ffffff;
+            box-shadow: 0 8px 28px rgba(31, 45, 74, 0.06);
+            transition: transform .2s ease, box-shadow .2s ease;
+        }
+
+        .stat:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 14px 35px rgba(31, 45, 74, 0.10);
+        }
+
+        .stat::after {
+            content: "";
+            position: absolute;
+            width: 110px;
+            height: 110px;
+            right: -42px;
+            top: -42px;
+            border-radius: 50%;
+            background: rgba(53, 104, 232, 0.06);
+        }
+
+        .stat-icon {
+            width: 38px;
+            height: 38px;
+            border-radius: 11px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 17px;
+            font-size: 18px;
+            font-weight: 800;
+            background: #edf3ff;
+            color: #3568e8;
+        }
+
+        .stat-label {
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 1.4px;
+            color: #8791a5;
+            margin-bottom: 8px;
+        }
+
+        .stat-value {
+            font-size: 25px;
+            line-height: 1.15;
+            font-weight: 800;
+            letter-spacing: -0.7px;
+            color: #172033;
+            word-break: break-word;
+        }
+
+        .stat-note {
+            margin-top: 9px;
+            color: #8a93a5;
+            font-size: 12px;
+            line-height: 1.45;
+        }
+
+        .stat-income .stat-icon {
+            background: #eaf8f0;
+            color: #198754;
+        }
+
+        .stat-expense .stat-icon {
+            background: #fff0f0;
+            color: #dc3545;
+        }
+
+        .stat-savings .stat-icon {
+            background: #eef7ff;
+            color: #1677c8;
+        }
+
+        .stat-category .stat-icon {
+            background: #fff7e8;
+            color: #d58b00;
+        }
+
+        .stat-category-name {
+            font-size: 21px;
+        }
+
+        @media (max-width: 1100px) {
+            .summary {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 650px) {
+            .summary {
+                grid-template-columns: 1fr;
+            }
+        }
+        /* SUMMARY */
+
+        .summary {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+            margin-bottom: 22px;
+        }
+
+        .stat {
+            background: #fff;
+            border: 1px solid #e8ecf3;
+            border-radius: 16px;
+            padding: 22px;
+            box-shadow: 0 6px 20px rgba(35, 55, 90, .04);
+        }
+
+        .stat-label {
+            color: #7d8799;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .stat-value {
+            margin-top: 9px;
+            font-size: 25px;
+            font-weight: 800;
+        }
+
+        .stat-note {
+            margin-top: 6px;
+            color: #8c95a6;
+            font-size: 11px;
+        }
+
+        /* PANELS */
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1.55fr 1fr;
+            gap: 22px;
+        }
+
+        .panel {
+            background: #fff;
+            border: 1px solid #e8ecf3;
+            border-radius: 18px;
+            padding: 24px;
+            box-shadow: 0 8px 25px rgba(35, 55, 90, .045);
+        }
+
+        .panel-wide {
+            grid-column: 1 / -1;
+        }
+
+        .panel-header {
+            margin-bottom: 20px;
+        }
+
+        .panel-header h2 {
+            margin: 0;
+            font-size: 19px;
+            letter-spacing: -.3px;
+        }
+
+        .panel-header p {
+            margin: 5px 0 0;
+            color: #8a93a5;
+            font-size: 12px;
+        }
+
+        .chart-box {
+            height: 330px;
+            position: relative;
+        }
+
+        .category {
+            margin-bottom: 20px;
+        }
+
+        .category-top {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 13px;
+        }
+
+        .category-top span {
+            color: #626d80;
+        }
+
+        .bar {
+            height: 9px;
+            border-radius: 20px;
+            background: #edf1f7;
+            overflow: hidden;
+        }
+
+        .bar span {
+            display: block;
+            height: 100%;
+            border-radius: inherit;
+            background: #3568e8;
+        }
+
+        .table-wrap {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            text-align: left;
+            color: #8a93a5;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 12px 10px;
+            border-bottom: 1px solid #edf0f5;
+        }
+
+        td {
+            padding: 15px 10px;
+            font-size: 13px;
+            border-bottom: 1px solid #f0f2f6;
+        }
+
+        td.amount {
+            font-weight: 750;
+        }
+
+        .empty {
+            padding: 35px 10px;
+            color: #8b94a7;
+            text-align: center;
+            font-size: 13px;
+        }
+
+        @media (max-width: 900px) {
+            .sidebar {
+                width: 210px;
+            }
+
+            .main {
+                margin-left: 210px;
+                width: calc(100% - 210px);
+                padding: 28px;
+            }
+
+            .summary {
+                grid-template-columns: 1fr;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 650px) {
+            .sidebar {
+                display: none;
+            }
+
+            .main {
+                margin-left: 0;
+                width: 100%;
+                padding: 22px 16px;
+            }
+
+            .topbar {
+                display: block;
+            }
+
+            .user {
+                margin-top: 20px;
+            }
+
+            .user-text {
+                text-align: left;
+            }
+        }
+    
+/* =========================================
+   INFORMATIVE REPORTS
+   ========================================= */
+
+.metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.metric-card {
+    background: #fff;
+    border: 1px solid #e8ecf3;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 6px 22px rgba(31, 45, 74, .04);
+}
+
+.metric-label {
+    display: block;
+    color: #8992a5;
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 1.2px;
+    margin-bottom: 10px;
+}
+
+.metric-card strong {
+    display: block;
+    font-size: 20px;
+    font-weight: 800;
+    color: #172033;
+}
+
+.metric-card p {
+    margin: 7px 0 0;
+    color: #8a93a5;
+    font-size: 11px;
+    line-height: 1.45;
+}
+
+.health-card {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    background: #fff;
+    border: 1px solid #e8ecf3;
+    border-radius: 18px;
+    padding: 22px 24px;
+    margin-bottom: 22px;
+    box-shadow: 0 7px 25px rgba(31, 45, 74, .05);
+}
+
+.health-icon {
+    width: 48px;
+    height: 48px;
+    flex: 0 0 48px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #edf3ff;
+    color: #3568e8;
+    font-size: 21px;
+    font-weight: 800;
+}
+
+.health-content {
+    flex: 1;
+}
+
+.health-label {
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 1.2px;
+    color: #8992a5;
+}
+
+.health-content h2 {
+    margin: 4px 0 2px;
+    font-size: 20px;
+    color: #172033;
+}
+
+.health-content p {
+    margin: 0;
+    color: #7f899c;
+    font-size: 12px;
+}
+
+.health-rate {
+    text-align: right;
+}
+
+.health-rate strong {
+    display: block;
+    font-size: 24px;
+    font-weight: 800;
+    color: #3568e8;
+}
+
+.health-rate span {
+    display: block;
+    margin-top: 3px;
+    color: #8992a5;
+    font-size: 10px;
+}
+
+.insights-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+    margin-top: 22px;
+}
+
+.insight-card {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    padding: 20px;
+    background: #fff;
+    border: 1px solid #e8ecf3;
+    border-radius: 16px;
+    box-shadow: 0 6px 22px rgba(31, 45, 74, .04);
+}
+
+.insight-icon {
+    width: 38px;
+    height: 38px;
+    flex: 0 0 38px;
+    border-radius: 11px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #edf3ff;
+    color: #3568e8;
+    font-weight: 800;
+}
+
+.insight-label {
+    display: block;
+    color: #8992a5;
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 1.1px;
+    margin-bottom: 5px;
+}
+
+.insight-card strong {
+    display: block;
+    color: #172033;
+    font-size: 15px;
+}
+
+.insight-card p {
+    margin: 5px 0 0;
+    color: #8992a5;
+    font-size: 11px;
+    line-height: 1.5;
+}
+
+@media (max-width: 1100px) {
+    .metrics-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .insights-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 700px) {
+    .metrics-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .health-card {
+        align-items: flex-start;
+    }
+
+    .health-rate {
+        margin-left: auto;
+    }
+}
+
+
+/* REPORT-V2-START */
+
+.report-v2-charts {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px;
+    margin-top: 22px;
+}
+
+.report-v2-panel {
+    position: relative;
+    background: rgba(255,255,255,.92);
+    border: 1px solid rgba(20,35,70,.08);
+    border-radius: 24px;
+    padding: 24px;
+    min-height: 390px;
+    box-shadow:
+        0 12px 35px rgba(15,35,70,.07),
+        0 2px 8px rgba(15,35,70,.03);
+    overflow: hidden;
+}
+
+.report-v2-panel::before {
+    content: "";
+    position: absolute;
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    background: rgba(54,125,255,.06);
+    right: -80px;
+    top: -80px;
+    pointer-events: none;
+}
+
+.report-v2-panel-wide {
+    grid-column: 1 / -1;
+}
+
+.report-v2-heading {
+    position: relative;
+    z-index: 1;
+    margin-bottom: 18px;
+}
+
+.report-v2-heading .eyebrow {
+    margin-bottom: 5px;
+}
+
+.report-v2-heading h2 {
+    margin: 0;
+    font-size: 22px;
+    font-weight: 800;
+    color: #172033;
+}
+
+.report-v2-heading p {
+    margin: 6px 0 0;
+    color: #718096;
+    font-size: 13px;
+}
+
+.report-v2-chart {
+    position: relative;
+    height: 285px;
+}
+
+.report-v2-summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px solid rgba(20,35,70,.07);
+}
+
+.report-v2-summary-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.report-v2-summary-label {
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: .09em;
+    color: #8a95a7;
+    text-transform: uppercase;
+}
+
+.report-v2-summary-value {
+    font-size: 17px;
+    font-weight: 800;
+    color: #172033;
+}
+
+.report-v2-positive {
+    color: #15946b !important;
+}
+
+.report-v2-negative {
+    color: #df5b63 !important;
+}
+
+.report-v2-empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 285px;
+    color: #8993a5;
+    font-size: 14px;
+    text-align: center;
+}
+
+.report-v2-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 7px 11px;
+    border-radius: 999px;
+    background: #f1f6ff;
+    color: #3b6fc4;
+    font-size: 11px;
+    font-weight: 800;
+}
+
+.report-v2-badge-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #3b82f6;
+}
+
+@media (max-width: 1050px) {
+    .report-v2-charts {
+        grid-template-columns: 1fr;
+    }
+
+    .report-v2-panel-wide {
+        grid-column: auto;
+    }
+}
+
+@media (max-width: 650px) {
+    .report-v2-panel {
+        padding: 18px;
+        border-radius: 18px;
+    }
+
+    .report-v2-summary {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+/* REPORT-V2-END */
+
+</style>
+
+<!-- REPORT-ENHANCEMENT-FINAL-START -->
+<style>
+
+/* =========================================================
+   REPORT ENHANCEMENT FINAL
+   ========================================================= */
+
+.report-v2-charts {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px;
+    margin-top: 24px;
+}
+
+.report-v2-panel {
+    position: relative;
+    overflow: hidden;
+    border-radius: 22px;
+    border: 1px solid rgba(15, 23, 42, .08);
+    background: rgba(255,255,255,.92);
+    box-shadow: 0 12px 35px rgba(15,23,42,.07);
+    padding: 24px;
+    transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.report-v2-panel:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 18px 45px rgba(15,23,42,.10);
+}
+
+.report-v2-panel::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg,#2563eb,#7c3aed,#06b6d4);
+}
+
+.report-v2-panel-wide {
+    grid-column: 1 / -1;
+}
+
+.report-v2-heading {
+    margin-bottom: 18px;
+}
+
+.report-v2-heading .eyebrow {
+    margin-bottom: 6px;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: .14em;
+    color: #64748b;
+}
+
+.report-v2-heading h2 {
+    margin: 0;
+    font-size: 22px;
+    font-weight: 800;
+    color: #0f172a;
+}
+
+.report-v2-heading p {
+    margin: 6px 0 0;
+    color: #64748b;
+    font-size: 13px;
+}
+
+.report-v2-chart {
+    height: 330px;
+    position: relative;
+}
+
+.report-v2-panel-wide .report-v2-chart {
+    height: 350px;
+}
+
+.report-v2-summary {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 10px;
+    margin-top: 18px;
+}
+
+.report-v2-summary-item {
+    padding: 13px 14px;
+    border-radius: 14px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+}
+
+.report-v2-summary-label {
+    display: block;
+    font-size: 10px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    color: #64748b;
+    margin-bottom: 5px;
+}
+
+.report-v2-summary-value {
+    display: block;
+    font-size: 16px;
+    font-weight: 800;
+    color: #0f172a;
+}
+
+.report-v2-positive {
+    color: #059669 !important;
+}
+
+.report-v2-negative {
+    color: #dc2626 !important;
+}
+
+.report-v2-empty {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #94a3b8;
+    font-size: 14px;
+}
+
+.report-insight-strip {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0,1fr));
+    gap: 16px;
+    margin: 22px 0;
+}
+
+.report-insight {
+    padding: 18px;
+    border-radius: 18px;
+    background: linear-gradient(135deg,#ffffff,#f8fafc);
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 8px 24px rgba(15,23,42,.05);
+}
+
+.report-insight-label {
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: .1em;
+    color: #64748b;
+    text-transform: uppercase;
+}
+
+.report-insight-value {
+    display: block;
+    margin-top: 7px;
+    font-size: 20px;
+    font-weight: 850;
+    color: #0f172a;
+}
+
+.report-insight-text {
+    margin-top: 5px;
+    font-size: 12px;
+    line-height: 1.5;
+    color: #64748b;
+}
+
+.report-health-enhanced {
+    border-radius: 22px;
+    padding: 24px;
+    margin-top: 22px;
+    background:
+        radial-gradient(circle at top right,rgba(37,99,235,.10),transparent 35%),
+        linear-gradient(135deg,#ffffff,#f8fafc);
+    border: 1px solid #dbeafe;
+    box-shadow: 0 12px 35px rgba(15,23,42,.06);
+}
+
+.report-health-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.report-health-score {
+    font-size: 42px;
+    line-height: 1;
+    font-weight: 900;
+    color: #2563eb;
+}
+
+.report-health-meter {
+    flex: 1;
+    max-width: 520px;
+}
+
+.report-health-track {
+    height: 10px;
+    border-radius: 99px;
+    background: #e2e8f0;
+    overflow: hidden;
+}
+
+.report-health-fill {
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient(90deg,#2563eb,#7c3aed,#06b6d4);
+    transition: width .5s ease;
+}
+
+.report-health-label {
+    margin-top: 8px;
+    font-size: 12px;
+    color: #64748b;
+}
+
+.report-action-box {
+    margin-top: 22px;
+    padding: 20px;
+    border-radius: 18px;
+    background: #0f172a;
+    color: white;
+}
+
+.report-action-box h3 {
+    margin: 0 0 6px;
+    font-size: 17px;
+}
+
+.report-action-box p {
+    margin: 0;
+    color: #cbd5e1;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+@media (max-width: 1000px) {
+    .report-v2-charts {
+        grid-template-columns: 1fr;
+    }
+
+    .report-v2-panel-wide {
+        grid-column: auto;
+    }
+
+    .report-insight-strip {
+        grid-template-columns: repeat(2,1fr);
+    }
+}
+
+@media (max-width: 650px) {
+    .report-insight-strip,
+    .report-v2-summary {
+        grid-template-columns: 1fr;
+    }
+
+    .report-health-row {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .report-health-meter {
+        width: 100%;
+        max-width: none;
+    }
+}
+
+</style>
+<!-- REPORT-ENHANCEMENT-FINAL-END -->
+
+</head>
+
+<body>
+
+<div class="app">
+
+    <aside class="sidebar">
+
+        <div class="brand">
+            <div class="brand-logo">S</div>
+            <div>
+                <div class="brand-name">SpendSense</div>
+                <div class="brand-subtitle">Smart Finance</div>
+            </div>
+        </div>
+
+        <nav class="nav">
+
+            <a href="{{ url_for('dashboard') }}" class="nav-item">
+                <span class="nav-icon">⌂</span>
+                Dashboard
+            </a>
+
+            <a href="{{ url_for('transactions') }}" class="nav-item">
+                <span class="nav-icon">↔</span>
+                Transactions
+            </a>
+
+            <a href="{{ url_for('budgets') }}" class="nav-item">
+                <span class="nav-icon">▣</span>
+                Budgets
+            </a>
+
+            <a href="{{ url_for('analytics') }}" class="nav-item">
+                <span class="nav-icon">◔</span>
+                Analytics
+            </a>
+
+            <a href="{{ url_for('reports') }}" class="nav-item active">
+                <span class="nav-icon">▤</span>
+                Reports
+            </a>
+
+        </nav>
+
+        <div class="sidebar-bottom">
+
+            <div class="privacy-box">
+                <strong>Privacy First</strong>
+                <p>Your financial data stays protected.</p>
+            </div>
+
+            <a href="{{ url_for('logout') }}" class="logout">
+                ↪ Logout
+            </a>
+
+        </div>
+
+    </aside>
+
+
+    <main class="main">
+
+        <header class="topbar">
+
+            <div>
+                <p class="eyebrow">FINANCIAL REPORTS</p>
+                <h1>Reports</h1>
+                <p class="subtitle">
+                    A clear picture of your financial activity.
+                </p>
+            </div>
+
+            <div class="user">
+
+                <div class="user-text">
+                    <strong>{{ email }}</strong>
+                    <span>Personal account</span>
+                </div>
+
+                <div class="avatar">
+                    {{ email[0]|upper if email else "U" }}
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <section class="summary">
+
+    <div class="stat stat-income">
+        <div class="stat-icon">↗</div>
+        <div>
+            <div class="stat-label">TOTAL INCOME</div>
+            <div class="stat-value">₹{{ "{:,.2f}".format(total_income) }}</div>
+        </div>
+        <div class="stat-note">Across all tracked months</div>
+    </div>
+
+    <div class="stat stat-expense">
+        <div class="stat-icon">↘</div>
+        <div>
+            <div class="stat-label">TOTAL EXPENSES</div>
+            <div class="stat-value">₹{{ "{:,.2f}".format(total_expenses) }}</div>
+        </div>
+        <div class="stat-note">Total money spent</div>
+    </div>
+
+    <div class="stat stat-savings">
+        <div class="stat-icon">✓</div>
+        <div>
+            <div class="stat-label">NET SAVINGS</div>
+            <div class="stat-value">₹{{ "{:,.2f}".format(net_savings) }}</div>
+        </div>
+        <div class="stat-note">{{ savings_rate }}% savings rate</div>
+    </div>
+
+    <div class="stat stat-category">
+        <div class="stat-icon">★</div>
+        <div>
+            <div class="stat-label">TOP CATEGORY</div>
+            <div class="stat-value stat-category-name">{{ top_category }}</div>
+        </div>
+        <div class="stat-note">₹{{ "{:,.2f}".format(top_category_amount) }} spent</div>
+    </div>
+
+</section>
+
+
+<section class="metrics-grid">
+
+    <div class="metric-card">
+        <span class="metric-label">AVG. MONTHLY INCOME</span>
+        <strong>
+            ₹{{ "{:,.2f}".format(average_monthly_income|default(0, true)) }}
+        </strong>
+        <p>Average income per tracked month.</p>
+    </div>
+
+    <div class="metric-card">
+        <span class="metric-label">AVG. MONTHLY SPENDING</span>
+        <strong>
+            ₹{{ "{:,.2f}".format(average_monthly_expenses|default(0, true)) }}
+        </strong>
+        <p>Average expenses per tracked month.</p>
+    </div>
+
+    <div class="metric-card">
+        <span class="metric-label">BEST SAVING MONTH</span>
+        <strong>
+            {{ best_saving_month_name }}
+        </strong>
+        <p>
+            ₹{{ "{:,.2f}".format(best_saving_amount|default(0, true)) }} saved.
+        </p>
+    </div>
+
+    <div class="metric-card">
+        <span class="metric-label">HIGHEST SPENDING MONTH</span>
+        <strong>
+            {{ highest_spending_month_name }}
+        </strong>
+        <p>
+            ₹{{ "{:,.2f}".format(highest_spending_amount|default(0, true)) }} spent.
+        </p>
+    </div>
+
+</section>
+
+<section class="report-health-enhanced">
+
+    <div class="report-health-row">
+
+        <div>
+            <div class="health-label">FINANCIAL HEALTH</div>
+            <div class="report-health-score">
+                {{ financial_health }}
+            </div>
+        </div>
+
+        <div class="report-health-meter">
+
+            <div class="report-health-track">
+                <div
+                    class="report-health-fill"
+                    style="width: {{ financial_health|float }}%;"
+                ></div>
+            </div>
+
+            <div class="report-health-label">
+                {{ financial_health_label }}
+            </div>
+
+        </div>
+
+        <div>
+            <strong>{{ savings_rate }}%</strong>
+            <div class="report-health-label">Savings rate</div>
+        </div>
+
+    </div>
+
+    <div class="report-action-box">
+        <h3>Financial assessment</h3>
+        <p>{{ financial_health_message }}</p>
+    </div>
+
+</section>
+
+    <div class="health-icon">♥</div>
+
+    <div class="health-content">
+        <div class="health-label">FINANCIAL HEALTH</div>
+
+        <h2>{{ financial_health_label|default(financial_health, true) }}</h2>
+
+        <p>{{ financial_health_message }}</p>
+    </div>
+
+    <div class="health-rate">
+        <strong>{{ savings_rate }}%</strong>
+        <span>Savings rate</span>
+    </div>
+
+</section>
+
+
+
+<!-- FINANCIAL-SNAPSHOT-START -->
+
+<section class="report-insight-strip">
+
+    <div class="report-insight">
+        <span class="report-insight-label">Average Monthly Income</span>
+        <strong class="report-insight-value">
+            ₹{{ "{:,.2f}".format(average_monthly_income|float) }}
+        </strong>
+        <div class="report-insight-text">
+            Average income across tracked months.
+        </div>
+    </div>
+
+    <div class="report-insight">
+        <span class="report-insight-label">Average Monthly Spending</span>
+        <strong class="report-insight-value">
+            ₹{{ "{:,.2f}".format(average_monthly_expenses|float) }}
+        </strong>
+        <div class="report-insight-text">
+            Average amount spent each month.
+        </div>
+    </div>
+
+    <div class="report-insight">
+        <span class="report-insight-label">Best Saving Month</span>
+        <strong class="report-insight-value">
+            {{ best_month["month"] if best_month else "—" }}
+        </strong>
+        <div class="report-insight-text">
+            ₹{{ "{:,.2f}".format(best_month["savings"]|float) if best_month else "0.00" }} saved.
+        </div>
+    </div>
+
+    <div class="report-insight">
+        <span class="report-insight-label">Largest Expense</span>
+        <strong class="report-insight-value">
+            ₹{{ "{:,.2f}".format(largest_expense["amount"]|float) if largest_expense else "0.00" }}
+        </strong>
+        <div class="report-insight-text">
+            {{ largest_expense["title"] if largest_expense else "No expense recorded" }}.
+        </div>
+    </div>
+
+</section>
+
+<!-- FINANCIAL-SNAPSHOT-END -->
+
+<section class="report-grid">
+
+    <div class="panel trend-panel">
+
+        <div class="panel-header trend-header">
+
+            <div>
+                <p class="eyebrow">FINANCIAL TREND</p>
+                <h2>Income vs Expenses</h2>
+                <p>Compare your financial activity month by month.</p>
+            </div>
+
+            <div class="trend-badge">
+                <span></span>
+                Last 6 months
+            </div>
+
+        </div>
+
+        <div class="chart-box chart-large">
+            <canvas id="monthlyChart"></canvas>
+        </div>
+
+    </div>
+
+
+    <div class="panel category-panel">
+
+        <div class="panel-header">
+            <p class="eyebrow">SPENDING BREAKDOWN</p>
+            <h2>Top Categories</h2>
+            <p>Your largest expense areas.</p>
+        </div>
+
+        {% if category_rows %}
+
+            {% set max_category = category_rows[0]["total"] %}
+
+            <div class="category-list">
+
+            {% for row in category_rows[:6] %}
+
+                <div class="category">
+
+                    <div class="category-top">
+                        <div class="category-name">
+                            <span class="category-dot"></span>
+                            <span>{{ row["category"] }}</span>
+                        </div>
+
+                        <strong>
+                            ₹{{ "{:,.2f}".format(row["total"]) }}
+                        </strong>
+                    </div>
+
+                    <div class="bar">
+                        <span style="width: {{
+                            (row['total'] / max_category * 100)
+                            if max_category > 0 else 0
+                        }}%"></span>
+                    </div>
+
+                </div>
+
+            {% endfor %}
+
+            </div>
+
+        {% else %}
+
+            <div class="empty">
+                No expense data available yet.
+            </div>
+
+        {% endif %}
+
+    </div>
+
+
+    <div class="panel panel-wide">
+
+        <div class="panel-header history-header">
+
+            <div>
+                <p class="eyebrow">MONTHLY HISTORY</p>
+                <h2>Financial Report</h2>
+                <p>Income, expenses and savings for each tracked month.</p>
+            </div>
+
+            <div class="history-count">
+                {{ monthly_rows|length }} months
+            </div>
+
+        </div>
+
+        {% if monthly_rows %}
+
+        <div class="table-wrap">
+
+            <table class="report-table">
+
+                <thead>
+                    <tr>
+                        <th>MONTH</th>
+                        <th>INCOME</th>
+                        <th>EXPENSES</th>
+                        <th>SAVINGS</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                {% for row in monthly_rows %}
+
+                    {% set income = row["income"]|float %}
+                    {% set expenses = row["expenses"]|float %}
+                    {% set savings = income - expenses %}
+
+                    <tr>
+
+                        <td>
+                            <strong>{{ row["month"] }}</strong>
+                        </td>
+
+                        <td class="income-text">
+                            ₹{{ "{:,.2f}".format(income) }}
+                        </td>
+
+                        <td class="expense-text">
+                            ₹{{ "{:,.2f}".format(expenses) }}
+                        </td>
+
+                        <td class="{{ 'saving-positive' if savings >= 0 else 'saving-negative' }}">
+                            ₹{{ "{:,.2f}".format(savings) }}
+                        </td>
+
+                    </tr>
+
+                {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        {% else %}
+
+            <div class="empty">
+                No monthly financial data available yet.
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</section>
+
+
+<div class="insights-grid">
+
+    <div class="insight-card">
+
+        <div class="insight-icon">↘</div>
+
+        <div>
+            <span class="insight-label">
+                HIGHEST SPENDING
+            </span>
+
+            <strong>
+                {{ highest_spending_month_name }}
+            </strong>
+
+            <p>
+                ₹{{ "{:,.2f}".format(highest_spending_amount|default(0, true)) }}
+                spent during this month.
+            </p>
+        </div>
+
+    </div>
+
+
+    <div class="insight-card">
+
+        <div class="insight-icon">↘</div>
+
+        <div>
+            <span class="insight-label">
+                BIGGEST CATEGORY
+            </span>
+
+            <strong>
+                {{ top_category }}
+            </strong>
+
+            <p>
+                {{ top_category_percentage }}%
+                of your total expenses.
+            </p>
+        </div>
+
+    </div>
+
+
+    <div class="insight-card">
+
+        <div class="insight-icon">↘</div>
+
+        <div>
+            <span class="insight-label">
+                BEST SAVINGS
+            </span>
+
+            <strong>
+                {{ best_saving_month_name }}
+            </strong>
+
+            <p>
+                ₹{{ "{:,.2f}".format(best_saving_amount|default(0, true)) }}
+                saved.
+            </p>
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- REPORT-V2-CHARTS-START -->
+
+<section class="report-v2-charts">
+
+    <!-- CATEGORY DONUT -->
+    <div class="report-v2-panel">
+
+        <div class="report-v2-heading">
+
+            <p class="eyebrow">SPENDING MIX</p>
+
+            <h2>Where Your Money Goes</h2>
+
+            <p>
+                Visual breakdown of your expense categories.
+            </p>
+
+        </div>
+
+        <div class="report-v2-chart">
+
+            {% if category_rows %}
+
+                <canvas id="categoryDonutChart"></canvas>
+
+            {% else %}
+
+                <div class="report-v2-empty">
+                    No expense data available yet.
+                </div>
+
+            {% endif %}
+
+        </div>
+
+        {% if category_rows %}
+
+        <div class="report-v2-summary">
+
+            <div class="report-v2-summary-item">
+
+                <span class="report-v2-summary-label">
+                    Top category
+                </span>
+
+                <span class="report-v2-summary-value">
+                    {{ top_category }}
+                </span>
+
+            </div>
+
+            <div class="report-v2-summary-item">
+
+                <span class="report-v2-summary-label">
+                    Amount
+                </span>
+
+                <span class="report-v2-summary-value">
+                    ₹{{ "{:,.2f}".format(top_category_amount|default(0, true)) }}
+                </span>
+
+            </div>
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+
+    <!-- SAVINGS TREND -->
+    <div class="report-v2-panel">
+
+        <div class="report-v2-heading">
+
+            <p class="eyebrow">SAVINGS TREND</p>
+
+            <h2>Monthly Savings</h2>
+
+            <p>
+                See how much money remains after expenses.
+            </p>
+
+        </div>
+
+        <div class="report-v2-chart">
+
+            {% if monthly_data %}
+
+                <canvas id="savingsTrendChart"></canvas>
+
+            {% else %}
+
+                <div class="report-v2-empty">
+                    Add transactions to see your savings trend.
+                </div>
+
+            {% endif %}
+
+        </div>
+
+        <div class="report-v2-summary">
+
+            <div class="report-v2-summary-item">
+
+                <span class="report-v2-summary-label">
+                    Net savings
+                </span>
+
+                <span class="report-v2-summary-value
+                    {{ 'report-v2-positive' if net_savings >= 0 else 'report-v2-negative' }}">
+
+                    ₹{{ "{:,.2f}".format(net_savings|default(0, true)) }}
+
+                </span>
+
+            </div>
+
+            <div class="report-v2-summary-item">
+
+                <span class="report-v2-summary-label">
+                    Savings rate
+                </span>
+
+                <span class="report-v2-summary-value">
+                    {{ savings_rate|default(0, true) }}%
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- CASH FLOW -->
+    <div class="report-v2-panel report-v2-panel-wide">
+
+        <div class="report-v2-heading">
+
+            <p class="eyebrow">CASH FLOW ANALYSIS</p>
+
+            <h2>Income, Expenses & Savings</h2>
+
+            <p>
+                Compare your monthly inflow, spending and remaining cash.
+            </p>
+
+        </div>
+
+        <div class="report-v2-chart">
+
+            {% if monthly_data %}
+
+                <canvas id="cashFlowChart"></canvas>
+
+            {% else %}
+
+                <div class="report-v2-empty">
+                    No monthly financial data available yet.
+                </div>
+
+            {% endif %}
+
+        </div>
+
+        <div class="report-v2-summary">
+
+            <div class="report-v2-summary-item">
+
+                <span class="report-v2-summary-label">
+                    Avg. income
+                </span>
+
+                <span class="report-v2-summary-value">
+                    ₹{{ "{:,.2f}".format(average_monthly_income|default(0, true)) }}
+                </span>
+
+            </div>
+
+            <div class="report-v2-summary-item">
+
+                <span class="report-v2-summary-label">
+                    Avg. spending
+                </span>
+
+                <span class="report-v2-summary-value">
+                    ₹{{ "{:,.2f}".format(average_monthly_expenses|default(0, true)) }}
+                </span>
+
+            </div>
+
+            <div class="report-v2-summary-item">
+
+                <span class="report-v2-summary-label">
+                    Months tracked
+                </span>
+
+                <span class="report-v2-summary-value">
+                    {{ months_tracked|default(monthly_data|length, true) }}
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- REPORT-V2-CHARTS-END -->
+
+</main>
+</div>
+
+
+<script>
+
+/* =========================================================
+   SPENDSENSE REPORT CHARTS
+   ========================================================= */
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const chartFont = {
+        family: "Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
+    };
+
+    Chart.defaults.font.family = chartFont.family;
+    Chart.defaults.font.size = 11;
+    Chart.defaults.color = "#7a8496";
+
+    Chart.defaults.plugins.legend.labels.usePointStyle = true;
+    Chart.defaults.plugins.legend.labels.boxWidth = 8;
+    Chart.defaults.plugins.legend.labels.padding = 18;
+
+    const monthlyLabels = [
+        {% for row in monthly_data|reverse %}
+            "{{ row['month'] }}"{% if not loop.last %},{% endif %}
+        {% endfor %}
+    ];
+
+    const incomeData = [
+        {% for row in monthly_data|reverse %}
+            {{ row['income']|float }}{% if not loop.last %},{% endif %}
+        {% endfor %}
+    ];
+
+    const expenseData = [
+        {% for row in monthly_data|reverse %}
+            {{ row['expenses']|float }}{% if not loop.last %},{% endif %}
+        {% endfor %}
+    ];
+
+    const savingsData = [
+        {% for row in monthly_data|reverse %}
+            {{ row['savings']|float }}{% if not loop.last %},{% endif %}
+        {% endfor %}
+    ];
+
+
+    /* =====================================================
+       EXISTING MAIN FINANCIAL TREND
+       ===================================================== */
+
+    const monthlyCanvas =
+        document.getElementById("monthlyChart");
+
+    if (monthlyCanvas) {
+
+        new Chart(monthlyCanvas, {
+
+            type: "line",
+
+            data: {
+
+                labels: monthlyLabels,
+
+                datasets: [
+
+                    {
+                        label: "Income",
+                        data: incomeData,
+                        borderColor: "#3b82f6",
+                        backgroundColor: "rgba(59,130,246,.10)",
+                        borderWidth: 3,
+                        pointRadius: 4,
+                        pointHoverRadius: 6,
+                        tension: .38,
+                        fill: false
+                    },
+
+                    {
+                        label: "Expenses",
+                        data: expenseData,
+                        borderColor: "#e56b73",
+                        backgroundColor: "rgba(229,107,115,.10)",
+                        borderWidth: 3,
+                        pointRadius: 4,
+                        pointHoverRadius: 6,
+                        tension: .38,
+                        fill: false
+                    },
+
+                    {
+                        label: "Savings",
+                        data: savingsData,
+                        borderColor: "#18a477",
+                        backgroundColor: "rgba(24,164,119,.10)",
+                        borderWidth: 3,
+                        pointRadius: 4,
+                        pointHoverRadius: 6,
+                        tension: .38,
+                        fill: false
+                    }
+
+                ]
+
+            },
+
+            options: {
+
+                responsive: true,
+
+                maintainAspectRatio: false,
+
+                interaction: {
+                    mode: "index",
+                    intersect: false
+                },
+
+                plugins: {
+
+                    tooltip: {
+
+                        callbacks: {
+
+                            label: function(context) {
+
+                                return context.dataset.label
+                                    + ": ₹"
+                                    + Number(context.raw)
+                                        .toLocaleString("en-IN", {
+                                            minimumFractionDigits: 2,
+                                            maximumFractionDigits: 2
+                                        });
+
+                            }
+
+                        }
+
+                    }
+
+                },
+
+                scales: {
+
+                    x: {
+                        grid: {
+                            display: false
+                        }
+                    },
+
+                    y: {
+
+                        beginAtZero: true,
+
+                        grid: {
+                            color: "rgba(30,45,75,.07)"
+                        },
+
+                        ticks: {
+
+                            callback: function(value) {
+
+                                return "₹"
+                                    + Number(value)
+                                        .toLocaleString("en-IN");
+
+                            }
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+        });
+
+    }
+
+
+    /* =====================================================
+       CATEGORY DONUT
+       ===================================================== */
+
+    const categoryCanvas =
+        document.getElementById("categoryDonutChart");
+
+    if (categoryCanvas) {
+
+        const categoryLabels = [
+            {% for row in category_rows[:8] %}
+                "{{ row['category']|replace('"', '\"') }}"{% if not loop.last %},{% endif %}
+            {% endfor %}
+        ];
+
+        const categoryData = [
+            {% for row in category_rows[:8] %}
+                {{ row['total']|float }}{% if not loop.last %},{% endif %}
+            {% endfor %}
+        ];
+
+        new Chart(categoryCanvas, {
+
+            type: "doughnut",
+
+            data: {
+
+                labels: categoryLabels,
+
+                datasets: [{
+
+                    data: categoryData,
+
+                    backgroundColor: [
+                        "#3b82f6",
+                        "#18a477",
+                        "#f59e0b",
+                        "#e56b73",
+                        "#8b5cf6",
+                        "#06b6d4",
+                        "#f97316",
+                        "#64748b"
+                    ],
+
+                    borderWidth: 0,
+
+                    hoverOffset: 7
+
+                }]
+
+            },
+
+            options: {
+
+                responsive: true,
+
+                maintainAspectRatio: false,
+
+                cutout: "68%",
+
+                plugins: {
+
+                    legend: {
+                        position: "bottom"
+                    },
+
+                    tooltip: {
+
+                        callbacks: {
+
+                            label: function(context) {
+
+                                return " ₹"
+                                    + Number(context.raw)
+                                        .toLocaleString("en-IN", {
+                                            minimumFractionDigits: 2,
+                                            maximumFractionDigits: 2
+                                        });
+
+                            }
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+        });
+
+    }
+
+
+    /* =====================================================
+       SAVINGS TREND
+       ===================================================== */
+
+    const savingsCanvas =
+        document.getElementById("savingsTrendChart");
+
+    if (savingsCanvas) {
+
+        new Chart(savingsCanvas, {
+
+            type: "line",
+
+            data: {
+
+                labels: monthlyLabels,
+
+                datasets: [{
+
+                    label: "Savings",
+
+                    data: savingsData,
+
+                    borderColor: "#18a477",
+
+                    backgroundColor:
+                        "rgba(24,164,119,.12)",
+
+                    borderWidth: 3,
+
+                    pointRadius: 5,
+
+                    pointHoverRadius: 7,
+
+                    tension: .4,
+
+                    fill: true
+
+                }]
+
+            },
+
+            options: {
+
+                responsive: true,
+
+                maintainAspectRatio: false,
+
+                plugins: {
+
+                    legend: {
+                        display: false
+                    },
+
+                    tooltip: {
+
+                        callbacks: {
+
+                            label: function(context) {
+
+                                return "Savings: ₹"
+                                    + Number(context.raw)
+                                        .toLocaleString("en-IN", {
+                                            minimumFractionDigits: 2,
+                                            maximumFractionDigits: 2
+                                        });
+
+                            }
+
+                        }
+
+                    }
+
+                },
+
+                scales: {
+
+                    x: {
+                        grid: {
+                            display: false
+                        }
+                    },
+
+                    y: {
+
+                        grid: {
+                            color: "rgba(30,45,75,.07)"
+                        },
+
+                        ticks: {
+
+                            callback: function(value) {
+
+                                return "₹"
+                                    + Number(value)
+                                        .toLocaleString("en-IN");
+
+                            }
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+        });
+
+    }
+
+
+    /* =====================================================
+       CASH FLOW BAR CHART
+       ===================================================== */
+
+    const cashFlowCanvas =
+        document.getElementById("cashFlowChart");
+
+    if (cashFlowCanvas) {
+
+        new Chart(cashFlowCanvas, {
+
+            type: "bar",
+
+            data: {
+
+                labels: monthlyLabels,
+
+                datasets: [
+
+                    {
+                        label: "Income",
+                        data: incomeData,
+                        backgroundColor: "rgba(59,130,246,.78)",
+                        borderRadius: 7,
+                        borderSkipped: false
+                    },
+
+                    {
+                        label: "Expenses",
+                        data: expenseData,
+                        backgroundColor: "rgba(229,107,115,.78)",
+                        borderRadius: 7,
+                        borderSkipped: false
+                    },
+
+                    {
+                        label: "Savings",
+                        data: savingsData,
+                        backgroundColor: "rgba(24,164,119,.78)",
+                        borderRadius: 7,
+                        borderSkipped: false
+                    }
+
+                ]
+
+            },
+
+            options: {
+
+                responsive: true,
+
+                maintainAspectRatio: false,
+
+                interaction: {
+                    mode: "index",
+                    intersect: false
+                },
+
+                plugins: {
+
+                    tooltip: {
+
+                        callbacks: {
+
+                            label: function(context) {
+
+                                return context.dataset.label
+                                    + ": ₹"
+                                    + Number(context.raw)
+                                        .toLocaleString("en-IN", {
+                                            minimumFractionDigits: 2,
+                                            maximumFractionDigits: 2
+                                        });
+
+                            }
+
+                        }
+
+                    }
+
+                },
+
+                scales: {
+
+                    x: {
+
+                        grid: {
+                            display: false
+                        }
+
+                    },
+
+                    y: {
+
+                        beginAtZero: true,
+
+                        grid: {
+                            color: "rgba(30,45,75,.07)"
+                        },
+
+                        ticks: {
+
+                            callback: function(value) {
+
+                                return "₹"
+                                    + Number(value)
+                                        .toLocaleString("en-IN");
+
+                            }
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+        });
+
+    }
+
+});
+
+</script>
+
+
+
+<script>
+// REPORT-CHART-UX-FINAL
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    if (typeof Chart === "undefined") return;
+
+    Chart.defaults.font.family =
+        "Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif";
+
+    Chart.defaults.animation.duration = 700;
+
+    document.querySelectorAll(".report-v2-chart").forEach(function (box) {
+        box.style.minHeight = "300px";
+    });
+
+});
+
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+

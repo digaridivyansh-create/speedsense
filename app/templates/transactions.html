@@ -587,133 +587,142 @@
         </div>
 
         <select id="typeFilter" class="filter" onchange="filterTransactions()">
-            <option value="all">All transactions</option>
-            <option value="income">Income</option>
-            <option value="expense">Expenses</option>
-        </select>
+    <option value="all">All transactions</option>
+    <option value="income">Income</option>
+    <option value="expense">Expenses</option>
+</select>
 
-        <a href="/dashboard" class="add-btn">
-            + Add Transaction
-        </a>
+<select id="categoryFilter" class="filter" onchange="filterTransactions()">
+    <option value="all">All categories</option>
+    <option value="Food">Food</option>
+    <option value="Transport">Transport</option>
+    <option value="Shopping">Shopping</option>
+    <option value="Bills">Bills</option>
+</select>
+
+<input
+    id="monthFilter"
+    class="filter"
+    type="month"
+    onchange="filterTransactions()">
+
+<button
+    type="button"
+    class="clear-filter-btn"
+    onclick="clearTransactionFilters()">
+    Clear
+</button>
+
+<span id="transactionCount" class="transaction-count"></span>
+
+<a href="/dashboard" class="add-btn">
+    + Add Transaction
+</a>
 
     </div>
 
     <div class="transactions" id="transactionList">
 
-        {% if transactions %}
+    {% if transactions %}
 
-            {% for transaction in transactions %}
+        {% for transaction in transactions %}
 
-            <div
-                class="transaction"
-                data-type="{{ transaction['transaction_type'] }}"
-                data-search="{{ transaction['title'] }} {{ transaction['category'] }} {{ transaction['notes']|default('') }}">
+        <div
+            class="transaction"
+            data-type="{{ transaction['transaction_type'] }}"
+            data-category="{{ transaction['category'] }}"
+            data-date="{{ transaction['transaction_date'] }}"
+            data-search="{{ transaction['title'] }} {{ transaction['category'] }} {{ transaction['notes']|default('') }}">
 
-                <div class="transaction-icon
-                    {% if transaction['transaction_type'] == 'income' %}
-                        income-icon
-                    {% else %}
-                        expense-icon
-                    {% endif %}">
+            <div class="transaction-icon {% if transaction['transaction_type'] == 'income' %}income-icon{% else %}expense-icon{% endif %}">
 
-                    {% if transaction['transaction_type'] == 'income' %}
-                        ↑
-                    {% else %}
-                        ↓
+                {% if transaction['transaction_type'] == 'income' %}
+                    ↑
+                {% else %}
+                    ↓
+                {% endif %}
+
+            </div>
+
+            <div class="transaction-main">
+
+                <div class="transaction-title">
+                    {{ transaction['title'] }}
+                </div>
+
+                <div class="transaction-meta">
+
+                    <span class="badge">
+                        {{ transaction['category'] }}
+                    </span>
+
+                    <span>
+                        {{ transaction['transaction_date'] }}
+                    </span>
+
+                    {% if transaction['notes'] %}
+                        <span>{{ transaction['notes'] }}</span>
                     {% endif %}
-
-                </div>
-
-                <div class="transaction-main">
-
-                    <div class="transaction-title">
-                        {{ transaction['title'] }}
-                    </div>
-
-                    <div class="transaction-meta">
-
-                        <span class="badge">
-                            {{ transaction['category'] }}
-                        </span>
-
-                        <span>
-                            {{ transaction['transaction_date'] }}
-                        </span>
-
-                        {% if transaction['notes'] %}
-                            <span>{{ transaction['notes'] }}</span>
-                        {% endif %}
-
-                    </div>
-
-                </div>
-
-
-                <div class="transaction-actions">
-
-                    <button
-    type="button"
-    class="edit-btn"
-    onclick='openEditModal(
-        {{ transaction["id"] }},
-        {{ transaction["title"]|tojson }},
-        {{ transaction["amount"] }},
-        {{ transaction["transaction_type"]|tojson }},
-        {{ transaction["category"]|tojson }},
-        {{ transaction["transaction_date"]|tojson }},
-        {{ transaction["notes"]|default("")|tojson }}
-    )'>
-    Edit
-</button>
-
-                    <form
-                        method="POST"
-                        action="/transactions/{{ transaction['id'] }}/delete"
-                        onsubmit="return confirm('Delete this transaction?');">
-
-                        <button type="submit" class="delete-btn">
-                            Delete
-                        </button>
-
-                    </form>
-
-                </div>
-
-                <div class="transaction-amount
-                        {% if transaction['transaction_type'] == 'income' %}
-                            income
-                        {% else %}
-                            expense
-                        {% endif %}">
-
-                    {% if transaction['transaction_type'] == 'income' %}
-                        + ₹{{ "{:,.0f}".format(transaction['amount']) }}
-                    {% else %}
-                        − ₹{{ "{:,.0f}".format(transaction['amount']) }}
-                    {% endif %}
-
-                </div>
 
                 </div>
 
             </div>
 
-            {% endfor %}
+            <div class="transaction-actions">
 
-        {% else %}
+                <button
+                    type="button"
+                    class="edit-btn"
+                    onclick='openEditModal(
+                        {{ transaction["id"] }},
+                        {{ transaction["title"]|tojson }},
+                        {{ transaction["amount"] }},
+                        {{ transaction["transaction_type"]|tojson }},
+                        {{ transaction["category"]|tojson }},
+                        {{ transaction["transaction_date"]|tojson }},
+                        {{ transaction["notes"]|default("")|tojson }}
+                    )'>
+                    Edit
+                </button>
 
-            <div class="empty">
-                <div class="empty-icon">💸</div>
-                <h3>No transactions yet</h3>
-                <p>Your transactions will appear here after you add them.</p>
+                <form
+                    method="POST"
+                    action="/transactions/{{ transaction['id'] }}/delete"
+                    onsubmit="return confirm('Delete this transaction?');">
+
+                    <button type="submit" class="delete-btn">
+                        Delete
+                    </button>
+
+                </form>
+
             </div>
 
-        {% endif %}
+            <div class="transaction-amount {% if transaction['transaction_type'] == 'income' %}income{% else %}expense{% endif %}">
 
-    </div>
+                {% if transaction['transaction_type'] == 'income' %}
+                    + ₹{{ "{:,.0f}".format(transaction['amount']) }}
+                {% else %}
+                    − ₹{{ "{:,.0f}".format(transaction['amount']) }}
+                {% endif %}
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    {% else %}
+
+        <div class="empty">
+            <div class="empty-icon">💸</div>
+            <h3>No transactions yet</h3>
+            <p>Your transactions will appear here after you add them.</p>
+        </div>
+
+    {% endif %}
 
 </div>
-
 
 <style>
 /* =========================================================
@@ -997,6 +1006,110 @@
 
 
 <script>
+function filterTransactions() {
+
+    const searchInput = document.getElementById("search");
+    const typeFilter = document.getElementById("typeFilter");
+    const categoryFilter = document.getElementById("categoryFilter");
+    const monthFilter = document.getElementById("monthFilter");
+    const countElement = document.getElementById("transactionCount");
+
+    const search = (searchInput?.value || "").trim().toLowerCase();
+    const type = (typeFilter?.value || "all").trim().toLowerCase();
+    const category = (categoryFilter?.value || "all").trim().toLowerCase();
+    const month = (monthFilter?.value || "").trim();
+
+    const transactions = document.querySelectorAll(
+        "#transactionList .transaction"
+    );
+
+    let visibleCount = 0;
+
+    transactions.forEach(function (transaction) {
+
+        const transactionType =
+            (transaction.dataset.type || "").trim().toLowerCase();
+
+        const transactionCategory =
+            (transaction.dataset.category || "").trim().toLowerCase();
+
+        const transactionDate =
+            (transaction.dataset.date || "").trim();
+
+        const searchText =
+            (transaction.dataset.search || "").trim().toLowerCase();
+
+        const matchesSearch =
+            search === "" ||
+            searchText.includes(search);
+
+        const matchesType =
+            type === "all" ||
+            transactionType === type;
+
+        const matchesCategory =
+            category === "all" ||
+            transactionCategory === category;
+
+        const matchesMonth =
+            month === "" ||
+            transactionDate.startsWith(month);
+
+        const visible =
+            matchesSearch &&
+            matchesType &&
+            matchesCategory &&
+            matchesMonth;
+
+        transaction.style.display = visible ? "" : "none";
+
+        if (visible) {
+            visibleCount++;
+        }
+    });
+
+    if (countElement) {
+        countElement.textContent =
+            visibleCount +
+            (visibleCount === 1
+                ? " transaction"
+                : " transactions");
+    }
+}
+
+
+function clearTransactionFilters() {
+
+    const searchInput = document.getElementById("search");
+    const typeFilter = document.getElementById("typeFilter");
+    const categoryFilter = document.getElementById("categoryFilter");
+    const monthFilter = document.getElementById("monthFilter");
+
+    if (searchInput) {
+        searchInput.value = "";
+    }
+
+    if (typeFilter) {
+        typeFilter.value = "all";
+    }
+
+    if (categoryFilter) {
+        categoryFilter.value = "all";
+    }
+
+    if (monthFilter) {
+        monthFilter.value = "";
+    }
+
+    filterTransactions();
+}
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    filterTransactions();
+});
+</script>
+<script>
 document.addEventListener("DOMContentLoaded", function () {
 
     const modal = document.getElementById("editModal");
@@ -1016,7 +1129,6 @@ document.addEventListener("DOMContentLoaded", function () {
         date,
         notes
     ) {
-
         const titleInput = document.getElementById("editTitle");
         const amountInput = document.getElementById("editAmount");
         const typeInput = document.getElementById("editType");
@@ -1056,7 +1168,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
 });
 </script>
-
 
 <style>
 /* =========================================================
@@ -1227,6 +1338,19 @@ document.addEventListener("DOMContentLoaded", function () {
 
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

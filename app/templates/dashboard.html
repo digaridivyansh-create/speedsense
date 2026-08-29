@@ -26,30 +26,27 @@
 
             <nav class="dashboard-nav">
 
-                <a href="/dashboard" class="nav-item active">
+                <a href="{{ url_for('dashboard') }}" class="nav-item active">
                     <span>⌂</span>
                     Dashboard
                 </a>
 
-                <a href="/transactions" class="nav-item">
+                <a href="{{ url_for('transactions') }}" class="nav-item">
                     <span>↔</span>
                     Transactions
                 </a>
 
-                <a href="#" class="nav-item">
+                <a href="{{ url_for('budgets') }}" class="nav-item">
                     <span>▣</span>
                     Budgets
                 </a>
 
-                <a href="#" class="nav-item">
-                    <span>◔</span>
-                    Analytics
-                </a>
+                <a href="{{ url_for('analytics') }}" class="nav-item">
+    <span>◔</span>
+    Analytics
+</a>
 
-                <a href="#" class="nav-item">
-                    <span>▤</span>
-                    Reports
-                </a>
+                <a href="{{ url_for('reports') }}" class="nav-item"><span>▤</span>Reports</a>
 
             </nav>
 
@@ -764,6 +761,12 @@
 
 </body>
 </html>
+
+
+
+
+
+
 
 
 
