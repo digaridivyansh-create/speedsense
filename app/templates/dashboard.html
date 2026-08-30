@@ -32,7 +32,7 @@
                 </a>
 
                 <a href="{{ url_for('transactions') }}" class="nav-item">
-                    <span>â†”</span>
+                    <span>←”</span>
                     Transactions
                 </a>
 
@@ -58,7 +58,7 @@
                 </div>
 
                 <a href="/logout" class="logout-link">
-                    â†ª Logout
+                    ←ª Logout
                 </a>
 
             </div>
@@ -106,10 +106,10 @@
                         <span class="card-icon">&#9670;</span>
                     </div>
 
-                    <h2>â‚¹{{ "{:,.2f}".format(total_balance) }}</h2>
+                    <h2>₹{{ "{:,.2f}".format(total_balance) }}</h2>
 
                     <p class="positive">
-                        â†‘ 8.4% this month
+                        ←‘ 8.4% this month
                     </p>
 
                 </div>
@@ -122,10 +122,10 @@
                         <span class="card-icon">&#9670;</span>
                     </div>
 
-                    <h2>â‚¹{{ "{:,.2f}".format(total_income) }}</h2>
+                    <h2>₹{{ "{:,.2f}".format(total_income) }}</h2>
 
                     <p class="positive">
-                        â†‘ 5.2% from last month
+                        ←‘ 5.2% from last month
                     </p>
 
                 </div>
@@ -138,10 +138,10 @@
                         <span class="card-icon">&#9670;</span>
                     </div>
 
-                    <h2>â‚¹{{ "{:,.2f}".format(total_expenses) }}</h2>
+                    <h2>₹{{ "{:,.2f}".format(total_expenses) }}</h2>
 
                     <p class="negative">
-                        â†“ 3.1% from last month
+                        ←“ 3.1% from last month
                     </p>
 
                 </div>
@@ -189,11 +189,11 @@
                     <div class="chart-placeholder">
 
                         <div class="chart-line">
-                            <span>â‚¹{{ "{:,.0f}".format(chart_max) }}</span>
-                            <span>â‚¹{{ "{:,.0f}".format(chart_max * 0.8) }}</span>
-                            <span>â‚¹{{ "{:,.0f}".format(chart_max * 0.6) }}</span>
-                            <span>â‚¹{{ "{:,.0f}".format(chart_max * 0.4) }}</span>
-                            <span>â‚¹{{ "{:,.0f}".format(chart_max * 0.2) }}</span>
+                            <span>₹{{ "{:,.0f}".format(chart_max) }}</span>
+                            <span>₹{{ "{:,.0f}".format(chart_max * 0.8) }}</span>
+                            <span>₹{{ "{:,.0f}".format(chart_max * 0.6) }}</span>
+                            <span>₹{{ "{:,.0f}".format(chart_max * 0.4) }}</span>
+                            <span>₹{{ "{:,.0f}".format(chart_max * 0.2) }}</span>
                         </div>
 
                         <div class="chart-bars">
@@ -238,7 +238,7 @@
                                 <span class="category-dot food"></span>
                                 Food
                             </div>
-                            <strong>â‚¹{{ "{:,.2f}".format(category_totals["Food"]) }}</strong>
+                            <strong>₹{{ "{:,.2f}".format(category_totals["Food"]) }}</strong>
                         </div>
 
                         <div class="progress">
@@ -251,7 +251,7 @@
                                 <span class="category-dot transport"></span>
                                 Transport
                             </div>
-                            <strong>â‚¹{{ "{:,.2f}".format(category_totals["Transport"]) }}</strong>
+                            <strong>₹{{ "{:,.2f}".format(category_totals["Transport"]) }}</strong>
                         </div>
 
                         <div class="progress">
@@ -264,7 +264,7 @@
                                 <span class="category-dot shopping"></span>
                                 Shopping
                             </div>
-                            <strong>â‚¹{{ "{:,.2f}".format(category_totals["Shopping"]) }}</strong>
+                            <strong>₹{{ "{:,.2f}".format(category_totals["Shopping"]) }}</strong>
                         </div>
 
                         <div class="progress">
@@ -277,7 +277,7 @@
                                 <span class="category-dot bills"></span>
                                 Bills
                             </div>
-                            <strong>â‚¹{{ "{:,.2f}".format(category_totals["Bills"]) }}</strong>
+                            <strong>₹{{ "{:,.2f}".format(category_totals["Bills"]) }}</strong>
                         </div>
 
                         <div class="progress">
@@ -305,7 +305,7 @@
                         </div>
 
                         <a href="#" class="view-link">
-                            View all â†’
+                            View all →
                         </a>
 
                     </div>
@@ -328,7 +328,7 @@
 
                                         <span>
                                             {{ transaction["category"] }}
-                                            â€¢
+                                            ”¢
                                             {{ transaction["transaction_date"] }}
                                         </span>
 
@@ -337,13 +337,13 @@
                                     {% if transaction["transaction_type"] == "income" %}
 
                                         <strong class="amount income">
-                                            +â‚¹{{ "{:,.2f}".format(transaction["amount"]) }}
+                                            +₹{{ "{:,.2f}".format(transaction["amount"]) }}
                                         </strong>
 
                                     {% else %}
 
                                         <strong class="amount expense">
-                                            -â‚¹{{ "{:,.2f}".format(transaction["amount"]) }}
+                                            -₹{{ "{:,.2f}".format(transaction["amount"]) }}
                                         </strong>
 
                                     {% endif %}
@@ -391,7 +391,7 @@
 
                     <div class="insight-stat">
                         <span>Potential savings</span>
-                        <strong>â‚¹{{ "{:,.0f}".format(potential_savings) }}</strong>
+                        <strong>₹{{ "{:,.0f}".format(potential_savings) }}</strong>
                     </div>
 
                 </div>
