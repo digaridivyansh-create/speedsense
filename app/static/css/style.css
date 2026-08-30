@@ -8357,3 +8357,419 @@ header.navbar .landing-login:hover {
     }
 }
 
+
+/* =========================================================
+   SPENDSENSE MOBILE LANDING — LIGHT VERSION
+   Keep desktop unchanged.
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+    html,
+    body {
+        background: #ffffff !important;
+        color: #11131f !important;
+    }
+
+    body:has(.hero) {
+        background: #ffffff !important;
+        color: #11131f !important;
+    }
+
+    /* White mobile navbar */
+    body:has(.hero) .navbar {
+        background: rgba(255, 255, 255, 0.96) !important;
+        color: #11131f !important;
+        border-bottom: 1px solid #eeeaf5 !important;
+        box-shadow: 0 4px 20px rgba(40, 35, 70, 0.06) !important;
+    }
+
+    /* SpendSense logo text */
+    body:has(.hero) .navbar .logo,
+    body:has(.hero) .navbar .logo span:last-child {
+        color: #11131f !important;
+    }
+
+    /* Logo square */
+    body:has(.hero) .logo-mark {
+        background: linear-gradient(
+            135deg,
+            #7257ff,
+            #ff4f9c
+        ) !important;
+        color: #ffffff !important;
+    }
+
+    /* Mobile navigation pills */
+    body:has(.hero) .landing-nav a {
+        background: #ffffff !important;
+        color: #4b4658 !important;
+        border: 1px solid #ddd8ee !important;
+    }
+
+    /* Get started */
+    body:has(.hero) .nav-buttons .btn-primary,
+    body:has(.hero) .hero-buttons .btn-primary {
+        background: linear-gradient(
+            110deg,
+            #7057ff,
+            #c84cff,
+            #ff4d9b
+        ) !important;
+        color: #ffffff !important;
+        border: none !important;
+        box-shadow: 0 10px 25px rgba(114, 87, 255, 0.20) !important;
+    }
+
+    /* Log in */
+    body:has(.hero) .landing-login {
+        background: #ffffff !important;
+        color: #403d4d !important;
+        border: 1px solid #ded9e8 !important;
+    }
+
+    /* Main landing area */
+    body:has(.hero) main {
+        background: #ffffff !important;
+    }
+
+    body:has(.hero) .hero {
+        background: #ffffff !important;
+        color: #11131f !important;
+    }
+
+    body:has(.hero) .hero-content {
+        color: #11131f !important;
+    }
+
+    /* Small purple eyebrow */
+    body:has(.hero) .eyebrow {
+        color: #7257ff !important;
+    }
+
+    /* Main heading */
+    body:has(.hero) .hero h1 {
+        color: #11131f !important;
+    }
+
+    /* "deserves clarity." */
+    body:has(.hero) .hero h1 span {
+        background: linear-gradient(
+            90deg,
+            #7257ff,
+            #ff4f9c
+        ) !important;
+        -webkit-background-clip: text !important;
+        background-clip: text !important;
+        -webkit-text-fill-color: transparent !important;
+        color: transparent !important;
+    }
+
+    /* Description */
+    body:has(.hero) .hero-description {
+        color: #5f5b68 !important;
+    }
+
+    /* Secondary hero button */
+    body:has(.hero) .hero-buttons .btn:not(.btn-primary) {
+        background: #ffffff !important;
+        color: #403d4d !important;
+        border: 1px solid #ded9e8 !important;
+    }
+
+    /* Stats below hero */
+    body:has(.hero) .trust-row {
+        color: #11131f !important;
+    }
+
+    body:has(.hero) .trust-row *,
+    body:has(.hero) .stat-label {
+        color: #6b6675 !important;
+    }
+
+    /* Keep the financial preview dark */
+    body:has(.hero) .hero-visual,
+    body:has(.hero) .dashboard-preview,
+    body:has(.hero) .finance-card,
+    body:has(.hero) .preview-card {
+        color: #ffffff;
+    }
+
+    /* Prevent horizontal overflow on phone */
+    body:has(.hero) {
+        overflow-x: hidden !important;
+    }
+
+    body:has(.hero) .hero {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+}
+
+/* =========================================================
+   MOBILE LANDING PAGE — MATCH DESKTOP WHITE THEME
+   ========================================================= */
+
+@media (max-width: 768px) {
+
+    html,
+    body {
+        background: #ffffff !important;
+        color: #11131f !important;
+    }
+
+    body:has(.hero) {
+        background: #ffffff !important;
+        color: #11131f !important;
+        overflow-x: hidden !important;
+    }
+
+    body:has(.hero) main {
+        background: #ffffff !important;
+        color: #11131f !important;
+    }
+
+    body:has(.hero) .hero {
+        background: #ffffff !important;
+        color: #11131f !important;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    body:has(.hero) .hero-content {
+        background: #ffffff !important;
+        color: #11131f !important;
+    }
+
+    body:has(.hero) .hero h1 {
+        color: #11131f !important;
+    }
+
+    body:has(.hero) .hero h1 span {
+        background: linear-gradient(
+            90deg,
+            #7257ff,
+            #ff4f9c
+        ) !important;
+        -webkit-background-clip: text !important;
+        background-clip: text !important;
+        -webkit-text-fill-color: transparent !important;
+        color: transparent !important;
+    }
+
+    body:has(.hero) .hero-description {
+        color: #5f5b68 !important;
+    }
+
+    body:has(.hero) .eyebrow {
+        color: #7257ff !important;
+    }
+
+    body:has(.hero) .trust-row {
+        color: #11131f !important;
+        background: #ffffff !important;
+    }
+
+    body:has(.hero) .trust-row * {
+        color: #6b6675 !important;
+    }
+
+    /* Navbar */
+    body:has(.hero) .navbar {
+        background: #ffffff !important;
+        color: #11131f !important;
+        border-color: #e5e1ed !important;
+    }
+
+    body:has(.hero) .navbar .logo,
+    body:has(.hero) .navbar .logo span:last-child {
+        color: #11131f !important;
+    }
+
+    /* Mobile navigation */
+    body:has(.hero) .landing-nav {
+        background: #ffffff !important;
+    }
+
+    body:has(.hero) .landing-nav a {
+        background: #ffffff !important;
+        color: #4b4658 !important;
+        border: 1px solid #ddd8ee !important;
+    }
+
+    /* Login */
+    body:has(.hero) .landing-login {
+        background: #ffffff !important;
+        color: #403d4d !important;
+        border: 1px solid #ded9e8 !important;
+    }
+
+    /* Buttons */
+    body:has(.hero) .nav-buttons .btn-primary,
+    body:has(.hero) .hero-buttons .btn-primary {
+        background: linear-gradient(
+            110deg,
+            #7057ff,
+            #c84cff,
+            #ff4d9b
+        ) !important;
+        color: #ffffff !important;
+        border: none !important;
+    }
+
+    body:has(.hero) .hero-buttons .btn:not(.btn-primary) {
+        background: #ffffff !important;
+        color: #403d4d !important;
+        border: 1px solid #ded9e8 !important;
+    }
+
+    /* Keep the financial preview card dark */
+    body:has(.hero) .hero-visual,
+    body:has(.hero) .dashboard-preview,
+    body:has(.hero) .finance-card,
+    body:has(.hero) .preview-card {
+        background: #11131f !important;
+        color: #ffffff !important;
+    }
+
+    body:has(.hero) .hero-visual *,
+    body:has(.hero) .dashboard-preview *,
+    body:has(.hero) .finance-card *,
+    body:has(.hero) .preview-card * {
+        color: inherit;
+    }
+
+}
+
+/* =========================================================
+   SPENDSENSE MOBILE — MATCH DESKTOP WHITE THEME
+   ========================================================= */
+
+@media (max-width: 768px) {
+
+    html,
+    body {
+        background: #ffffff !important;
+        color: #11131f !important;
+        overflow-x: hidden !important;
+    }
+
+    body:has(.hero) {
+        background: #ffffff !important;
+        color: #11131f !important;
+    }
+
+    body:has(.hero) main {
+        background: #ffffff !important;
+        color: #11131f !important;
+    }
+
+    /* Navbar */
+    body:has(.hero) .navbar {
+        background: #ffffff !important;
+        color: #11131f !important;
+        border-color: #e5e1ed !important;
+    }
+
+    body:has(.hero) .navbar .logo,
+    body:has(.hero) .navbar .logo span {
+        color: #11131f !important;
+    }
+
+    /* Mobile navigation pills */
+    body:has(.hero) .landing-nav {
+        background: #ffffff !important;
+    }
+
+    body:has(.hero) .landing-nav a {
+        background: #ffffff !important;
+        color: #4b4658 !important;
+        border: 1px solid #ddd8ee !important;
+    }
+
+    /* Hero */
+    body:has(.hero) .hero,
+    body:has(.hero) .hero-content {
+        background: #ffffff !important;
+        color: #11131f !important;
+    }
+
+    body:has(.hero) .hero h1 {
+        color: #11131f !important;
+    }
+
+    /* Gradient heading */
+    body:has(.hero) .hero h1 span {
+        background: linear-gradient(
+            90deg,
+            #7257ff,
+            #ff4f9c
+        ) !important;
+        -webkit-background-clip: text !important;
+        background-clip: text !important;
+        -webkit-text-fill-color: transparent !important;
+        color: transparent !important;
+    }
+
+    body:has(.hero) .eyebrow {
+        color: #7257ff !important;
+    }
+
+    body:has(.hero) .hero-description {
+        color: #5f5b68 !important;
+    }
+
+    /* Login */
+    body:has(.hero) .landing-login {
+        background: #ffffff !important;
+        color: #403d4d !important;
+        border: 1px solid #ded9e8 !important;
+    }
+
+    /* Primary buttons */
+    body:has(.hero) .nav-buttons .btn-primary,
+    body:has(.hero) .hero-buttons .btn-primary {
+        background: linear-gradient(
+            110deg,
+            #7057ff,
+            #c84cff,
+            #ff4d9b
+        ) !important;
+        color: #ffffff !important;
+        border: none !important;
+    }
+
+    /* Secondary button */
+    body:has(.hero) .hero-buttons .btn:not(.btn-primary) {
+        background: #ffffff !important;
+        color: #403d4d !important;
+        border: 1px solid #ded9e8 !important;
+    }
+
+    /* Stats */
+    body:has(.hero) .trust-row {
+        background: #ffffff !important;
+        color: #11131f !important;
+    }
+
+    body:has(.hero) .trust-row * {
+        color: #6b6675 !important;
+    }
+
+    /* Keep financial preview DARK like desktop */
+    body:has(.hero) .hero-visual,
+    body:has(.hero) .dashboard-preview,
+    body:has(.hero) .finance-card,
+    body:has(.hero) .preview-card {
+        background: #11131f !important;
+        color: #ffffff !important;
+    }
+
+    body:has(.hero) .hero-visual *,
+    body:has(.hero) .dashboard-preview *,
+    body:has(.hero) .finance-card *,
+    body:has(.hero) .preview-card * {
+        color: inherit;
+    }
+}
+
