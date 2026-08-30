@@ -1,4 +1,4 @@
-﻿from flask import (
+from flask import (
     Flask,
     render_template,
     request,
@@ -303,6 +303,9 @@ def delete_budget(budget_id):
 
 @app.route("/dashboard")
 def dashboard():
+    spending_period = request.args.get("period", "this")
+    if spending_period not in ("this", "last"):
+        spending_period = "this"
 
     if "user_id" not in session:
         return redirect("/login")
@@ -1424,10 +1427,3 @@ if __name__ == "__main__":
         debug=True,
         port=5001
     )
-
-
-
-
-
-
-
