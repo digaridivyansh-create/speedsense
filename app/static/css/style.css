@@ -1,5 +1,5 @@
 /* =========================================================
-   SpendSense — Day 2 Dashboard
+   SpendSense ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¦ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â Day 2 Dashboard
    ========================================================= */
 
 * {
@@ -1838,7 +1838,7 @@ footer p {
     font-weight: 700;
 }
 /* =========================================================
-   SPENDSENSE — PREMIUM FINTECH EXPERIENCE
+   SPENDSENSE ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¦ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â PREMIUM FINTECH EXPERIENCE
    ========================================================= */
 
 html {
@@ -2338,7 +2338,7 @@ nav a:hover {
 
 
 /* =========================================================
-   SPENDSENSE — COLORFUL DASHBOARD BEAUTIFICATION
+   SPENDSENSE ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¦ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â COLORFUL DASHBOARD BEAUTIFICATION
    ========================================================= */
 
 /* ---------- Dashboard background ---------- */
@@ -2733,10 +2733,14 @@ textarea:focus {
     }
 
     .chart-bars > div:hover {
+        transform: none;
+    }
+}
+
 /* =========================================================
 
 /* =========================================================
-   SPENDSENSE — ADVANCED FINTECH UI
+   SPENDSENSE ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¦ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â ADVANCED FINTECH UI
    Premium gradients + glass + motion + micro-interactions
    ========================================================= */
 
@@ -3632,7 +3636,7 @@ textarea:focus {
     }
 }
 /* =========================================================
-   SPENDSENSE — PREMIUM FINTECH DASHBOARD
+   SPENDSENSE ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¦ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â PREMIUM FINTECH DASHBOARD
    ========================================================= */
 
 :root {
@@ -5696,6 +5700,2660 @@ textarea:focus {
     .analytics-chart-container {
         height: 280px !important;
         min-height: 280px !important;
+    }
+}
+
+
+
+
+.nav-links {
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+}
+
+.nav-links a {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 9px 15px !important;
+    border-radius: 999px !important;
+    color: #686878 !important;
+    background: transparent !important;
+    border: 1px solid transparent !important;
+    text-decoration: none !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    transition: all .22s ease !important;
+}
+
+.nav-links a:hover {
+    color: #7257ff !important;
+    background: #f4f1ff !important;
+    border-color: #e5ddff !important;
+    transform: translateY(-1px) !important;
+}
+
+.nav-links a:active {
+    transform: translateY(0) !important;
+}
+
+.nav-buttons {
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+}
+
+.nav-buttons .btn-login {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 10px 17px !important;
+    min-height: 40px !important;
+    border: 1px solid #dedbe8 !important;
+    border-radius: 999px !important;
+    background: #ffffff !important;
+    color: #383847 !important;
+    text-decoration: none !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    box-shadow: 0 2px 8px rgba(40, 35, 70, .06) !important;
+    transition: all .22s ease !important;
+}
+
+.nav-buttons .btn-login:hover {
+    color: #7257ff !important;
+    border-color: #cfc4ff !important;
+    background: #faf9ff !important;
+    box-shadow: 0 8px 20px rgba(114, 87, 255, .12) !important;
+    transform: translateY(-1px) !important;
+}
+
+.nav-buttons .btn-primary {
+    min-height: 40px !important;
+    padding: 10px 18px !important;
+    border-radius: 999px !important;
+}
+
+/* LANDING PAGE NAV BUTTONS - FINAL */
+.nav-links a {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    min-height: 40px !important;
+    padding: 9px 16px !important;
+    border-radius: 999px !important;
+    border: 1px solid #e5e1ee !important;
+    background: #ffffff !important;
+    color: #4d4b5b !important;
+    text-decoration: none !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    box-shadow: 0 2px 8px rgba(30, 25, 60, .05) !important;
+    transition: all .22s ease !important;
+}
+
+.nav-links a:hover {
+    color: #7257ff !important;
+    background: #f6f3ff !important;
+    border-color: #d9d0ff !important;
+    box-shadow: 0 8px 22px rgba(114, 87, 255, .14) !important;
+    transform: translateY(-2px) !important;
+}
+
+.nav-links a:active {
+    transform: translateY(0) !important;
+}
+
+/* LOGIN BUTTON */
+.nav-buttons .btn-login {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    min-height: 40px !important;
+    padding: 9px 18px !important;
+    border-radius: 999px !important;
+    border: 1px solid #dcd8e7 !important;
+    background: #ffffff !important;
+    color: #383646 !important;
+    text-decoration: none !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    box-shadow: 0 2px 8px rgba(30, 25, 60, .06) !important;
+    transition: all .22s ease !important;
+}
+
+.nav-buttons .btn-login:hover {
+    color: #7257ff !important;
+    border-color: #cfc4ff !important;
+    background: #faf9ff !important;
+    box-shadow: 0 8px 22px rgba(114, 87, 255, .14) !important;
+    transform: translateY(-2px) !important;
+}
+
+/* GET STARTED */
+.nav-buttons .btn-primary {
+    min-height: 40px !important;
+    padding: 9px 19px !important;
+    border-radius: 999px !important;
+}
+
+/* ===== LANDING NAV FINAL ===== */
+header.navbar .nav-links {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+}
+
+header.navbar .nav-links a {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 9px 16px !important;
+    min-height: 40px !important;
+    border: 1px solid #e4e0ec !important;
+    border-radius: 999px !important;
+    background: #ffffff !important;
+    color: #575568 !important;
+    text-decoration: none !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    box-sizing: border-box !important;
+    transition: transform .2s ease, box-shadow .2s ease, background .2s ease, color .2s ease !important;
+}
+
+header.navbar .nav-links a:hover {
+    color: #7257ff !important;
+    background: #f7f4ff !important;
+    border-color: #d8ceff !important;
+    box-shadow: 0 7px 18px rgba(114,87,255,.14) !important;
+    transform: translateY(-2px) !important;
+}
+
+header.navbar .nav-buttons .btn-login {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    min-height: 40px !important;
+    padding: 9px 18px !important;
+    border: 1px solid #ddd9e7 !important;
+    border-radius: 999px !important;
+    background: #ffffff !important;
+    color: #3f3d4c !important;
+    box-sizing: border-box !important;
+    box-shadow: 0 2px 8px rgba(40,35,70,.06) !important;
+    transition: transform .2s ease, box-shadow .2s ease, color .2s ease !important;
+}
+
+header.navbar .nav-buttons .btn-login:hover {
+    color: #7257ff !important;
+    border-color: #cec3ff !important;
+    box-shadow: 0 8px 20px rgba(114,87,255,.14) !important;
+    transform: translateY(-2px) !important;
+}
+/* =========================================================
+   LANDING NAVBAR ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¦ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â FINAL CLEAN BLOCK
+   ========================================================= */
+
+header.navbar .landing-nav {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+}
+
+header.navbar .landing-nav a {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    height: 40px !important;
+    padding: 0 16px !important;
+    border: 1px solid #e1ddea !important;
+    border-radius: 999px !important;
+    background: #ffffff !important;
+    color: #555263 !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    text-decoration: none !important;
+    box-sizing: border-box !important;
+    transition: all .2s ease !important;
+}
+
+header.navbar .landing-nav a:hover {
+    color: #7257ff !important;
+    background: #f7f4ff !important;
+    border-color: #d5caff !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 20px rgba(114,87,255,.14) !important;
+}
+
+header.navbar .landing-login {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    height: 40px !important;
+    padding: 0 18px !important;
+    border: 1px solid #ded9e8 !important;
+    border-radius: 999px !important;
+    background: #ffffff !important;
+    color: #403d4d !important;
+    box-sizing: border-box !important;
+    box-shadow: 0 2px 8px rgba(40,35,70,.06) !important;
+    transition: all .2s ease !important;
+}
+
+header.navbar .landing-login:hover {
+    color: #7257ff !important;
+    border-color: #cfc3ff !important;
+    background: #faf9ff !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 20px rgba(114,87,255,.15) !important;
+}
+ /* =========================================================
+    SPENDSENSE LANDING NAVBAR ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â CLEAN FINAL
+    ========================================================= */
+
+header.navbar .landing-nav {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+}
+
+header.navbar .landing-nav a {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    height: 40px !important;
+    padding: 0 16px !important;
+    border: 1px solid #ddd8ee !important;
+    border-radius: 999px !important;
+    background: #ffffff !important;
+    color: #4b4658 !important;
+    text-decoration: none !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    box-sizing: border-box !important;
+    transition: transform .2s ease,
+                background .2s ease,
+                border-color .2s ease,
+                box-shadow .2s ease,
+                color .2s ease !important;
+}
+
+header.navbar .landing-nav a:hover {
+    background: #f6f3ff !important;
+    color: #7257ff !important;
+    border-color: #d5caff !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 20px rgba(114, 87, 255, .14) !important;
+}
+
+header.navbar .landing-login {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    height: 40px !important;
+    padding: 0 18px !important;
+    border: 1px solid #ddd8ee !important;
+    border-radius: 999px !important;
+    background: #ffffff !important;
+    color: #4b4658 !important;
+    text-decoration: none !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    box-sizing: border-box !important;
+    box-shadow: 0 2px 8px rgba(40, 35, 70, .06) !important;
+    transition: transform .2s ease,
+                background .2s ease,
+                border-color .2s ease,
+                box-shadow .2s ease,
+                color .2s ease !important;
+}
+
+header.navbar .landing-login:hover {
+    background: #f6f3ff !important;
+    color: #7257ff !important;
+    border-color: #d5caff !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 20px rgba(114, 87, 255, .14) !important;
+}
+
+@media (max-width: 900px) {
+    header.navbar .landing-nav {
+        gap: 4px !important;
+    }
+
+    header.navbar .landing-nav a {
+        padding: 0 10px !important;
+    }
+}
+
+/* =========================================================
+   SPENDSENSE ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â RESPONSIVE MOBILE LAYOUT
+   Desktop design preserved; mobile only adapts dimensions.
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+    html,
+    body {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: hidden !important;
+    }
+
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    .dashboard-shell,
+    .dashboard-page,
+    .analytics-page,
+    .container,
+    main,
+    section {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .dashboard-shell {
+        overflow-x: hidden !important;
+    }
+
+    /* ---------- Navigation ---------- */
+
+    header.navbar {
+        width: 100%;
+        padding-left: 14px !important;
+        padding-right: 14px !important;
+    }
+
+    header.navbar .landing-nav {
+        gap: 5px !important;
+        flex-wrap: wrap;
+    }
+
+    header.navbar .landing-nav a,
+    header.navbar .landing-login {
+        height: 38px !important;
+        min-height: 38px !important;
+        padding-left: 12px !important;
+        padding-right: 12px !important;
+        font-size: 13px !important;
+    }
+
+    /* ---------- Main content ---------- */
+
+    .dashboard-page,
+    .analytics-page {
+        padding-left: 14px !important;
+        padding-right: 14px !important;
+    }
+
+    /* ---------- Grids ---------- */
+
+    .summary-grid,
+    .dashboard-grid,
+    .cards-grid,
+    .stats-grid,
+    .analytics-summary-grid,
+    .analytics-lower-grid {
+        grid-template-columns: 1fr !important;
+        width: 100% !important;
+    }
+
+    .two-column,
+    .content-grid,
+    .main-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    /* ---------- Cards / panels ---------- */
+
+    .summary-card,
+    .panel,
+    .analytics-panel,
+    .analytics-trend-panel {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+    }
+
+    .summary-card {
+        padding: 18px !important;
+    }
+
+    .panel {
+        padding: 18px !important;
+    }
+
+    /* ---------- Headers ---------- */
+
+    .panel-header,
+    .analytics-panel-header,
+    .section-header {
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+
+    /* ---------- Forms ---------- */
+
+    form {
+        max-width: 100%;
+    }
+
+    input,
+    select,
+    textarea,
+    button,
+    .btn,
+    .button {
+        max-width: 100%;
+    }
+
+    input,
+    select,
+    textarea {
+        min-width: 0 !important;
+    }
+
+    /* ---------- Tables ---------- */
+
+    .table-container,
+    .transactions-table,
+    .transaction-list {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    table {
+        min-width: 620px;
+    }
+
+    /* ---------- Charts ---------- */
+
+    .analytics-chart,
+    .analytics-chart-large,
+    .chart-container,
+    .chart-wrapper {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+    }
+
+    .analytics-chart {
+        gap: 7px;
+        padding-left: 4px;
+        padding-right: 4px;
+    }
+
+    .analytics-bar-value {
+        font-size: 9px;
+    }
+
+    /* ---------- Buttons ---------- */
+
+    .add-transaction-btn,
+    .save-transaction {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    /* ---------- Recent transactions ---------- */
+
+    .transaction-row {
+        min-width: 0;
+    }
+
+    /* ---------- Text ---------- */
+
+    h1 {
+        font-size: clamp(26px, 7vw, 36px);
+        line-height: 1.12;
+    }
+
+    h2 {
+        font-size: clamp(21px, 5.5vw, 28px);
+        line-height: 1.2;
+    }
+
+    h3 {
+        font-size: clamp(17px, 4.5vw, 22px);
+    }
+
+    /* Prevent long financial values from breaking the page */
+    .amount,
+    .metric-value,
+    .stat-value,
+    .summary-value {
+        min-width: 0;
+        overflow-wrap: anywhere;
+    }
+}
+
+
+/* =========================================================
+   SMALL PHONES
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+    header.navbar {
+        padding-top: 10px !important;
+        padding-bottom: 10px !important;
+    }
+
+    header.navbar .landing-nav {
+        width: 100%;
+        justify-content: center;
+    }
+
+    header.navbar .landing-nav a,
+    header.navbar .landing-login {
+        height: 36px !important;
+        min-height: 36px !important;
+        padding-left: 10px !important;
+        padding-right: 10px !important;
+        font-size: 12px !important;
+    }
+
+    .dashboard-page,
+    .analytics-page {
+        padding-left: 10px !important;
+        padding-right: 10px !important;
+    }
+
+    .summary-card,
+    .panel,
+    .analytics-panel,
+    .analytics-trend-panel {
+        padding: 15px !important;
+        border-radius: 16px !important;
+    }
+
+    .analytics-chart-large {
+        height: 260px !important;
+        min-height: 260px !important;
+    }
+
+    .analytics-bar-track {
+        max-width: 28px;
+    }
+
+    .analytics-bar-value {
+        font-size: 8px;
+    }
+
+    .nav-buttons {
+        gap: 5px !important;
+    }
+}
+
+
+/* =========================================================
+   VERY SMALL PHONES
+   ========================================================= */
+
+@media (max-width: 400px) {
+
+    header.navbar .landing-nav a,
+    header.navbar .landing-login {
+        padding-left: 8px !important;
+        padding-right: 8px !important;
+        font-size: 11px !important;
+    }
+
+    .dashboard-page,
+    .analytics-page {
+        padding-left: 8px !important;
+        padding-right: 8px !important;
+    }
+
+    .summary-card,
+    .panel,
+    .analytics-panel,
+    .analytics-trend-panel {
+        padding: 13px !important;
+    }
+}
+
+
+/* =========================================================
+   SPENDSENSE ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â FINAL MOBILE LAYOUT
+   Desktop CSS remains unchanged.
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+    /* ---------- GLOBAL MOBILE SAFETY ---------- */
+
+    html,
+    body {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+        overflow-x: hidden !important;
+    }
+
+    body {
+        font-size: 15px;
+    }
+
+    *,
+    *::before,
+    *::after {
+        max-width: 100%;
+    }
+
+    img,
+    svg,
+    video,
+    canvas {
+        max-width: 100% !important;
+        height: auto;
+    }
+
+
+    /* =====================================================
+       LANDING PAGE NAVBAR
+       ===================================================== */
+
+    header.navbar {
+        width: 100% !important;
+        min-width: 0 !important;
+        height: auto !important;
+        min-height: 76px !important;
+
+        padding: 12px 16px !important;
+
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+
+        gap: 10px !important;
+
+        overflow: hidden !important;
+    }
+
+    header.navbar .logo {
+        flex: 0 0 auto !important;
+        min-width: 0 !important;
+    }
+
+    header.navbar .logo > span:last-child {
+        font-size: 21px !important;
+        white-space: nowrap !important;
+    }
+
+    header.navbar .logo-mark {
+        width: 48px !important;
+        height: 48px !important;
+        flex: 0 0 48px !important;
+    }
+
+    header.navbar .landing-nav {
+        display: none !important;
+    }
+
+    header.navbar .nav-buttons {
+        display: flex !important;
+        flex: 0 0 auto !important;
+        align-items: center !important;
+        gap: 7px !important;
+        min-width: 0 !important;
+    }
+
+    header.navbar .landing-login {
+        display: inline-flex !important;
+        height: 42px !important;
+        padding: 0 13px !important;
+        font-size: 13px !important;
+        white-space: nowrap !important;
+    }
+
+    header.navbar .nav-buttons .btn-primary {
+        height: 42px !important;
+        padding: 0 14px !important;
+        font-size: 13px !important;
+        white-space: nowrap !important;
+    }
+
+
+    /* =====================================================
+       LANDING HERO
+       ===================================================== */
+
+    .hero {
+        width: 100% !important;
+        min-width: 0 !important;
+        padding: 55px 20px 45px !important;
+        overflow: hidden !important;
+    }
+
+    .hero-content {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+    }
+
+    .hero h1 {
+        max-width: 100% !important;
+        font-size: clamp(48px, 15vw, 68px) !important;
+        line-height: .95 !important;
+        letter-spacing: -3px !important;
+        overflow-wrap: normal !important;
+    }
+
+    .hero p {
+        max-width: 100% !important;
+        font-size: 19px !important;
+        line-height: 1.65 !important;
+    }
+
+    .hero-buttons {
+        width: 100% !important;
+        flex-direction: column !important;
+        gap: 12px !important;
+    }
+
+    .hero-buttons .btn {
+        width: 100% !important;
+        min-height: 54px !important;
+    }
+
+    .trust-row {
+        flex-wrap: wrap !important;
+        gap: 10px !important;
+    }
+
+    .hero-visual {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 35px 0 0 !important;
+        transform: none !important;
+        overflow: hidden !important;
+    }
+
+    .hero-visual .dashboard-card,
+    .hero-visual .floating-card {
+        max-width: 100% !important;
+    }
+
+
+    /* =====================================================
+       LANDING SECTIONS
+       ===================================================== */
+
+    .section {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding-left: 20px !important;
+        padding-right: 20px !important;
+    }
+
+    .section-heading {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    .section-heading h2,
+    .privacy-content h2 {
+        font-size: 36px !important;
+        line-height: 1.05 !important;
+        letter-spacing: -1.5px !important;
+    }
+
+    .problem-grid,
+    .feature-grid,
+    .privacy-items {
+        grid-template-columns: 1fr !important;
+    }
+
+    .problem-card,
+    .feature-card,
+    .privacy-card {
+        width: 100% !important;
+        min-width: 0 !important;
+    }
+
+    .cta-section {
+        margin-left: 16px !important;
+        margin-right: 16px !important;
+        padding: 28px 20px !important;
+    }
+
+    .cta-section h2 {
+        font-size: 34px !important;
+        line-height: 1.05 !important;
+    }
+
+
+    /* =====================================================
+       DASHBOARD ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â REMOVE DESKTOP SIDEBAR
+       ===================================================== */
+
+    .dashboard-shell {
+        width: 100% !important;
+        min-width: 0 !important;
+        max-width: 100% !important;
+
+        display: block !important;
+
+        overflow-x: hidden !important;
+    }
+
+    .dashboard-shell > .sidebar,
+    .dashboard-shell .sidebar {
+        display: none !important;
+    }
+
+    .dashboard-main {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+
+        margin: 0 !important;
+        padding: 18px 16px 100px !important;
+    }
+
+
+    /* =====================================================
+       DASHBOARD TOP BAR
+       ===================================================== */
+
+    .dashboard-main .dashboard-top,
+    .dashboard-main .topbar,
+    .dashboard-main .dashboard-header {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+
+        flex-wrap: wrap !important;
+        gap: 12px !important;
+    }
+
+    .dashboard-header h1,
+    .dashboard-header h2,
+    .dashboard-header h3 {
+        max-width: 100% !important;
+        overflow-wrap: break-word !important;
+    }
+
+    .user-area {
+        margin-left: auto !important;
+        min-width: 0 !important;
+    }
+
+    .user-info {
+        display: none !important;
+    }
+
+
+    /* =====================================================
+       SUMMARY CARDS
+       ===================================================== */
+
+    .summary-grid {
+        width: 100% !important;
+        max-width: 100% !important;
+
+        grid-template-columns: 1fr !important;
+
+        gap: 14px !important;
+        margin-bottom: 16px !important;
+    }
+
+    .summary-card {
+        width: 100% !important;
+        min-width: 0 !important;
+
+        padding: 18px !important;
+        border-radius: 18px !important;
+
+        overflow: hidden !important;
+    }
+
+    .summary-card h2 {
+        font-size: 25px !important;
+        line-height: 1.15 !important;
+
+        overflow-wrap: anywhere !important;
+        word-break: break-word !important;
+    }
+
+    .summary-card h2 span {
+        font-size: 12px !important;
+    }
+
+
+    /* =====================================================
+       MAIN DASHBOARD GRIDS
+       ===================================================== */
+
+    .dashboard-grid,
+    .bottom-grid {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+
+        grid-template-columns: 1fr !important;
+
+        gap: 14px !important;
+        margin-bottom: 14px !important;
+    }
+
+    .panel {
+        width: 100% !important;
+        min-width: 0 !important;
+
+        padding: 18px !important;
+        border-radius: 18px !important;
+
+        overflow: hidden !important;
+    }
+
+    .panel-header {
+        flex-wrap: wrap !important;
+        gap: 10px !important;
+        margin-bottom: 18px !important;
+    }
+
+    .panel-header h2 {
+        font-size: 18px !important;
+    }
+
+    .panel-header select {
+        max-width: 100% !important;
+    }
+
+
+    /* =====================================================
+       CHART
+       ===================================================== */
+
+    .chart-placeholder {
+        width: 100% !important;
+        max-width: 100% !important;
+
+        height: 220px !important;
+
+        padding-left: 30px !important;
+        padding-bottom: 25px !important;
+
+        overflow: hidden !important;
+    }
+
+    .chart-bars {
+        width: 100% !important;
+        gap: 5px !important;
+    }
+
+    .chart-bars div {
+        width: 18px !important;
+    }
+
+    .chart-labels {
+        gap: 4px !important;
+    }
+
+    .chart-labels span {
+        font-size: 9px !important;
+    }
+
+
+    /* =====================================================
+       CATEGORY LIST
+       ===================================================== */
+
+    .category-row {
+        width: 100% !important;
+        min-width: 0 !important;
+
+        gap: 10px !important;
+    }
+
+    .category-name {
+        min-width: 0 !important;
+        overflow-wrap: break-word !important;
+    }
+
+
+    /* =====================================================
+       TRANSACTIONS
+       ===================================================== */
+
+    .transaction-row {
+        width: 100% !important;
+        min-width: 0 !important;
+
+        display: grid !important;
+        grid-template-columns: 40px minmax(0, 1fr) auto !important;
+
+        align-items: center !important;
+        gap: 10px !important;
+
+        padding: 12px 0 !important;
+
+        overflow: hidden !important;
+    }
+
+    .transaction-row > * {
+        min-width: 0 !important;
+    }
+
+    .transaction-row .transaction-icon,
+    .transaction-row .icon {
+        flex: 0 0 40px !important;
+    }
+
+    .transaction-row .transaction-info,
+    .transaction-row .transaction-details,
+    .transaction-row .details {
+        min-width: 0 !important;
+        overflow: hidden !important;
+    }
+
+    .transaction-row .transaction-info strong,
+    .transaction-row .transaction-details strong,
+    .transaction-row .details strong {
+        display: block !important;
+        max-width: 100% !important;
+
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        white-space: nowrap !important;
+    }
+
+    .transaction-row .transaction-info span,
+    .transaction-row .transaction-details span,
+    .transaction-row .details span {
+        display: block !important;
+        max-width: 100% !important;
+
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        white-space: nowrap !important;
+    }
+
+    .transaction-row .transaction-amount,
+    .transaction-row .amount {
+        min-width: 72px !important;
+        max-width: 100px !important;
+
+        text-align: right !important;
+        white-space: nowrap !important;
+
+        font-size: 14px !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+    }
+
+
+    /* =====================================================
+       ANALYTICS
+       ===================================================== */
+
+    .analytics-page {
+        width: 100% !important;
+        max-width: 100% !important;
+
+        padding: 16px !important;
+        padding-bottom: 100px !important;
+    }
+
+    .analytics-summary-grid {
+        width: 100% !important;
+
+        grid-template-columns: 1fr !important;
+
+        gap: 14px !important;
+    }
+
+    .analytics-lower-grid {
+        width: 100% !important;
+
+        grid-template-columns: 1fr !important;
+        gap: 14px !important;
+    }
+
+    .analytics-trend-panel,
+    .analytics-panel {
+        width: 100% !important;
+        min-width: 0 !important;
+
+        padding: 18px !important;
+    }
+
+    .analytics-panel-header {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+    }
+
+    .analytics-chart,
+    .analytics-chart-large {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+
+        overflow: hidden !important;
+    }
+
+
+    /* =====================================================
+       BUDGETS
+       ===================================================== */
+
+    .budgets-page,
+    .budget-page {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+
+        padding: 16px !important;
+        padding-bottom: 110px !important;
+    }
+
+    .budget-grid,
+    .budgets-grid,
+    .budget-list {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+
+        grid-template-columns: 1fr !important;
+
+        gap: 14px !important;
+    }
+
+    .budget-card {
+        width: 100% !important;
+        min-width: 0 !important;
+
+        padding: 20px !important;
+        border-radius: 20px !important;
+
+        overflow: hidden !important;
+    }
+
+    .budget-card > * {
+        min-width: 0 !important;
+        max-width: 100% !important;
+    }
+
+    .budget-card h2,
+    .budget-card h3 {
+        overflow-wrap: break-word !important;
+    }
+
+    .budget-card .budget-actions,
+    .budget-card .actions,
+    .budget-actions {
+        width: 100% !important;
+
+        display: flex !important;
+        flex-wrap: wrap !important;
+
+        align-items: center !important;
+        gap: 10px !important;
+    }
+
+    .budget-card .budget-actions a,
+    .budget-card .budget-actions button,
+    .budget-card .actions a,
+    .budget-card .actions button,
+    .budget-actions a,
+    .budget-actions button {
+        flex: 1 1 auto !important;
+        min-width: 70px !important;
+
+        white-space: nowrap !important;
+        text-align: center !important;
+    }
+
+
+    /* =====================================================
+       FLOATING ADD TRANSACTION BUTTON
+       ===================================================== */
+
+    .add-transaction-btn {
+        position: fixed !important;
+
+        left: 16px !important;
+        right: 16px !important;
+        bottom: 16px !important;
+
+        width: auto !important;
+        max-width: none !important;
+
+        min-height: 58px !important;
+
+        padding: 14px 20px !important;
+
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+
+        z-index: 9999 !important;
+
+        border-radius: 20px !important;
+    }
+
+
+    /* =====================================================
+       MODALS
+       ===================================================== */
+
+    .transaction-modal {
+        padding: 14px !important;
+    }
+
+    .transaction-form {
+        width: 100% !important;
+        max-width: 100% !important;
+
+        max-height: calc(100vh - 28px) !important;
+
+        overflow-y: auto !important;
+
+        border-radius: 22px !important;
+        padding: 18px !important;
+    }
+
+    .transaction-form input,
+    .transaction-form select,
+    .transaction-form textarea,
+    .transaction-form button {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+
+    /* =====================================================
+       BUTTONS / FORMS
+       ===================================================== */
+
+    button,
+    .btn,
+    input,
+    select,
+    textarea {
+        max-width: 100% !important;
+    }
+
+    input,
+    select,
+    textarea {
+        min-width: 0 !important;
+    }
+
+
+    /* =====================================================
+       PREVENT DESKTOP TABLE-LIKE FLEX FROM BREAKING
+       ===================================================== */
+
+    .dashboard-main .row,
+    .dashboard-main .flex-row,
+    .dashboard-main .content-row {
+        min-width: 0 !important;
+        max-width: 100% !important;
+    }
+
+}
+
+
+/* =========================================================
+   EXTRA SMALL PHONES
+   ========================================================= */
+
+@media (max-width: 420px) {
+
+    header.navbar {
+        padding: 10px 12px !important;
+    }
+
+    header.navbar .logo > span:last-child {
+        font-size: 18px !important;
+    }
+
+    header.navbar .logo-mark {
+        width: 42px !important;
+        height: 42px !important;
+        flex-basis: 42px !important;
+    }
+
+    header.navbar .landing-login {
+        padding: 0 10px !important;
+        font-size: 12px !important;
+    }
+
+    header.navbar .nav-buttons .btn-primary {
+        padding: 0 10px !important;
+        font-size: 12px !important;
+    }
+
+    .hero {
+        padding: 42px 16px 35px !important;
+    }
+
+    .hero h1 {
+        font-size: 47px !important;
+        letter-spacing: -2.5px !important;
+    }
+
+    .hero p {
+        font-size: 17px !important;
+        line-height: 1.6 !important;
+    }
+
+    .dashboard-main,
+    .analytics-page,
+    .budgets-page,
+    .budget-page {
+        padding-left: 12px !important;
+        padding-right: 12px !important;
+    }
+
+    .panel,
+    .summary-card,
+    .budget-card,
+    .analytics-panel,
+    .analytics-trend-panel {
+        padding: 15px !important;
+    }
+
+    .transaction-row {
+        grid-template-columns: 34px minmax(0, 1fr) auto !important;
+        gap: 7px !important;
+    }
+
+    .transaction-row .transaction-amount,
+    .transaction-row .amount {
+        min-width: 64px !important;
+        max-width: 82px !important;
+        font-size: 13px !important;
+    }
+
+    .add-transaction-btn {
+        left: 12px !important;
+        right: 12px !important;
+        bottom: 12px !important;
+    }
+}
+
+/* =========================================================
+   SPENDSENSE ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â MOBILE BOTTOM NAVIGATION
+   Restores access to Dashboard / Transactions / Budgets /
+   Analytics / Reports without restoring desktop sidebar.
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+    /* Mobile navigation bar */
+    .dashboard-shell .sidebar,
+    .dashboard-page .sidebar {
+        display: flex !important;
+
+        position: fixed !important;
+
+        left: 0 !important;
+        right: 0 !important;
+        bottom: 0 !important;
+        top: auto !important;
+
+        width: 100% !important;
+        height: 74px !important;
+        min-height: 74px !important;
+
+        padding: 7px 6px !important;
+
+        flex-direction: row !important;
+        align-items: center !important;
+        justify-content: center !important;
+
+        background: rgba(255,255,255,.96) !important;
+
+        border-top: 1px solid rgba(220,225,238,.9) !important;
+        border-right: 0 !important;
+
+        box-shadow: 0 -8px 30px rgba(30,35,70,.10) !important;
+
+        backdrop-filter: blur(20px) !important;
+        -webkit-backdrop-filter: blur(20px) !important;
+
+        z-index: 10000 !important;
+
+        overflow: visible !important;
+    }
+
+
+    /* Hide desktop sidebar branding */
+    .dashboard-shell .sidebar .brand,
+    .dashboard-page .sidebar .brand {
+        display: none !important;
+    }
+
+
+    /* Navigation becomes horizontal */
+    .dashboard-shell .sidebar .dashboard-nav,
+    .dashboard-page .sidebar .dashboard-nav {
+        display: grid !important;
+
+        grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+
+        width: 100% !important;
+        height: 100% !important;
+
+        gap: 3px !important;
+
+        align-items: center !important;
+        justify-items: stretch !important;
+
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+
+    /* Individual navigation item */
+    .dashboard-shell .sidebar .nav-item,
+    .dashboard-page .sidebar .nav-item {
+        width: 100% !important;
+        min-width: 0 !important;
+        height: 60px !important;
+
+        padding: 5px 2px !important;
+
+        margin: 0 !important;
+
+        display: flex !important;
+
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+
+        gap: 3px !important;
+
+        border-radius: 14px !important;
+
+        font-size: 10px !important;
+        line-height: 1.1 !important;
+
+        font-weight: 700 !important;
+
+        color: #7b8497 !important;
+
+        text-align: center !important;
+
+        overflow: hidden !important;
+
+        transform: none !important;
+    }
+
+
+    /* Navigation icons */
+    .dashboard-shell .sidebar .nav-item span,
+    .dashboard-page .sidebar .nav-item span {
+        width: auto !important;
+        height: 25px !important;
+
+        display: flex !important;
+
+        align-items: center !important;
+        justify-content: center !important;
+
+        font-size: 20px !important;
+        line-height: 1 !important;
+    }
+
+
+    /* Navigation labels */
+    .dashboard-shell .sidebar .nav-item:not(span),
+    .dashboard-page .sidebar .nav-item:not(span) {
+        white-space: nowrap !important;
+    }
+
+
+    /* Active page */
+    .dashboard-shell .sidebar .nav-item.active,
+    .dashboard-page .sidebar .nav-item.active {
+        background: #eeeeff !important;
+        color: #635bff !important;
+
+        box-shadow: 0 5px 15px rgba(99,91,255,.12) !important;
+    }
+
+
+    /* Hover shouldn't move mobile items */
+    .dashboard-shell .sidebar .nav-item:hover,
+    .dashboard-page .sidebar .nav-item:hover {
+        transform: none !important;
+    }
+
+
+    /* Hide privacy/logout area */
+    .dashboard-shell .sidebar .sidebar-bottom,
+    .dashboard-page .sidebar .sidebar-bottom {
+        display: none !important;
+    }
+
+
+    /* Content must stay above bottom navigation */
+    .dashboard-main {
+        padding-bottom: 105px !important;
+    }
+
+    .dashboard-page {
+        padding-bottom: 100px !important;
+    }
+
+    .analytics-page {
+        padding-bottom: 105px !important;
+    }
+
+    .budgets-page,
+    .budget-page {
+        padding-bottom: 105px !important;
+    }
+}
+
+
+/* =========================================================
+   VERY SMALL PHONES
+   ========================================================= */
+
+@media (max-width: 380px) {
+
+    .dashboard-shell .sidebar,
+    .dashboard-page .sidebar {
+        height: 70px !important;
+        min-height: 70px !important;
+        padding: 5px 3px !important;
+    }
+
+    .dashboard-shell .sidebar .nav-item,
+    .dashboard-page .sidebar .nav-item {
+        height: 58px !important;
+        font-size: 9px !important;
+        border-radius: 12px !important;
+    }
+
+    .dashboard-shell .sidebar .nav-item span,
+    .dashboard-page .sidebar .nav-item span {
+        font-size: 18px !important;
+        height: 22px !important;
+    }
+
+    .dashboard-main {
+        padding-bottom: 95px !important;
+    }
+}
+
+/* =========================================================
+   SPENDSENSE ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â FINAL MOBILE NAV FIX
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+    /* Do NOT let the desktop sidebar consume horizontal space */
+    .dashboard-shell,
+    .dashboard-page {
+        width: 100% !important;
+        max-width: 100% !important;
+        overflow-x: hidden !important;
+    }
+
+    /* Sidebar becomes a pure bottom navigation container */
+    .dashboard-shell .sidebar,
+    .dashboard-page .sidebar {
+        position: fixed !important;
+        top: auto !important;
+        left: 0 !important;
+        right: 0 !important;
+        bottom: 0 !important;
+
+        width: 100vw !important;
+        max-width: 100vw !important;
+        height: 76px !important;
+        min-height: 76px !important;
+
+        display: block !important;
+
+        margin: 0 !important;
+        padding: 4px 6px !important;
+
+        box-sizing: border-box !important;
+
+        background: #ffffff !important;
+        border: 0 !important;
+        border-top: 1px solid #e5e7eb !important;
+
+        z-index: 99999 !important;
+
+        overflow: hidden !important;
+
+        transform: none !important;
+    }
+
+    /* Hide logo / privacy / logout */
+    .dashboard-shell .sidebar .brand,
+    .dashboard-page .sidebar .brand,
+    .dashboard-shell .sidebar .sidebar-bottom,
+    .dashboard-page .sidebar .sidebar-bottom {
+        display: none !important;
+    }
+
+    /* FORCE NAV TO EXIST */
+    .dashboard-shell .sidebar .dashboard-nav,
+    .dashboard-page .sidebar .dashboard-nav {
+        display: grid !important;
+
+        grid-template-columns:
+            repeat(5, minmax(0, 1fr)) !important;
+
+        width: 100% !important;
+        height: 68px !important;
+
+        margin: 0 !important;
+        padding: 0 !important;
+
+        gap: 2px !important;
+
+        box-sizing: border-box !important;
+
+        flex-direction: row !important;
+
+        overflow: visible !important;
+    }
+
+    /* FORCE ALL FIVE LINKS VISIBLE */
+    .dashboard-shell .sidebar .dashboard-nav .nav-item,
+    .dashboard-page .sidebar .dashboard-nav .nav-item {
+        display: flex !important;
+
+        width: 100% !important;
+        min-width: 0 !important;
+        max-width: none !important;
+
+        height: 64px !important;
+
+        margin: 0 !important;
+        padding: 5px 2px !important;
+
+        box-sizing: border-box !important;
+
+        flex: none !important;
+
+        flex-direction: column !important;
+
+        align-items: center !important;
+        justify-content: center !important;
+
+        gap: 3px !important;
+
+        overflow: hidden !important;
+
+        white-space: nowrap !important;
+
+        text-align: center !important;
+
+        border-radius: 12px !important;
+
+        color: #70798b !important;
+
+        font-size: 10px !important;
+        line-height: 1.1 !important;
+        font-weight: 700 !important;
+
+        transform: none !important;
+    }
+
+    /* ICON */
+    .dashboard-shell .sidebar .dashboard-nav .nav-item span,
+    .dashboard-page .sidebar .dashboard-nav .nav-item span {
+        display: flex !important;
+
+        width: 24px !important;
+        height: 24px !important;
+
+        margin: 0 !important;
+        padding: 0 !important;
+
+        align-items: center !important;
+        justify-content: center !important;
+
+        font-size: 19px !important;
+        line-height: 1 !important;
+    }
+
+    /* ACTIVE */
+    .dashboard-shell .sidebar .dashboard-nav .nav-item.active,
+    .dashboard-page .sidebar .dashboard-nav .nav-item.active {
+        display: flex !important;
+
+        background: #eeeeff !important;
+        color: #635bff !important;
+
+        transform: none !important;
+    }
+
+    /* NEVER hide nav items on mobile */
+    .dashboard-shell .sidebar .dashboard-nav .nav-item:nth-child(1),
+    .dashboard-shell .sidebar .dashboard-nav .nav-item:nth-child(2),
+    .dashboard-shell .sidebar .dashboard-nav .nav-item:nth-child(3),
+    .dashboard-shell .sidebar .dashboard-nav .nav-item:nth-child(4),
+    .dashboard-shell .sidebar .dashboard-nav .nav-item:nth-child(5),
+
+    .dashboard-page .sidebar .dashboard-nav .nav-item:nth-child(1),
+    .dashboard-page .sidebar .dashboard-nav .nav-item:nth-child(2),
+    .dashboard-page .sidebar .dashboard-nav .nav-item:nth-child(3),
+    .dashboard-page .sidebar .dashboard-nav .nav-item:nth-child(4),
+    .dashboard-page .sidebar .dashboard-nav .nav-item:nth-child(5) {
+        display: flex !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+
+    /* Main content must use full phone width */
+    .dashboard-shell .main-content,
+    .dashboard-shell .dashboard-main,
+    .dashboard-page .main-content,
+    .dashboard-page .dashboard-main {
+        width: 100% !important;
+        max-width: 100% !important;
+
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+
+        box-sizing: border-box !important;
+    }
+
+    /* Leave room for bottom nav */
+    .dashboard-main,
+    .main-content {
+        padding-bottom: 105px !important;
+    }
+
+    /* Floating Add Transaction button stays above nav */
+    .add-transaction-btn,
+    .floating-add-transaction,
+    .save-transaction {
+        bottom: 88px !important;
+    }
+}
+
+
+/* =========================================================
+   SMALL PHONES
+   ========================================================= */
+
+@media (max-width: 380px) {
+
+    .dashboard-shell .sidebar,
+    .dashboard-page .sidebar {
+        height: 72px !important;
+        min-height: 72px !important;
+    }
+
+    .dashboard-shell .sidebar .dashboard-nav,
+    .dashboard-page .sidebar .dashboard-nav {
+        height: 64px !important;
+    }
+
+    .dashboard-shell .sidebar .dashboard-nav .nav-item,
+    .dashboard-page .sidebar .dashboard-nav .nav-item {
+        height: 60px !important;
+        font-size: 9px !important;
+    }
+
+    .dashboard-shell .sidebar .dashboard-nav .nav-item span,
+    .dashboard-page .sidebar .dashboard-nav .nav-item span {
+        font-size: 18px !important;
+    }
+}
+
+
+/* =========================================================
+   SPENDSENSE Ã¢â‚¬â€ MOBILE LOGOUT FINAL
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+    .dashboard-shell .sidebar,
+    .dashboard-page .sidebar {
+        overflow: visible !important;
+    }
+
+    .dashboard-shell .sidebar .privacy-box,
+    .dashboard-page .sidebar .privacy-box {
+        display: none !important;
+    }
+
+    .dashboard-shell .sidebar .sidebar-bottom,
+    .dashboard-page .sidebar .sidebar-bottom {
+        display: contents !important;
+    }
+
+    .dashboard-shell .sidebar .logout-link,
+    .dashboard-page .sidebar .logout-link {
+        display: flex !important;
+        position: fixed !important;
+
+        right: 14px !important;
+        bottom: 86px !important;
+
+        width: auto !important;
+        min-width: 88px !important;
+        height: 38px !important;
+
+        padding: 0 14px !important;
+
+        align-items: center !important;
+        justify-content: center !important;
+
+        background: #ffffff !important;
+        color: #635bff !important;
+
+        border: 1px solid #ddd8ee !important;
+        border-radius: 999px !important;
+
+        font-size: 13px !important;
+        font-weight: 700 !important;
+
+        text-decoration: none !important;
+
+        box-shadow: 0 6px 20px rgba(40,35,70,.16) !important;
+
+        visibility: visible !important;
+        opacity: 1 !important;
+
+        z-index: 999999 !important;
+    }
+}
+
+@media (max-width: 380px) {
+
+    .dashboard-shell .sidebar .logout-link,
+    .dashboard-page .sidebar .logout-link {
+        right: 9px !important;
+        bottom: 78px !important;
+        min-width: 80px !important;
+        height: 34px !important;
+        padding: 0 11px !important;
+        font-size: 12px !important;
+    }
+}
+
+/* =========================================================
+   SPENDSENSE â€” LOGOUT ABOVE ADD TRANSACTION
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+    .dashboard-shell .sidebar .logout-link,
+    .dashboard-page .sidebar .logout-link {
+        bottom: 145px !important;
+        right: 14px !important;
+        z-index: 999999 !important;
+    }
+
+}
+
+@media (max-width: 380px) {
+
+    .dashboard-shell .sidebar .logout-link,
+    .dashboard-page .sidebar .logout-link {
+        bottom: 132px !important;
+        right: 9px !important;
+        z-index: 999999 !important;
+    }
+
+}
+/* =========================================================
+   SPENDSENSE â€” CENTERED MOBILE LOGOUT
+   Logout centered above Add Transaction
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+    .dashboard-shell .sidebar .logout-link,
+    .dashboard-page .sidebar .logout-link {
+        display: flex !important;
+
+        position: fixed !important;
+
+        left: 50% !important;
+        right: auto !important;
+
+        bottom: 145px !important;
+
+        transform: translateX(-50%) !important;
+
+        width: 110px !important;
+        min-width: 110px !important;
+
+        height: 40px !important;
+        min-height: 40px !important;
+
+        padding: 0 16px !important;
+
+        align-items: center !important;
+        justify-content: center !important;
+
+        box-sizing: border-box !important;
+
+        background: #ffffff !important;
+        color: #635bff !important;
+
+        border: 1px solid #ddd8ee !important;
+        border-radius: 999px !important;
+
+        font-size: 14px !important;
+        font-weight: 700 !important;
+        line-height: 1 !important;
+
+        text-decoration: none !important;
+
+        box-shadow: 0 6px 20px rgba(40,35,70,.16) !important;
+
+        visibility: visible !important;
+        opacity: 1 !important;
+
+        z-index: 999999 !important;
+    }
+
+    .dashboard-shell .sidebar .logout-link:hover,
+    .dashboard-page .sidebar .logout-link:hover {
+        transform: translateX(-50%) !important;
+    }
+}
+
+/* Smaller phones */
+@media (max-width: 380px) {
+
+    .dashboard-shell .sidebar .logout-link,
+    .dashboard-page .sidebar .logout-link {
+        left: 50% !important;
+        right: auto !important;
+
+        bottom: 135px !important;
+
+        width: 96px !important;
+        min-width: 96px !important;
+
+        height: 36px !important;
+        min-height: 36px !important;
+
+        font-size: 12px !important;
+
+        transform: translateX(-50%) !important;
+    }
+}
+
+@media (max-width:700px){.dashboard-shell .sidebar .logout-link,.dashboard-page .sidebar .logout-link{bottom:160px!important;left:50%!important;right:auto!important;transform:translateX(-50%)!important;}}
+
+/* =========================================================
+   SPENDSENSE — LANDING PAGE MOBILE HEADER FINAL FIX
+   Features + Privacy + Login + Get Started
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+    /* Header */
+    .landing-header,
+    .site-header,
+    .navbar,
+    header {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        overflow: visible !important;
+    }
+
+    /* Header inner container */
+    .landing-header > *,
+    .site-header > *,
+    .navbar > * {
+        box-sizing: border-box !important;
+    }
+
+    /* Navigation */
+    .landing-header nav,
+    .site-header nav,
+    .navbar nav {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: flex-end !important;
+        gap: 6px !important;
+        flex-wrap: nowrap !important;
+        overflow: visible !important;
+    }
+
+    /* Features + Privacy */
+    .landing-header .nav-link,
+    .site-header .nav-link,
+    .navbar .nav-link,
+    .landing-header a[href*="features"],
+    .landing-header a[href*="privacy"],
+    .site-header a[href*="features"],
+    .site-header a[href*="privacy"],
+    .navbar a[href*="features"],
+    .navbar a[href*="privacy"] {
+        display: inline-flex !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+
+        white-space: nowrap !important;
+
+        padding: 9px 11px !important;
+        margin: 0 !important;
+
+        font-size: 12px !important;
+        line-height: 1 !important;
+
+        flex-shrink: 1 !important;
+    }
+
+    /* Login */
+    .landing-header .login,
+    .site-header .login,
+    .navbar .login,
+    .landing-header a[href*="login"],
+    .site-header a[href*="login"],
+    .navbar a[href*="login"] {
+        display: inline-flex !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+
+        white-space: nowrap !important;
+
+        padding: 10px 13px !important;
+
+        font-size: 12px !important;
+
+        flex-shrink: 1 !important;
+    }
+
+    /* Get started */
+    .landing-header .get-started,
+    .site-header .get-started,
+    .navbar .get-started,
+    .landing-header a[href*="signup"],
+    .landing-header a[href*="register"],
+    .site-header a[href*="signup"],
+    .site-header a[href*="register"],
+    .navbar a[href*="signup"],
+    .navbar a[href*="register"] {
+        display: inline-flex !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+
+        white-space: nowrap !important;
+
+        padding: 10px 14px !important;
+
+        font-size: 12px !important;
+
+        flex-shrink: 1 !important;
+    }
+
+    /* Prevent logo from taking all available width */
+    .landing-header .logo,
+    .site-header .logo,
+    .navbar .logo,
+    .landing-header .brand,
+    .site-header .brand,
+    .navbar .brand {
+        flex-shrink: 1 !important;
+        min-width: 0 !important;
+    }
+}
+
+
+/* =========================================================
+   SMALL PHONES
+   ========================================================= */
+
+@media (max-width: 480px) {
+
+    .landing-header nav,
+    .site-header nav,
+    .navbar nav {
+        gap: 3px !important;
+    }
+
+    .landing-header .nav-link,
+    .site-header .nav-link,
+    .navbar .nav-link,
+    .landing-header a[href*="features"],
+    .landing-header a[href*="privacy"],
+    .site-header a[href*="features"],
+    .site-header a[href*="privacy"],
+    .navbar a[href*="features"],
+    .navbar a[href*="privacy"] {
+        padding: 8px 7px !important;
+        font-size: 10px !important;
+    }
+
+    .landing-header a[href*="login"],
+    .site-header a[href*="login"],
+    .navbar a[href*="login"] {
+        padding: 8px 9px !important;
+        font-size: 10px !important;
+    }
+
+    .landing-header a[href*="signup"],
+    .landing-header a[href*="register"],
+    .site-header a[href*="signup"],
+    .landing-header .get-started,
+    .site-header .get-started,
+    .navbar .get-started {
+        padding: 8px 9px !important;
+        font-size: 10px !important;
+    }
+}
+
+
+/* =========================================================
+   VERY SMALL PHONES
+   ========================================================= */
+
+@media (max-width: 380px) {
+
+    .landing-header nav,
+    .site-header nav,
+    .navbar nav {
+        gap: 2px !important;
+    }
+
+    .landing-header .nav-link,
+    .site-header .nav-link,
+    .navbar .nav-link,
+    .landing-header a[href*="features"],
+    .landing-header a[href*="privacy"],
+    .site-header a[href*="features"],
+    .site-header a[href*="privacy"],
+    .navbar a[href*="features"],
+    .navbar a[href*="privacy"] {
+        padding: 7px 5px !important;
+        font-size: 9px !important;
+    }
+
+    .landing-header a[href*="login"],
+    .site-header a[href*="login"],
+    .navbar a[href*="login"] {
+        padding: 7px 7px !important;
+        font-size: 9px !important;
+    }
+
+    .landing-header .get-started,
+    .site-header .get-started,
+    .navbar .get-started {
+        padding: 7px 7px !important;
+        font-size: 9px !important;
+    }
+}
+
+
+/* =========================================================
+   SPENDSENSE — MOBILE HERO SPACING
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+    .hero,
+    .landing-hero,
+    .hero-section {
+        width: 100% !important;
+        box-sizing: border-box !important;
+        padding-left: 32px !important;
+        padding-right: 32px !important;
+    }
+
+    .hero h1,
+    .landing-hero h1,
+    .hero-section h1 {
+        max-width: 100% !important;
+        font-size: clamp(42px, 11vw, 68px) !important;
+        line-height: .98 !important;
+        overflow-wrap: normal !important;
+        word-break: normal !important;
+    }
+
+    .hero p,
+    .landing-hero p,
+    .hero-section p {
+        max-width: 100% !important;
+        font-size: 18px !important;
+        line-height: 1.6 !important;
+    }
+
+    .hero a,
+    .landing-hero a,
+    .hero-section a {
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+}
+
+
+/* =========================================================
+   SPENDSENSE — LANDING MOBILE NAV FINAL
+   Problem + Features + Privacy + Login + Get Started
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+    /* Mobile landing header */
+    header.navbar {
+        display: grid !important;
+
+        grid-template-columns: minmax(0, 1fr) auto !important;
+        grid-template-rows: auto auto !important;
+
+        align-items: center !important;
+
+        width: 100% !important;
+        max-width: 100% !important;
+
+        min-height: 96px !important;
+
+        padding: 12px 16px !important;
+
+        gap: 10px 8px !important;
+
+        box-sizing: border-box !important;
+
+        overflow: visible !important;
+    }
+
+    /* Logo */
+    header.navbar .logo {
+        grid-column: 1 !important;
+        grid-row: 1 !important;
+
+        min-width: 0 !important;
+
+        display: flex !important;
+        align-items: center !important;
+
+        white-space: nowrap !important;
+
+        overflow: visible !important;
+    }
+
+    header.navbar .logo-mark {
+        flex-shrink: 0 !important;
+    }
+
+    header.navbar .logo > span:last-child {
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        white-space: nowrap !important;
+    }
+
+    /* Login + Get Started */
+    header.navbar .nav-buttons {
+        grid-column: 2 !important;
+        grid-row: 1 !important;
+
+        display: flex !important;
+
+        align-items: center !important;
+        justify-content: flex-end !important;
+
+        gap: 6px !important;
+
+        width: auto !important;
+
+        margin: 0 !important;
+    }
+
+    /* IMPORTANT: restore Login */
+    header.navbar .nav-buttons .btn-login,
+    header.navbar .landing-login {
+        display: inline-flex !important;
+
+        visibility: visible !important;
+        opacity: 1 !important;
+
+        width: auto !important;
+        min-width: 0 !important;
+
+        height: 38px !important;
+        min-height: 38px !important;
+
+        padding: 0 12px !important;
+
+        font-size: 12px !important;
+
+        white-space: nowrap !important;
+
+        flex-shrink: 1 !important;
+    }
+
+    /* Get started */
+    header.navbar .nav-buttons .btn-primary {
+        display: inline-flex !important;
+
+        visibility: visible !important;
+        opacity: 1 !important;
+
+        width: auto !important;
+        min-width: 0 !important;
+
+        height: 38px !important;
+        min-height: 38px !important;
+
+        padding: 0 13px !important;
+
+        font-size: 12px !important;
+
+        white-space: nowrap !important;
+
+        flex-shrink: 1 !important;
+    }
+
+    /* =====================================================
+       RESTORE LANDING NAV
+       ===================================================== */
+
+    header.navbar .landing-nav,
+    header.navbar .nav-links.landing-nav {
+        grid-column: 1 / -1 !important;
+        grid-row: 2 !important;
+
+        display: flex !important;
+
+        visibility: visible !important;
+        opacity: 1 !important;
+
+        width: 100% !important;
+
+        min-width: 0 !important;
+
+        margin: 0 !important;
+        padding: 0 !important;
+
+        gap: 5px !important;
+
+        align-items: center !important;
+        justify-content: stretch !important;
+
+        overflow: visible !important;
+    }
+
+    /* Problem / Features / Privacy */
+    header.navbar .landing-nav a {
+        display: flex !important;
+
+        visibility: visible !important;
+        opacity: 1 !important;
+
+        align-items: center !important;
+        justify-content: center !important;
+
+        flex: 1 1 0 !important;
+
+        min-width: 0 !important;
+
+        height: 34px !important;
+
+        padding: 0 5px !important;
+
+        margin: 0 !important;
+
+        box-sizing: border-box !important;
+
+        border-radius: 999px !important;
+
+        font-size: 11px !important;
+        line-height: 1 !important;
+
+        white-space: nowrap !important;
+
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+    }
+}
+
+
+/* =========================================================
+   SMALL PHONES
+   ========================================================= */
+
+@media (max-width: 480px) {
+
+    header.navbar {
+        min-height: 92px !important;
+
+        padding: 10px 12px !important;
+
+        gap: 8px 5px !important;
+    }
+
+    header.navbar .logo {
+        font-size: 18px !important;
+    }
+
+    header.navbar .logo-mark {
+        width: 42px !important;
+        height: 42px !important;
+        min-width: 42px !important;
+    }
+
+    header.navbar .nav-buttons {
+        gap: 4px !important;
+    }
+
+    header.navbar .nav-buttons .btn-login,
+    header.navbar .landing-login {
+        height: 34px !important;
+        min-height: 34px !important;
+
+        padding: 0 9px !important;
+
+        font-size: 11px !important;
+    }
+
+    header.navbar .nav-buttons .btn-primary {
+        height: 34px !important;
+        min-height: 34px !important;
+
+        padding: 0 10px !important;
+
+        font-size: 11px !important;
+    }
+
+    header.navbar .landing-nav {
+        gap: 4px !important;
+    }
+
+    header.navbar .landing-nav a {
+        height: 32px !important;
+
+        padding: 0 4px !important;
+
+        font-size: 10px !important;
+    }
+}
+
+
+/* =========================================================
+   VERY SMALL PHONES
+   ========================================================= */
+
+@media (max-width: 380px) {
+
+    header.navbar {
+        padding: 8px 9px !important;
+
+        gap: 6px 3px !important;
+    }
+
+    header.navbar .logo {
+        font-size: 16px !important;
+    }
+
+    header.navbar .logo-mark {
+        width: 38px !important;
+        height: 38px !important;
+        min-width: 38px !important;
+    }
+
+    header.navbar .nav-buttons {
+        gap: 3px !important;
+    }
+
+    header.navbar .nav-buttons .btn-login,
+    header.navbar .landing-login {
+        height: 32px !important;
+        min-height: 32px !important;
+
+        padding: 0 7px !important;
+
+        font-size: 10px !important;
+    }
+
+    header.navbar .nav-buttons .btn-primary {
+        height: 32px !important;
+        min-height: 32px !important;
+
+        padding: 0 8px !important;
+
+        font-size: 10px !important;
+    }
+
+    header.navbar .landing-nav {
+        gap: 3px !important;
+    }
+
+    header.navbar .landing-nav a {
+        height: 30px !important;
+
+        font-size: 9px !important;
+    }
+}
+
+
+/* =========================================================
+   SPENDSENSE — MOBILE GET STARTED BUTTON FIX
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+    header.navbar .nav-buttons {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: flex-end !important;
+        gap: 5px !important;
+        min-width: 0 !important;
+        flex-shrink: 0 !important;
+    }
+
+    header.navbar .nav-buttons .btn-login,
+    header.navbar .nav-buttons .btn-primary {
+        flex: 0 0 auto !important;
+
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+
+        white-space: nowrap !important;
+
+        box-sizing: border-box !important;
+
+        margin: 0 !important;
+    }
+
+    /* Get started */
+    header.navbar .nav-buttons .btn-primary {
+        min-width: 105px !important;
+        width: 105px !important;
+
+        padding-left: 10px !important;
+        padding-right: 10px !important;
+
+        overflow: visible !important;
+        text-overflow: clip !important;
+    }
+
+    /* Login */
+    header.navbar .nav-buttons .btn-login {
+        min-width: 72px !important;
+        width: 72px !important;
+
+        padding-left: 8px !important;
+        padding-right: 8px !important;
+    }
+}
+
+
+/* =========================================================
+   SMALL PHONES
+   ========================================================= */
+
+@media (max-width: 480px) {
+
+    header.navbar {
+        padding-left: 10px !important;
+        padding-right: 10px !important;
+    }
+
+    header.navbar .nav-buttons {
+        gap: 4px !important;
+    }
+
+    header.navbar .nav-buttons .btn-primary {
+        min-width: 96px !important;
+        width: 96px !important;
+
+        padding-left: 7px !important;
+        padding-right: 7px !important;
+
+        font-size: 11px !important;
+    }
+
+    header.navbar .nav-buttons .btn-login {
+        min-width: 66px !important;
+        width: 66px !important;
+
+        padding-left: 6px !important;
+        padding-right: 6px !important;
+
+        font-size: 11px !important;
+    }
+}
+
+
+/* =========================================================
+   VERY SMALL PHONES
+   ========================================================= */
+
+@media (max-width: 380px) {
+
+    header.navbar {
+        padding-left: 7px !important;
+        padding-right: 7px !important;
+    }
+
+    header.navbar .nav-buttons {
+        gap: 3px !important;
+    }
+
+    header.navbar .nav-buttons .btn-primary {
+        min-width: 88px !important;
+        width: 88px !important;
+
+        font-size: 10px !important;
+    }
+
+    header.navbar .nav-buttons .btn-login {
+        min-width: 61px !important;
+        width: 61px !important;
+
+        font-size: 10px !important;
     }
 }
 

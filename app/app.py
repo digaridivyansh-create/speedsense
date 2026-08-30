@@ -1,3 +1,5 @@
+﻿import os
+
 from flask import (
     Flask,
     render_template,
@@ -16,7 +18,7 @@ from database.db import get_connection
 
 app = Flask(__name__)
 
-app.secret_key = "spendsense-development-secret-key"
+app.secret_key = os.environ.get("SECRET_KEY", "spendsense-development-secret-key")
 
 
 # =========================================
@@ -1422,8 +1424,7 @@ def reports():
     )
 
 if __name__ == "__main__":
-
     app.run(
-        debug=True,
-        port=5001
+        debug=False,
+        port=int(os.environ.get("PORT", 5001))
     )
