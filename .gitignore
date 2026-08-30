@@ -1,7 +1,11 @@
-.venv/
+﻿.venv/
 __pycache__/
 *.pyc
-database/*.db
-app/app.py.*
+*.db
+*.backup
+*.bak
+*.before-*
+*.backup-*
+*.day2-*
 .env
 .vscode/
