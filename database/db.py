@@ -1,72 +1,106 @@
-﻿import sqlite3
+import os
 from pathlib import Path
+
+from dotenv import load_dotenv
+from psycopg_pool import ConnectionPool
+from psycopg.rows import dict_row
+
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-DATABASE_PATH = BASE_DIR / "database" / "spendsense.db"
+load_dotenv(BASE_DIR / ".env.local")
+load_dotenv(BASE_DIR / ".env")
+
+
+DATABASE_URL = os.environ.get("DATABASE_URL")
+
+if not DATABASE_URL:
+    raise RuntimeError("DATABASE_URL is not configured.")
+
+
+# Reuse PostgreSQL connections instead of creating a new
+# Neon connection for every request.
+_pool = ConnectionPool(
+    conninfo=DATABASE_URL,
+    min_size=0,
+    max_size=5,
+    timeout=10,
+    kwargs={
+        "row_factory": dict_row
+    }
+)
+
+
+class PooledConnection:
+
+    def __init__(self, pool):
+        self._pool = pool
+        self._connection = pool.getconn()
+        self._closed = False
+
+    def __getattr__(self, name):
+        return getattr(self._connection, name)
+
+    def close(self):
+        if not self._closed:
+            self._pool.putconn(self._connection)
+            self._closed = True
 
 
 def get_connection():
-    connection = sqlite3.connect(DATABASE_PATH)
-    connection.row_factory = sqlite3.Row
-    return connection
+    return PooledConnection(_pool)
 
 
 def initialize_database():
+
     connection = get_connection()
 
-    # Users
-    connection.execute(
-        """
-        CREATE TABLE IF NOT EXISTS users (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            email TEXT NOT NULL UNIQUE,
-            password_hash TEXT NOT NULL,
-            created_at TEXT NOT NULL
-        )
-        """
-    )
+    try:
 
-    # Transactions
-    connection.execute(
-        """
-        CREATE TABLE IF NOT EXISTS transactions (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            user_id INTEGER NOT NULL,
-            title TEXT NOT NULL,
-            amount REAL NOT NULL,
-            transaction_type TEXT NOT NULL
-                CHECK(transaction_type IN ('income', 'expense')),
-            category TEXT NOT NULL,
-            transaction_date TEXT NOT NULL,
-            notes TEXT,
-            created_at TEXT NOT NULL,
-            FOREIGN KEY (user_id) REFERENCES users(id)
-        )
-        """
-    )
+        with connection.cursor() as cursor:
 
+            cursor.execute("""
+                CREATE TABLE IF NOT EXISTS users (
+                    id BIGSERIAL PRIMARY KEY,
+                    email TEXT NOT NULL UNIQUE,
+                    password_hash TEXT NOT NULL,
+                    created_at TIMESTAMP NOT NULL
+                )
+            """)
 
-    # Budgets
-    connection.execute(
-        """
-        CREATE TABLE IF NOT EXISTS budgets (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            user_id INTEGER NOT NULL,
-            category TEXT NOT NULL,
-            amount REAL NOT NULL,
-            month TEXT NOT NULL,
-            created_at TEXT NOT NULL,
-            FOREIGN KEY (user_id) REFERENCES users(id),
-            UNIQUE(user_id, category, month)
-        )
-        """
-    )
-    connection.commit()
-    connection.close()
+            cursor.execute("""
+                CREATE TABLE IF NOT EXISTS transactions (
+                    id BIGSERIAL PRIMARY KEY,
+                    user_id BIGINT NOT NULL,
+                    title TEXT NOT NULL,
+                    amount DOUBLE PRECISION NOT NULL,
+                    transaction_type TEXT NOT NULL
+                        CHECK(transaction_type IN ('income', 'expense')),
+                    category TEXT NOT NULL,
+                    transaction_date DATE NOT NULL,
+                    notes TEXT,
+                    created_at TIMESTAMP NOT NULL,
+                    FOREIGN KEY (user_id) REFERENCES users(id)
+                )
+            """)
+
+            cursor.execute("""
+                CREATE TABLE IF NOT EXISTS budgets (
+                    id BIGSERIAL PRIMARY KEY,
+                    user_id BIGINT NOT NULL,
+                    category TEXT NOT NULL,
+                    amount DOUBLE PRECISION NOT NULL,
+                    month TEXT NOT NULL,
+                    created_at TIMESTAMP NOT NULL,
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, category, month)
+                )
+            """)
+
+        connection.commit()
+
+    finally:
+        connection.close()
 
 
-if __name__ == "__main__":
-    initialize_database()
-    print("Database initialized successfully.")
-
+initialize_database()

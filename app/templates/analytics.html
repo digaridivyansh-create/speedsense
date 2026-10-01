@@ -881,7 +881,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const dailyLabels = [
             {% for row in daily_rows %}
-                "{{ row['transaction_date'][8:10] }}"
+                "{{ '%02d'|format(row['transaction_date'].day) }}"
                 {% if not loop.last %},{% endif %}
             {% endfor %}
         ];

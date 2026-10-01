@@ -64,7 +64,7 @@ def signup():
             """
             INSERT INTO users
             (email, password_hash, created_at)
-            VALUES (?, ?, datetime('now'))
+            VALUES (%s, %s, CURRENT_TIMESTAMP)
             """,
             (email, password_hash)
         )
@@ -75,7 +75,7 @@ def signup():
 
         connection.rollback()
 
-        if "UNIQUE constraint failed" in str(error):
+        if "duplicate key value violates unique constraint" in str(error).lower():
             return "An account with this email already exists.", 409
 
         print("Signup error:", error)
@@ -115,7 +115,7 @@ def login():
             """
             SELECT id, email, password_hash
             FROM users
-            WHERE email = ?
+            WHERE email = %s
             """,
             (email,)
         ).fetchone()
@@ -171,9 +171,9 @@ def budgets():
                 ON t.user_id = b.user_id
                 AND t.category = b.category
                 AND t.transaction_type = 'expense'
-                AND strftime('%Y-%m', t.transaction_date) = b.month
-            WHERE b.user_id = ?
-              AND b.month = strftime('%Y-%m', 'now')
+                AND TO_CHAR(t.transaction_date, 'YYYY-MM') = b.month
+            WHERE b.user_id = %s
+              AND b.month = TO_CHAR(CURRENT_DATE, 'YYYY-MM')
             GROUP BY b.id, b.category, b.amount, b.month
             ORDER BY b.category
             """,
@@ -246,7 +246,7 @@ def add_budget():
             """
             INSERT INTO budgets
             (user_id, category, amount, month, created_at)
-            VALUES (?, ?, ?, strftime('%Y-%m', 'now'), datetime('now'))
+            VALUES (%s, %s, %s, TO_CHAR(CURRENT_DATE, 'YYYY-MM'), CURRENT_TIMESTAMP)
             """,
             (
                 session["user_id"],
@@ -261,7 +261,7 @@ def add_budget():
 
         connection.rollback()
 
-        if "UNIQUE constraint failed" in str(error):
+        if "duplicate key value violates unique constraint" in str(error).lower():
             return "A budget for this category already exists this month.", 409
 
         print("Budget error:", error)
@@ -287,8 +287,8 @@ def delete_budget(budget_id):
         connection.execute(
             """
             DELETE FROM budgets
-            WHERE id = ?
-              AND user_id = ?
+            WHERE id = %s
+              AND user_id = %s
             """,
             (
                 budget_id,
@@ -321,10 +321,10 @@ def dashboard():
             """
             SELECT COALESCE(SUM(amount), 0) AS total
             FROM transactions
-            WHERE user_id = ?
+            WHERE user_id = %s
               AND transaction_type = 'income'
-              AND strftime('%Y-%m', transaction_date) =
-                  strftime('%Y-%m', 'now')
+              AND TO_CHAR(transaction_date, 'YYYY-MM') =
+                  TO_CHAR(CURRENT_DATE, 'YYYY-MM')
             """,
             (user_id,)
         ).fetchone()
@@ -333,10 +333,10 @@ def dashboard():
             """
             SELECT COALESCE(SUM(amount), 0) AS total
             FROM transactions
-            WHERE user_id = ?
+            WHERE user_id = %s
               AND transaction_type = 'expense'
-              AND strftime('%Y-%m', transaction_date) =
-                  strftime('%Y-%m', 'now')
+              AND TO_CHAR(transaction_date, 'YYYY-MM') =
+                  TO_CHAR(CURRENT_DATE, 'YYYY-MM')
             """,
             (user_id,)
         ).fetchone()
@@ -352,7 +352,7 @@ def dashboard():
                 transaction_date,
                 notes
             FROM transactions
-            WHERE user_id = ?
+            WHERE user_id = %s
             ORDER BY transaction_date DESC, id DESC
             LIMIT 10
             """,
@@ -365,10 +365,10 @@ def dashboard():
                 category,
                 COALESCE(SUM(amount), 0) AS total
             FROM transactions
-            WHERE user_id = ?
+            WHERE user_id = %s
               AND transaction_type = 'expense'
-              AND strftime('%Y-%m', transaction_date) =
-                  strftime('%Y-%m', 'now')
+              AND TO_CHAR(transaction_date, 'YYYY-MM') =
+                  TO_CHAR(CURRENT_DATE, 'YYYY-MM')
             GROUP BY category
             ORDER BY total DESC
             """,
@@ -381,10 +381,10 @@ def dashboard():
                 transaction_date,
                 COALESCE(SUM(amount), 0) AS total
             FROM transactions
-            WHERE user_id = ?
+            WHERE user_id = %s
               AND transaction_type = 'expense'
-              AND strftime('%Y-%m', transaction_date) =
-                  strftime('%Y-%m', 'now')
+              AND TO_CHAR(transaction_date, 'YYYY-MM') =
+                  TO_CHAR(CURRENT_DATE, 'YYYY-MM')
             GROUP BY transaction_date
             ORDER BY transaction_date
             """,
@@ -394,10 +394,43 @@ def dashboard():
     finally:
         connection.close()
 
-    total_income = float(income_row["total"] or 0)
-    total_expenses = float(expense_row["total"] or 0)
-    total_balance = total_income - total_expenses
-    savings = total_balance
+    # =========================================
+    # FINANCIAL TOTALS
+    # =========================================
+
+    monthly_income = float(income_row["total"] or 0)
+    monthly_expenses = float(expense_row["total"] or 0)
+
+    # Total balance = all-time income - all-time expenses
+    balance_connection = get_connection()
+    balance_row = balance_connection.execute(
+        """
+        SELECT
+            COALESCE(
+                SUM(
+                    CASE
+                        WHEN transaction_type = 'income'
+                        THEN amount
+                        ELSE -amount
+                    END
+                ),
+                0
+            ) AS total
+        FROM transactions
+        WHERE user_id = %s
+        """,
+        (user_id,)
+    ).fetchone()
+
+    total_balance = float(balance_row["total"] or 0)
+    balance_connection.close()
+
+    # Current month values
+    total_income = monthly_income
+    total_expenses = monthly_expenses
+
+    # Current month's savings
+    savings = monthly_income - monthly_expenses
 
     # =========================================
     # FINANCIAL HEALTH + POTENTIAL SAVINGS
@@ -466,17 +499,23 @@ def dashboard():
 
     for row in daily_rows:
         try:
-            date_obj = datetime.strptime(
-                row["transaction_date"],
-                "%Y-%m-%d"
-            )
-            day_name = date_obj.strftime("%a")
+            transaction_date = row["transaction_date"]
+
+            if hasattr(transaction_date, "strftime"):
+                day_name = transaction_date.strftime("%a")
+            else:
+                date_obj = datetime.strptime(
+                    str(transaction_date),
+                    "%Y-%m-%d"
+                )
+                day_name = date_obj.strftime("%a")
 
             if day_name in daily_spending:
                 daily_spending[day_name] += float(row["total"] or 0)
 
         except (ValueError, TypeError):
             pass
+
 
     chart_max = max(
         1000,
@@ -550,7 +589,7 @@ def add_transaction():
                 notes,
                 created_at
             )
-            VALUES (?, ?, ?, ?, ?, ?, ?, datetime('now'))
+            VALUES (%s, %s, %s, %s, %s, %s, %s, CURRENT_TIMESTAMP)
             """,
             (
                 session["user_id"],
@@ -573,7 +612,7 @@ def add_transaction():
     finally:
         connection.close()
 
-    return redirect("/dashboard")
+    return redirect("/transactions")
 
 
 
@@ -603,7 +642,7 @@ def transactions():
                 transaction_date,
                 notes
             FROM transactions
-            WHERE user_id = ?
+            WHERE user_id = %s
             ORDER BY transaction_date DESC, id DESC
             """,
             (user_id,)
@@ -632,7 +671,7 @@ def transactions():
                     ), 0
                 ) AS total_expenses
             FROM transactions
-            WHERE user_id = ?
+            WHERE user_id = %s
             """,
             (user_id,)
         ).fetchone()
@@ -687,14 +726,14 @@ def edit_transaction(transaction_id):
             """
             UPDATE transactions
             SET
-                title = ?,
-                amount = ?,
-                transaction_type = ?,
-                category = ?,
-                transaction_date = ?,
-                notes = ?
-            WHERE id = ?
-              AND user_id = ?
+                title = %s,
+                amount = %s,
+                transaction_type = %s,
+                category = %s,
+                transaction_date = %s,
+                notes = %s
+            WHERE id = %s
+              AND user_id = %s
             """,
             (
                 title,
@@ -741,8 +780,8 @@ def delete_transaction(transaction_id):
         result = connection.execute(
             """
             DELETE FROM transactions
-            WHERE id = ?
-              AND user_id = ?
+            WHERE id = %s
+              AND user_id = %s
             """,
             (
                 transaction_id,
@@ -820,8 +859,8 @@ def edit_budget(budget_id):
             """
             SELECT id, month
             FROM budgets
-            WHERE id = ?
-              AND user_id = ?
+            WHERE id = %s
+              AND user_id = %s
             """,
             (budget_id, user_id)
         ).fetchone()
@@ -834,10 +873,10 @@ def edit_budget(budget_id):
             connection.execute(
                 """
                 UPDATE budgets
-                SET category = ?,
-                    amount = ?
-                WHERE id = ?
-                  AND user_id = ?
+                SET category = %s,
+                    amount = %s
+                WHERE id = %s
+                  AND user_id = %s
                 """,
                 (
                     category,
@@ -853,7 +892,7 @@ def edit_budget(budget_id):
 
             connection.rollback()
 
-            if "UNIQUE constraint failed" in str(error):
+            if "duplicate key value violates unique constraint" in str(error).lower():
                 return "A budget for this category already exists for this month.", 409
 
             print("Edit budget error:", error)
@@ -891,10 +930,10 @@ def analytics():
                 category,
                 COALESCE(SUM(amount), 0) AS total
             FROM transactions
-            WHERE user_id = ?
+            WHERE user_id = %s
               AND transaction_type = 'expense'
-              AND strftime('%Y-%m', transaction_date) =
-                  strftime('%Y-%m', 'now')
+              AND TO_CHAR(transaction_date, 'YYYY-MM') =
+                  TO_CHAR(CURRENT_DATE, 'YYYY-MM')
             GROUP BY category
             ORDER BY total DESC
             """,
@@ -911,10 +950,10 @@ def analytics():
                 transaction_date,
                 COALESCE(SUM(amount), 0) AS total
             FROM transactions
-            WHERE user_id = ?
+            WHERE user_id = %s
               AND transaction_type = 'expense'
-              AND strftime('%Y-%m', transaction_date) =
-                  strftime('%Y-%m', 'now')
+              AND TO_CHAR(transaction_date, 'YYYY-MM') =
+                  TO_CHAR(CURRENT_DATE, 'YYYY-MM')
             GROUP BY transaction_date
             ORDER BY transaction_date
             """,
@@ -928,12 +967,12 @@ def analytics():
         monthly_rows = connection.execute(
             """
             SELECT
-                strftime('%Y-%m', transaction_date) AS month,
+                TO_CHAR(transaction_date, 'YYYY-MM') AS month,
                 COALESCE(SUM(amount), 0) AS total
             FROM transactions
-            WHERE user_id = ?
+            WHERE user_id = %s
               AND transaction_type = 'expense'
-            GROUP BY strftime('%Y-%m', transaction_date)
+            GROUP BY TO_CHAR(transaction_date, 'YYYY-MM')
             ORDER BY month ASC
             LIMIT 6
             """,
@@ -949,10 +988,10 @@ def analytics():
             SELECT
                 COALESCE(SUM(amount), 0) AS total
             FROM transactions
-            WHERE user_id = ?
+            WHERE user_id = %s
               AND transaction_type = 'expense'
-              AND strftime('%Y-%m', transaction_date) =
-                  strftime('%Y-%m', 'now')
+              AND TO_CHAR(transaction_date, 'YYYY-MM') =
+                  TO_CHAR(CURRENT_DATE, 'YYYY-MM')
             """,
             (user_id,)
         ).fetchone()["total"]
@@ -1095,7 +1134,7 @@ def reports():
         monthly_rows = connection.execute(
             """
             SELECT
-                strftime('%Y-%m', transaction_date) AS month,
+                TO_CHAR(transaction_date, 'YYYY-MM') AS month,
                 COALESCE(SUM(
                     CASE
                         WHEN transaction_type = 'income'
@@ -1109,8 +1148,8 @@ def reports():
                     END
                 ), 0) AS expenses
             FROM transactions
-            WHERE user_id = ?
-            GROUP BY strftime('%Y-%m', transaction_date)
+            WHERE user_id = %s
+            GROUP BY TO_CHAR(transaction_date, 'YYYY-MM')
             ORDER BY month DESC
             LIMIT 12
             """,
@@ -1123,7 +1162,7 @@ def reports():
                 category,
                 COALESCE(SUM(amount), 0) AS total
             FROM transactions
-            WHERE user_id = ?
+            WHERE user_id = %s
               AND transaction_type = 'expense'
             GROUP BY category
             ORDER BY total DESC
@@ -1135,7 +1174,7 @@ def reports():
             """
             SELECT COUNT(*) AS total
             FROM transactions
-            WHERE user_id = ?
+            WHERE user_id = %s
             """,
             (user_id,)
         ).fetchone()["total"]
@@ -1148,7 +1187,7 @@ def reports():
                 amount,
                 transaction_date
             FROM transactions
-            WHERE user_id = ?
+            WHERE user_id = %s
               AND transaction_type = 'expense'
             ORDER BY amount DESC
             LIMIT 1
@@ -1163,7 +1202,7 @@ def reports():
                 amount,
                 transaction_date
             FROM transactions
-            WHERE user_id = ?
+            WHERE user_id = %s
               AND transaction_type = 'income'
             ORDER BY amount DESC
             LIMIT 1
@@ -1428,3 +1467,7 @@ if __name__ == "__main__":
         debug=False,
         port=int(os.environ.get("PORT", 5001))
     )
+
+
+
+
